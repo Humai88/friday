@@ -1,0 +1,78 @@
+.wrapper {
+  position: relative;
+  width: 400px;
+  background-color: transparent;
+  padding: 0 40px 20px 40px;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+.doubleRange {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  outline: none;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  pointer-events: none;
+}
+.sliderTrack {
+  width: 100%;
+  height: 5px;
+  background-color: #fff8e5;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-repeat: 5px;
+}
+.doubleRange::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 5px;
+}
+.doubleRange::-moz-range-track {
+  -moz-appearance: none;
+  height: 5px;
+}
+.doubleRange::-ms-track {
+  appearance: none;
+  height: 5px;
+}
+.doubleRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 2em;
+  width: 2em;
+  background-color: #ffeba1;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -11px;
+  pointer-events: auto;
+}
+.doubleRange::-moz-range-thumb {
+  -moz-appearance: none;
+  height: 2em;
+  width: 2em;
+  background-color: #ffeba1;
+  cursor: pointer;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+.doubleRange::-ms-thumb {
+  -ms-appearance: none;
+  height: 2em;
+  width: 2em;
+  background-color: #ffeba1;
+  cursor: pointer;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+.doubleRange:active::-webkit-slider-thumb {
+  background-color: #fff1bf;
+  border: 3px solid #c2ac5b;
+}

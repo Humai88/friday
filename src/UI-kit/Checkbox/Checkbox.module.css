@@ -1,0 +1,45 @@
+.input + .label {
+  display: inline-block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+.input {
+  display: none;
+}
+
+.input + .label:before {
+  content: "\2714";
+  border: 0.1em solid rgb(200, 200, 200);
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1.3rem;
+  height: 1.3rem;
+  padding-left: 0.5em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: 0.2s;
+}
+.input + .label:active:before {
+  transform: scale(0);
+}
+
+.input:checked + .label:before {
+  background-color: #e05d5d;
+  color: #fff8e5;
+  border-color: #fff8e5;
+}
+
+.input[type="checkbox"]:disabled + .label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+.input:checked:disabled + .label:before {
+  transform: scale(1);
+  background-color: #e05d5d;
+  border-color: #be5858;
+}
