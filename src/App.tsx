@@ -12,8 +12,9 @@ function App() {
   return (
     <HashRouter>
       <div className="app">
+        <Route path={"/"} exact render={() => <Redirect to="/" />} />
         <Switch>
-          <Route exact path="/friday" render={() => <TestPage />} />
+          <Route exact path="/" render={() => <TestPage />} />
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/error-page" render={() => <ErrorPage />} />
           <Route
