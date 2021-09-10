@@ -12,6 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
+        Home page
         <Route path="/test-page" render={() => <TestPage />} />
         <Route path="/login" render={() => <Login />} />
         <Route path="/error-page" render={() => <ErrorPage />} />
