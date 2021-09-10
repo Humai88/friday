@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/friday/static/css/main.9282cd59.chunk.css",
-    "main.js": "/friday/static/js/main.ec270f34.chunk.js",
-    "main.js.map": "/friday/static/js/main.ec270f34.chunk.js.map",
+    "main.js": "/friday/static/js/main.9c7cad56.chunk.js",
+    "main.js.map": "/friday/static/js/main.9c7cad56.chunk.js.map",
     "runtime-main.js": "/friday/static/js/runtime-main.76a01c93.js",
     "runtime-main.js.map": "/friday/static/js/runtime-main.76a01c93.js.map",
-    "static/js/2.8e91795d.chunk.js": "/friday/static/js/2.8e91795d.chunk.js",
-    "static/js/2.8e91795d.chunk.js.map": "/friday/static/js/2.8e91795d.chunk.js.map",
+    "static/js/2.4b4970d5.chunk.js": "/friday/static/js/2.4b4970d5.chunk.js",
+    "static/js/2.4b4970d5.chunk.js.map": "/friday/static/js/2.4b4970d5.chunk.js.map",
     "index.html": "/friday/index.html",
     "static/css/main.9282cd59.chunk.css.map": "/friday/static/css/main.9282cd59.chunk.css.map",
-    "static/js/2.8e91795d.chunk.js.LICENSE.txt": "/friday/static/js/2.8e91795d.chunk.js.LICENSE.txt"
+    "static/js/2.4b4970d5.chunk.js.LICENSE.txt": "/friday/static/js/2.4b4970d5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.76a01c93.js",
-    "static/js/2.8e91795d.chunk.js",
+    "static/js/2.4b4970d5.chunk.js",
     "static/css/main.9282cd59.chunk.css",
-    "static/js/main.ec270f34.chunk.js"
+    "static/js/main.9c7cad56.chunk.js"
   ]
 }
