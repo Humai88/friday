@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { ErrorPage } from "./components/ErrorPage/ErrorPage";
 import { Login } from "./components/Login/Login";
@@ -10,7 +10,7 @@ import { TestPage } from "./components/TestPage/TestPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app">
         <Switch>
           <Route exact path="/friday" render={() => <TestPage />} />
@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/register" render={() => <Register />} />
         </Switch>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
