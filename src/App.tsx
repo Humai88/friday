@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { ErrorPage } from "./components/ErrorPage/ErrorPage";
 import { Login } from "./components/Login/Login";
@@ -12,14 +12,19 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        Home page
-        <Route path="/test-page" render={() => <TestPage />} />
-        <Route path="/login" render={() => <Login />} />
-        <Route path="/error-page" render={() => <ErrorPage />} />
-        <Route path="/password-update" render={() => <PasswordUpdate />} />
-        <Route path="/password-recovery" render={() => <PasswordRecovery />} />
-        <Route path="/profile" render={() => <Profile />} />
-        <Route path="/register" render={() => <Register />} />
+        <Route path={"/"} exact render={() => <Redirect to={"/test-page"} />} />
+        <Switch>
+          <Route path="/test-page" render={() => <TestPage />} />
+          <Route path="/login" render={() => <Login />} />
+          <Route path="/error-page" render={() => <ErrorPage />} />
+          <Route path="/password-update" render={() => <PasswordUpdate />} />
+          <Route
+            path="/password-recovery"
+            render={() => <PasswordRecovery />}
+          />
+          <Route path="/profile" render={() => <Profile />} />
+          <Route path="/register" render={() => <Register />} />
+        </Switch>
       </div>
     </BrowserRouter>
   );
