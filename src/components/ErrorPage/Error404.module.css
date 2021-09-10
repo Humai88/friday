@@ -1,0 +1,19 @@
+.wrapper {
+  margin: 0 auto;
+  width: 50rem;
+  text-align: center;
+}
+
+.errorCode {
+  font-size: 9rem;
+  font-weight: 600;
+}
+.errorText {
+  font-size: 3rem;
+  font-weight: 500;
+}
+.errorImg {
+  width: 40%;
+  margin-top: 3rem;
+  opacity: 0.7;
+}

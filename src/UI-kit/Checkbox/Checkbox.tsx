@@ -29,14 +29,14 @@ export const Checkbox: React.FC<CheckboxPropsType> = ({
     onChangeChecked && onChangeChecked(e.currentTarget.checked);
   };
 
-  const finalInputClassName = `${s.checkbox} ${className ? className : ""}`;
+  const finalInputClassName = `${className ? className : ""}`;
 
   return (
     <>
       <input
         type={"checkbox"}
         onChange={onChangeCallback}
-        className={s.input}
+        className={finalInputClassName}
         {...restProps}
       />
       {children && <span className={s.spanClassName}>{children}</span>}

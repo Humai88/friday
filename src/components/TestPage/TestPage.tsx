@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Button } from "../../UI-kit/Button/Button";
 import { Checkbox } from "../../UI-kit/Checkbox/Checkbox";
 import { EditableSpan } from "../../UI-kit/EditableSpan/EditableSpan";
@@ -10,8 +10,11 @@ import { Range } from "../../UI-kit/Range/Range";
 export const TestPage = () => {
   const arr: string[] = ["apple", "grape", "cherry"];
   const [value, onChangeOption] = useState(arr[1]);
-  const [rangeValue, setRangeValue] = useState(0);
-
+  const [rangeValue, setRangeValue] = useState(50);
+  const [checked, setChecked] = useState<boolean>(false);
+  const testOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.currentTarget.checked);
+  };
   const changeHandler = (value: number) => {
     setRangeValue(value);
   };
@@ -28,7 +31,7 @@ export const TestPage = () => {
       }}
     >
       <Button>button</Button>
-      <Checkbox checked />
+      <Checkbox checked={checked} onChange={testOnChange} />
       <EditableSpan />
       <Radio value={value} options={arr} onChangeOption={onChangeOption} />
       <Input />
