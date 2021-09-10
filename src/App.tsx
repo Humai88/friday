@@ -12,18 +12,22 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <Route path={"/"} exact render={() => <Redirect to={"/test-page"} />} />
         <Switch>
-          <Route path="/test-page" render={() => <TestPage />} />
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/error-page" render={() => <ErrorPage />} />
-          <Route path="/password-update" render={() => <PasswordUpdate />} />
+          <Route exact path="/friday" render={() => <TestPage />} />
+          <Route exact path="/login" render={() => <Login />} />
+          <Route exact path="/error-page" render={() => <ErrorPage />} />
           <Route
+            exact
+            path="/password-update"
+            render={() => <PasswordUpdate />}
+          />
+          <Route
+            exact
             path="/password-recovery"
             render={() => <PasswordRecovery />}
           />
-          <Route path="/profile" render={() => <Profile />} />
-          <Route path="/register" render={() => <Register />} />
+          <Route exact path="/profile" render={() => <Profile />} />
+          <Route exact path="/register" render={() => <Register />} />
         </Switch>
       </div>
     </BrowserRouter>
