@@ -1,6 +1,7 @@
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { ErrorPage } from "./components/ErrorPage/ErrorPage";
+import { Header } from "./components/Header/Header";
 import { Login } from "./components/Login/Login";
 import { PasswordRecovery } from "./components/PasswordRecovery/PasswordRecovery";
 import { PasswordUpdate } from "./components/PasswordUpdate/ParrwordUpdate";
@@ -12,6 +13,7 @@ function App() {
   return (
     <HashRouter>
       <div className="app">
+        <Header />
         <Route path={"/"} exact render={() => <Redirect to="/" />} />
         <Switch>
           <Route exact path="/" render={() => <TestPage />} />
