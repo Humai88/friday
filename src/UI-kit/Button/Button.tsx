@@ -16,6 +16,5 @@ export const Button: React.FC<ButtonPropsType> = ({
   ...restProps
 }) => {
   const finalClassName = `${red ? s.red : s.default} ${className}`;
-
   return <button className={finalClassName} {...restProps} />;
 };
