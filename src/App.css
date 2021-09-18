@@ -1,5 +1,4 @@
-.app  {
-
+.app {
 }
 
 body {
@@ -13,7 +12,8 @@ body {
   background-repeat: no-repeat;
 }
 
-h1,h2 {
+h1,
+h2 {
   margin: 0;
   font-weight: inherit;
 }
