@@ -1,62 +1,67 @@
-@import '~normalize.css/normalize.css';
+@import "~normalize.css/normalize.css";
 
 :root {
-    /* font */
-    --family-Popins: 'Poppins', sans-serif;
+  /* font */
+  --family-Popins: "Poppins", sans-serif;
 
-    /* color */
-    --dark-color: #2d2e46;
-    --accent-color: #21268f;
-    --color-light-purple: #d7d8ef;
-    --color-warning: #f1453d;
-    --color-light: #ececf9;
-    --color-light-bg-1: #e6d4de;
-    --color-light-bg: #f9f9fe;
-    --color-light-dark: rgba(36, 37, 74, var(--opacity-defalt));
-    --color-light-dark-2: rgba(36, 37, 74, var(--opacity-min));
-    --dark-color-light: rgba(45, 46, 70, var(--opacity-defalt));
-    /* bg */
-    --default-bg: #9890c7;
+  /* color */
+  --dark-color: #2d2e46;
+  --accent-color: #21268f;
+  --color-light-purple: #d7d8ef;
+  --color-warning: #f1453d;
+  --color-light: #ececf9;
+  --color-light-bg-1: #e6d4de;
+  --color-light-bg: #f9f9fe;
+  --color-light-dark: rgba(36, 37, 74, var(--opacity-defalt));
+  --color-light-dark-2: rgba(36, 37, 74, var(--opacity-min));
+  --dark-color-light: rgba(45, 46, 70, var(--opacity-defalt));
+  /* bg */
+  --default-bg: #9890c7;
 
-    /* opacity */
-    --opacity-max: 0.2;
-    --opacity-middle: 0.3;
-    --opacity-min: 0.35;
-    --opacity-defalt: 0.5;
-    --opacity-active: 0.8;
+  /* opacity */
+  --opacity-max: 0.2;
+  --opacity-middle: 0.3;
+  --opacity-min: 0.35;
+  --opacity-defalt: 0.5;
+  --opacity-active: 0.8;
 
-    /* gradient */
-    --gradient-bg: linear-gradient(180deg, var(--color-light-bg-1) 0%, var(--default-bg) 100%);
+  /* gradient */
+  --gradient-bg: linear-gradient(
+    180deg,
+    var(--color-light-bg-1) 0%,
+    var(--default-bg) 100%
+  );
 
-    /* shadow */
-    --default-shadow: 0 4px 18px rgba(33, 38, 143, var(--opacity-min)), inset 0 1px 0 rgba(255, 255, 255, var(--opacity-middle));
-    --red-shadow: 0 4px 18px 0 rgba(241, 69, 61, 0.35), 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+  /* shadow */
+  --default-shadow: 0 4px 18px rgba(33, 38, 143, var(--opacity-min)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--opacity-middle));
+  --red-shadow: 0 4px 18px 0 rgba(241, 69, 61, 0.35),
+    0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
 
-
-    /*transition*/
-    --default-transition: 0.3s ease;
+  /*transition*/
+  --default-transition: 0.3s ease;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
