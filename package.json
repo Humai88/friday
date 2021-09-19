@@ -1,6 +1,6 @@
 {
   "name": "friday",
-  "homepage": "http://Humai88.github.io/friday",
+  "homepage": "https://Humai88.github.io/friday",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.8",
     "axios": "^0.21.4",
+    "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
