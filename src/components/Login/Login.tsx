@@ -1,10 +1,17 @@
-import React from "react";
+import React, {ChangeEvent, useState } from "react";
 import styles from './Login.module.css'
 import {NavLink} from "react-router-dom";
 import {Input} from "../../UI-kit/Input/Input";
 import {Button} from "../../UI-kit/Button/Button";
+import {Checkbox} from "../../UI-kit/Checkbox/Checkbox";
 
 export const Login = () => {
+    const [checked, setChecked] = useState<boolean>(false);
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setChecked(e.currentTarget.checked);
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.login}>
@@ -25,6 +32,13 @@ export const Login = () => {
                             <label>
                                 <span>Password</span><br/>
                                 <Input type="password" placeholder={'*******'} required/>
+                            </label>
+                        </div>
+
+                        <div className={`${styles.formGroup} ${styles.formGroupCheckbox}`}>
+                            <label>
+                                <Checkbox checked={checked} onChange={onChange}/>
+                                <span>Remember me</span>
                             </label>
                         </div>
 

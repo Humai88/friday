@@ -111,5 +111,14 @@
     text-decoration: underline;
 }
 
+.formGroupCheckbox input {
+    width: 20px;
+    height: 20px;
+}
+
+.formGroupCheckbox span {
+    cursor: pointer;
+}
+
 
 
