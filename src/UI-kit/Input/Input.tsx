@@ -19,7 +19,6 @@ type InputPropsType = DefaultInputPropsType & {
 };
 
 export const Input: React.FC<InputPropsType> = ({
-  type,
   onChange,
   onChangeText,
   onKeyPress,
@@ -46,7 +45,6 @@ export const Input: React.FC<InputPropsType> = ({
   return (
     <>
       <input
-        type={"text"}
         onChange={onChangeCallback}
         onKeyPress={onKeyPressCallback}
         className={finalInputClassName}
