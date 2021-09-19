@@ -10,6 +10,7 @@ import { Register } from "./components/Register/Register";
 import { TestPage } from "./components/TestPage/TestPage";
 
 function App() {
+  //test First commit
   return (
     <HashRouter>
       <div className="app">
