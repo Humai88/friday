@@ -5,7 +5,6 @@ import React, {
   useState,
 } from "react";
 
-import s from "./EditableSpan.module.css";
 import { FaEdit } from "react-icons/fa";
 import { Input } from "../Input/Input";
 

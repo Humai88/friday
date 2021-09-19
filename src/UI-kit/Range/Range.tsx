@@ -28,7 +28,7 @@ export const Range: React.FC<RangePropsType> = ({
     onChangeRange && onChangeRange(+e.currentTarget.value);
   };
 
-  const finalRangeClassName = `${styles.slider} ${className ? className : ""}`;
+  // const finalRangeClassName = `${styles.slider} ${className ? className : ""}`;
 
   return (
     <div className={styles.wrapper}>
