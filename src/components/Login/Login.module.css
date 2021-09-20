@@ -22,7 +22,7 @@
 }
 
 .formGroup {
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
   text-align: left;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .formGroupPassword {
-  margin-top: 55px;
+  margin-top: 35px;
   text-align: right;
   font-size: 14px;
   line-height: 17px;
@@ -117,4 +117,27 @@
 
 .formGroupCheckbox span {
   cursor: pointer;
+}
+
+.formGroup .error {
+    display: inline-block;
+    min-height: 20px;
+    min-width: 20px;
+    margin-bottom: 0;
+    color: var(--color-warning);
+}
+
+.errorMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    min-height: 30px;
+    background-color: var(--color-warning);
+    margin: 20px auto 0;
+    text-align: center;
+    color: var(--color-light);
+    transition: opacity var(--default-transition);
+    box-shadow: var(--red-shadow);
+    border-radius: 5px;
 }

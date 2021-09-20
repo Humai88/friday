@@ -1,6 +1,6 @@
 const initialState: AuthInitialStateType = {};
 
-export const authReducer = (
+export const forgotReducer = (
   state = initialState,
   action: ActionAuthTypes
 ): any => {
