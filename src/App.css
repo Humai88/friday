@@ -1,6 +1,29 @@
 .app {
 }
+
 body {
-  background-color: #297f87;
-  color: #fff8e5;
+  min-height: 100vh;
+  font-family: var(--family-Popins);
+  color: var(--dark-color);
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--default-bg);
+  background-image: var(--gradient-bg);
+  background-repeat: no-repeat;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: inherit;
+}
+
+h1 {
+  font-size: 26px;
+  line-height: 39px;
+}
+
+h2 {
+  font-size: 22px;
+  line-height: 33px;
 }
