@@ -1,16 +1,50 @@
-import React, {ChangeEvent, useState } from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import styles from './Login.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {Input} from "../../UI-kit/Input/Input";
 import {Button} from "../../UI-kit/Button/Button";
 import {Checkbox} from "../../UI-kit/Checkbox/Checkbox";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStore} from "../../redux/store";
+import {loginUserData, setEmail, setRememberMe, showErrorMessage} from "../../redux/loginReducer";
 
 export const Login = () => {
-    const [checked, setChecked] = useState<boolean>(false);
+    const email = useSelector((state: AppStore) => state.login.data.email);
+    const rememberMe = useSelector((state: AppStore) => state.login.data.rememberMe);
+    const errorMessage = useSelector((state: AppStore) => state.login.data.error);
+    const isLogin = useSelector((state: AppStore) => state.login.isAuth);
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setChecked(e.currentTarget.checked);
+    const dispatch = useDispatch();
+    const [password, setPassword] = useState<string>('');
+
+
+    const onCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setRememberMe(e.currentTarget.checked));
     };
+
+    const onEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setEmail(e.currentTarget.value));
+    };
+
+    const onPasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.currentTarget.value);
+    };
+
+    const onSubmitClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        dispatch(loginUserData(email, password, rememberMe));
+        dispatch(showErrorMessage(errorMessage))
+
+        setTimeout(() => {
+            dispatch(showErrorMessage(''))
+        }, 3000)
+    };
+
+
+    if(isLogin === true) {
+        return <Redirect to={'/profile'} />
+    }
+
 
     return (
         <div className={styles.wrapper}>
@@ -24,20 +58,23 @@ export const Login = () => {
                         <div className={styles.formGroup}>
                             <label>
                                 <span>Email</span><br/>
-                                <Input type="text" placeholder={'j&johnson.gmail.com'} required/>
+                                <Input type="text" value={email} onChange={onEmailInput}
+                                       placeholder={'j&johnson.gmail.com'}/>
+                                <span className={styles.error}></span>
                             </label>
                         </div>
 
                         <div className={`${styles.formGroup} ${styles.shapeIcon}`}>
                             <label>
                                 <span>Password</span><br/>
-                                <Input type="password" placeholder={'*******'} required/>
+                                <Input type="text" value={password} onChange={onPasswordInput} placeholder={'*******'}/>
+                                <span className={styles.error}></span>
                             </label>
                         </div>
 
                         <div className={`${styles.formGroup} ${styles.formGroupCheckbox}`}>
                             <label>
-                                <Checkbox checked={checked} onChange={onChange}/>
+                                <Checkbox checked={rememberMe} onChange={onCheckboxClick}/>
                                 <span>Remember me</span>
                             </label>
                         </div>
@@ -47,7 +84,7 @@ export const Login = () => {
                         </div>
 
                         <div className={`${styles.formGroup} ${styles.formGroupButton}`}>
-                            <Button type={"submit"}>Login</Button>
+                            <Button type={"submit"} onClick={onSubmitClick}>Login</Button>
                         </div>
                     </form>
                 </div>
@@ -55,9 +92,11 @@ export const Login = () => {
                 <p>Don’t have an account?</p>
 
                 <div className={styles.navLinkGroup}>
-                    <NavLink to={"/profile"}> Sign Up</NavLink>
+                    <NavLink to={"/register"}> Sign Up</NavLink>
                 </div>
             </div>
+
+            {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
         </div>
     )
 };

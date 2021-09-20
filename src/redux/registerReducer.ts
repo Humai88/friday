@@ -1,6 +1,6 @@
 const initialState: RegisterInitialStateType = {};
 
-export const authReducer = (
+export const registerReducer = (
   state = initialState,
   action: ActionRegisterTypes
 ): any => {
