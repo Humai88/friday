@@ -1,0 +1,29 @@
+.wrapper {
+    min-height: 100vh;
+    padding: 5vh 0;
+}
+.wrapper p {
+    color: var(--color-light-dark);
+    font-size: 14px;
+    line-height: 24px;
+}
+.emailChecking {
+    padding: 25px 0 125px 0;
+    max-width: 413px;
+}
+.iconWrapper {
+    background-color: var(--color-light-purple);
+    height: 6.5rem;
+    width: 6.5rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 35px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.iconWrapper img {
+    height: 3.5rem;
+    width: 3.5rem;
+}
