@@ -1,58 +1,163 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { ChangeEvent, useState, MouseEvent, useEffect } from "react";
+import { NavLink, Redirect } from "react-router-dom";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
 import { Input } from "../../UI-kit/Input/Input";
 import styles from "./Register.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUserTC } from "../../redux/registerReducer";
+import { AppStore } from "../../redux/store";
 
 export const Register = () => {
-  return (
-    <div className={styles.wrapper}>
-      <Card className={styles.register}>
-        <h1>It-incubator</h1>
+    const [user, setUser] = useState<InitialValuesType>({
+        email: "",
+        createPassword: "",
+        confirmPassword: "",
+    });
 
-        <div className={styles.formWrapper}>
-          <form action="/">
-            <h2>Sign Up</h2>
+    const [submitted, setSubmitted] = useState(false);
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.currentTarget;
+        const newValue = value;
+        setUser({
+            ...user,
+            [name]: newValue,
+        });
+    };
+    const isRegistered = useSelector(
+        (state: AppStore) => state.register.isRegistered
+    );
+    const errorMessage = useSelector((state: AppStore) => state.register.error);
+    const dispatch = useDispatch();
 
-            <div className={styles.formGroup}>
-              <label>
-                <span>Email</span>
-                <br />
-                <Input
-                  type="text"
-                  placeholder={"j&johnson.gmail.com"}
-                  required
-                />
-              </label>
-            </div>
+    function handleSubmit(e: MouseEvent<HTMLElement>) {
+        e.preventDefault();
+        setSubmitted(true);
+        if (
+            user.email &&
+            user.createPassword &&
+            user.confirmPassword &&
+            user.createPassword === user.confirmPassword
+        ) {
+            dispatch(registerUserTC(user.email, user.createPassword));
+            setUser({ email: "", createPassword: "", confirmPassword: "" });
+        }
+    }
 
-            <div className={`${styles.formGroup} ${styles.shapeIcon}`}>
-              <label>
-                <span>Password</span>
-                <br />
-                <Input type="password" placeholder={"*******"} required />
-              </label>
-            </div>
-            <div className={`${styles.formGroup} ${styles.shapeIcon}`}>
-              <label>
-                <span>Confirm Password</span>
-                <br />
-                <Input type="password" placeholder={"*******"} required />
-              </label>
-            </div>
+    if (isRegistered === true) {
+        return <Redirect to={"/login"} />;
+    }
+    return (
+        <div>
+            <div className={styles.wrapper}>
+                <Card className={styles.register}>
+                    <h1>It-incubator</h1>
 
-            <div className={`${styles.formGroup} ${styles.formGroupButton}`}>
-              <Button className={styles.cancelBtn} purple type={"submit"}>
-                Cancel
-              </Button>
-              <Button className={styles.registerBtn} type={"submit"}>
-                Register
-              </Button>
+                    <div className={styles.formWrapper}>
+                        <form>
+                            <h2>Sign Up</h2>
+                            <div className={styles.formGroup}>
+                                <label>
+                                    <span>Email</span>
+                                    <br />
+                                    <Input
+                                        onChange={handleInputChange}
+                                        name="email"
+                                        type="text"
+                                        required
+                                        value={user.email}
+                                    />
+                                </label>
+                                {submitted && !user.email && (
+                                    <div className="invalid-feedback">
+                                        Email is required.
+                                    </div>
+                                )}
+                            </div>
+
+                            <div
+                                className={`${styles.formGroup} ${styles.shapeIcon}`}
+                            >
+                                <label>
+                                    <span>Password</span>
+                                    <br />
+                                    <Input
+                                        onChange={handleInputChange}
+                                        name="createPassword"
+                                        type="password"
+                                        required
+                                        value={user.createPassword}
+                                    />
+                                </label>
+                                {submitted && !user.createPassword && (
+                                    <div className="invalid-feedback">
+                                        Password is required.
+                                    </div>
+                                )}
+                            </div>
+                            <div
+                                className={`${styles.formGroup} ${styles.shapeIcon}`}
+                            >
+                                <label>
+                                    <span>Confirm Password</span>
+                                    <br />
+                                    <Input
+                                        onChange={handleInputChange}
+                                        name="confirmPassword"
+                                        type="password"
+                                        required
+                                        value={user.confirmPassword}
+                                    />
+                                </label>
+
+                                {user.confirmPassword !==
+                                    user.createPassword && (
+                                    <div className="invalid-feedback">
+                                        You should confirm your password.
+                                        Passwords do not match.
+                                    </div>
+                                )}
+                            </div>
+
+                            <div
+                                className={`${styles.formGroup} ${styles.formGroupButton}`}
+                            >
+                                <Button
+                                    className={styles.cancelBtn}
+                                    purple
+                                    type={"submit"}
+                                    onClick={() => {
+                                        setUser({
+                                            email: "",
+                                            createPassword: "",
+                                            confirmPassword: "",
+                                        });
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className={styles.registerBtn}
+                                    type={"submit"}
+                                    onClick={handleSubmit}
+                                >
+                                    Register
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+                </Card>
             </div>
-          </form>
+            {errorMessage && (
+                <div className={styles.errorMessage}>{errorMessage}</div>
+            )}
         </div>
-      </Card>
-    </div>
-  );
+    );
+};
+
+//Types
+export type InitialValuesType = {
+    email: string;
+    createPassword: string;
+    confirmPassword: string;
 };
