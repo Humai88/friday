@@ -1,98 +1,112 @@
 .wrapper {
-  min-height: 100vh;
-  padding: 5vh 0;
+    padding: 5vh 0;
 }
 .formGroup {
-  margin: 0 auto 20px;
-  text-align: left;
+    margin: 0 auto 20px;
+    text-align: left;
 }
 .formGroup span {
-  display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 5px;
-  font-size: 13px;
-  line-height: 20px;
-  color: var(--color-light-dark);
-  font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--color-light-dark);
+    font-weight: 400;
 }
 .formWrapper {
-  margin-top: 35px;
+    margin-top: 35px;
 }
 
 .formWrapper h2 {
-  margin-bottom: 35px;
+    margin-bottom: 35px;
 }
 
 .formGroup span {
-  display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 5px;
-  font-size: 13px;
-  line-height: 20px;
-  color: var(--color-light-dark);
-  font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--color-light-dark);
+    font-weight: 400;
 }
 
 .formGroup input {
-  width: 100%;
+    width: 100%;
 }
 
 .shapeIcon {
-  position: relative;
+    position: relative;
 }
 
 .shapeIcon::after {
-  position: absolute;
-  z-index: 1;
-  content: "";
-  right: 15px;
-  top: 24px;
-  width: 22px;
-  height: 16px;
-  background-image: url("../../assets/images/shape.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
+    position: absolute;
+    z-index: 1;
+    content: "";
+    right: 15px;
+    top: 24px;
+    width: 22px;
+    height: 16px;
+    background-image: url("../../assets/images/shape.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .formGroup input::placeholder {
-  color: var(--dark-color);
+    color: var(--dark-color);
 }
 
 .formGroupPassword {
-  margin-top: 55px;
-  text-align: right;
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 400;
-  color: var(--dark-color);
+    margin-top: 55px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    color: var(--dark-color);
 }
 
 .formGroupPassword a {
-  color: inherit;
-  text-decoration: none;
-  margin-right: 20px;
+    color: inherit;
+    text-decoration: none;
+    margin-right: 20px;
 }
 
 .formGroupPassword a:focus,
 .formGroupPassword a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .formGroupButton {
-  margin: 87px 0 0 0;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
+    margin: 87px 0 0 0;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .register {
-  padding: 25px 33px 50px 33px;
-  max-width: 413px;
+    padding: 25px 33px 50px 33px;
+    max-width: 413px;
 }
 
 .cancelBtn {
-  width: 33%;
+    width: 33%;
 }
 .registerBtn {
-  width: 60%;
+    width: 60%;
+}
+
+.errorMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    min-height: 30px;
+    background-color: var(--color-warning);
+    margin: 20px auto 0;
+    text-align: center;
+    color: var(--color-light);
+    transition: opacity var(--default-transition);
+    box-shadow: var(--red-shadow);
+    border-radius: 5px;
 }

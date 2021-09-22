@@ -1,5 +1,10 @@
 import React from "react";
+import { Button } from "../../UI-kit/Button/Button";
 
 export const Profile = () => {
-  return <h1>Profile</h1>;
+    return (
+        <div>
+            <h1> Profile</h1>
+        </div>
+    );
 };
