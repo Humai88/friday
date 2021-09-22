@@ -56,7 +56,6 @@ export const Register = () => {
                     <div className={styles.formWrapper}>
                         <form>
                             <h2>Sign Up</h2>
-
                             <div className={styles.formGroup}>
                                 <label>
                                     <span>Email</span>
