@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
@@ -17,7 +17,7 @@ export const Register = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.currentTarget;
+        const {name, value} = e.currentTarget;
         const newValue = value;
         setUser({
             ...user,
@@ -40,12 +40,12 @@ export const Register = () => {
             user.createPassword === user.confirmPassword
         ) {
             dispatch(registerUserTC(user.email, user.createPassword));
-            setUser({ email: "", createPassword: "", confirmPassword: "" });
+            setUser({email: "", createPassword: "", confirmPassword: ""});
         }
     }
 
     if (isRegistered === true) {
-        return <Redirect to={"/login"} />;
+        return <Redirect to={"/login"}/>;
     }
     return (
         <div>
@@ -59,7 +59,7 @@ export const Register = () => {
                             <div className={styles.formGroup}>
                                 <label>
                                     <span>Email</span>
-                                    <br />
+                                    <br/>
                                     <Input
                                         onChange={handleInputChange}
                                         name="email"
@@ -78,7 +78,7 @@ export const Register = () => {
                             >
                                 <label>
                                     <span>Password</span>
-                                    <br />
+                                    <br/>
                                     <Input
                                         onChange={handleInputChange}
                                         name="createPassword"
@@ -96,7 +96,7 @@ export const Register = () => {
                             >
                                 <label>
                                     <span>Confirm Password</span>
-                                    <br />
+                                    <br/>
                                     <Input
                                         onChange={handleInputChange}
                                         name="confirmPassword"
@@ -106,13 +106,13 @@ export const Register = () => {
                                     />
                                 </label>
                                 {submitted &&
-                                    user.confirmPassword !==
-                                        user.createPassword && (
-                                        <div>Passwords do not match.</div>
-                                    )}
+                                user.confirmPassword !==
+                                user.createPassword && (
+                                    <div>Passwords do not match.</div>
+                                )}
                                 {(submitted && !user.confirmPassword) ||
-                                    (user.confirmPassword !==
-                                        user.createPassword && (
+                                (user.confirmPassword !==
+                                    user.createPassword && (
                                         <div>
                                             You should confirm your password.
                                         </div>
