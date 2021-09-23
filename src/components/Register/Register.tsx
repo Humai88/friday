@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState, MouseEvent, useEffect } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+import React, { ChangeEvent, useState, MouseEvent } from "react";
+import { Redirect } from "react-router-dom";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
 import { Input } from "../../UI-kit/Input/Input";
@@ -14,8 +14,8 @@ export const Register = () => {
         createPassword: "",
         confirmPassword: "",
     });
-
     const [submitted, setSubmitted] = useState(false);
+
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.currentTarget;
         const newValue = value;
@@ -69,9 +69,7 @@ export const Register = () => {
                                     />
                                 </label>
                                 {submitted && !user.email && (
-                                    <div className="invalid-feedback">
-                                        Email is required.
-                                    </div>
+                                    <div>Email is required.</div>
                                 )}
                             </div>
 
@@ -90,9 +88,7 @@ export const Register = () => {
                                     />
                                 </label>
                                 {submitted && !user.createPassword && (
-                                    <div className="invalid-feedback">
-                                        Password is required.
-                                    </div>
+                                    <div>Password is required.</div>
                                 )}
                             </div>
                             <div
@@ -109,14 +105,18 @@ export const Register = () => {
                                         value={user.confirmPassword}
                                     />
                                 </label>
-
-                                {user.confirmPassword !==
-                                    user.createPassword && (
-                                    <div className="invalid-feedback">
-                                        You should confirm your password.
-                                        Passwords do not match.
-                                    </div>
-                                )}
+                                {submitted &&
+                                    user.confirmPassword !==
+                                        user.createPassword && (
+                                        <div>Passwords do not match.</div>
+                                    )}
+                                {(submitted && !user.confirmPassword) ||
+                                    (user.confirmPassword !==
+                                        user.createPassword && (
+                                        <div>
+                                            You should confirm your password.
+                                        </div>
+                                    ))}
                             </div>
 
                             <div

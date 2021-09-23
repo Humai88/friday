@@ -1,5 +1,5 @@
-import { Dispatch } from "redux";
 import { AddedUserType, authAPI, RegisterResponseType } from "../api/api";
+import { ThunkType } from "./store";
 
 const initialState: RegisterInitialStateType = {
     addedUser: {
@@ -62,8 +62,8 @@ export const addUserDataAC = (userData: AddedUserType) => {
 };
 
 // Thunks
-export const registerUserTC = (email: string, password: string) => {
-    return (dispatch: Dispatch<ActionRegisterTypes>) => {
+export const registerUserTC = (email: string, password: string): ThunkType => {
+    return (dispatch) => {
         authAPI
             .register(email, password)
             .then((res) => {

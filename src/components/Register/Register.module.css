@@ -110,3 +110,7 @@
     box-shadow: var(--red-shadow);
     border-radius: 5px;
 }
+.formGroup div {
+    color: var(--color-warning);
+    font-weight: 500;
+}
