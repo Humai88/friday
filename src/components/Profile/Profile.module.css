@@ -6,7 +6,6 @@
     width: 243px;
     height: 70vh;
     border-radius: 8px 0 0 8px;
-
     overflow-wrap: break-word;
     background-color: var(--color-light);
 }
@@ -32,4 +31,11 @@
     background-color: var(--personal-info-bg);
     border-radius: 8px 0 0 0;
     padding: 24px 45px;
+}
+.sidebar h4 {
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: underline;
+    font-weight: 400;
+    cursor: pointer;
 }
