@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper textarea {
+    margin-bottom: 1rem;
+}
+.wrapper span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.btn {
+    margin-top: 2rem;
+}
+.wrapper label {
+    margin-bottom: 1rem;
+}
