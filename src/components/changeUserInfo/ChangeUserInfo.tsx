@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { changeUserInfoTC } from "../../redux/profileReducer";
 import { Button } from "../../UI-kit/Button/Button";
 import { Input } from "../../UI-kit/Input/Input";
 import { Modal } from "../../UI-kit/Modal/Modal";
@@ -11,6 +13,7 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
         name: "",
         imgUrl: "",
     });
+    const dispatch = useDispatch();
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.currentTarget;
@@ -23,9 +26,12 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
 
     const submitHandler = () => {
         if (changes.name && changes.imgUrl) {
+            dispatch(changeUserInfoTC(changes.name, changes.imgUrl));
             setChanges({ name: "", imgUrl: "" });
         }
+        console.log(changes.name, changes.imgUrl);
     };
+
     return (
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>

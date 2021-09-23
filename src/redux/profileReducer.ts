@@ -21,7 +21,11 @@ export const profileReducer = (
                 ...state,
                 ...action.payload,
             };
-
+        case "CHANGE_USER_DATA":
+            return {
+                ...state,
+                ...action.payload.userData,
+            };
         default:
             return state;
     }
@@ -36,6 +40,13 @@ export const catchErrorAC = (error: string) => {
 };
 export const changeUserInfoAC = (name: string, imgUrl: string) => {
     return { type: "CHANGE_USER_INFO", payload: { name, imgUrl } } as const;
+};
+
+export const changeUserDataAC = (userData: UserType) => {
+    return {
+        type: "CHANGE_USER_DATA",
+        payload: { userData },
+    } as const;
 };
 
 // Thunks
@@ -57,12 +68,29 @@ export const setProfileTC = (): ThunkType => {
     };
 };
 
+export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
+    return (dispatch) => {
+        authAPI
+            .changeInfo(name, imgUrl)
+            .then((res) => {
+                dispatch(changeUserDataAC(res.data.updatedUser));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            });
+    };
+};
+
 // Types
 export type ActionProfileTypes =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof changeUserInfoAC>
-    | ReturnType<typeof catchErrorAC>;
-// | ReturnType<typeof setIsLoggedInAC>;
+    | ReturnType<typeof catchErrorAC>
+    | ReturnType<typeof changeUserDataAC>;
 export type ProfileInitialStateType = {
     profile: null | UserType;
     error: string;
