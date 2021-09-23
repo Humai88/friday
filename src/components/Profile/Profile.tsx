@@ -7,6 +7,7 @@ import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";
 import { Button } from "../../UI-kit/Button/Button";
 import { Redirect } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
+import { initializeAppThunk } from "../../redux/appReducer";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
