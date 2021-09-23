@@ -10,7 +10,7 @@ function App() {
 
     useEffect(() => {
         dispatch(initializeAppThunk());
-    }, []);
+    }, [dispatch]);
 
     return (
         <HashRouter>

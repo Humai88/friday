@@ -18,6 +18,7 @@
     --dark-color-light: rgba(45, 46, 70, var(--opacity-defalt));
     /* bg */
     --default-bg: #9890c7;
+    --personal-info-bg: #d9d9f1;
 
     /* opacity */
     --opacity-max: 0.2;

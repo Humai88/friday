@@ -34,6 +34,7 @@ export const navLinksTest = [
     {path: PATH.REGISTER, text: "Register"},
     {path: PATH.PROFILE, text: "Profile"},
     {path: PATH.PASSWORD_UPDATE, text: "Update Password"},
+    {path: PATH.PASSWORD_RECOVERY, text: "Recovery Password"},
     {path: PATH.EMAIL_CHECK, text: "Check Email"},
     {path: PATH.ERROR, text: "ErrorPage"},
 ];

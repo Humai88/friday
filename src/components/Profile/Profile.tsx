@@ -5,7 +5,6 @@ import { setProfileTC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
-import { initializeAppThunk } from "../../redux/appReducer";
 import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Person } from "../Person/Person";
 import Cards from "../Cards/Cards";
@@ -23,8 +22,8 @@ export const Profile = () => {
     const name = useSelector((state: AppStore) => state.profile.profile?.name);
 
     useEffect(() => {
-        dispatch(initializeAppThunk());
-    }, []);
+        dispatch(setProfileTC());
+    }, [dispatch]);
 
     const showModalHandler = () => {
         setShowModal(true);

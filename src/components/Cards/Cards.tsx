@@ -6,9 +6,6 @@ const Cards = () => {
 
         <div className={styles.wrapper}>
             <div className={styles.sidebar}>
-                <div className={styles.infoBox}>
-
-                </div>
             </div>
             <div className={styles.packsList}>
             </div>

@@ -34,12 +34,6 @@
     margin: 0 auto;
 }
 
-.infoBox {
-    background-color: var(--personal-info-bg);
-    border-radius: 8px 0 0 0;
-    padding: 24px 45px;
-}
-
 .sidebar h4 {
     text-align: center;
     font-size: 1rem;
