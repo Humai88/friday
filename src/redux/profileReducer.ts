@@ -24,7 +24,7 @@ export const profileReducer = (
         case "CHANGE_USER_DATA":
             return {
                 ...state,
-                ...action.payload.userData,
+                profile: action.payload.userData,
             };
         default:
             return state;

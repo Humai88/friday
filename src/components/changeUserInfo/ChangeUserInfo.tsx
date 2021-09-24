@@ -10,27 +10,23 @@ import { FaTimes } from "react-icons/fa";
 export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
     onClose,
 }) => {
-    const [changes, setChanges] = useState<InitialValuesType>({
-        name: "",
-        imgUrl: "",
-    });
+    const [name, setName] = useState("");
+    const [url, setUrl] = useState("");
     const dispatch = useDispatch();
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.currentTarget;
-        const newValue = value;
-        setChanges({
-            ...changes,
-            [name]: newValue,
-        });
+    const handleInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setName(e.currentTarget.value);
+    };
+    const handleInputUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUrl(e.currentTarget.value);
     };
 
     const submitHandler = () => {
-        if (changes.name && changes.imgUrl) {
-            dispatch(changeUserInfoTC(changes.name, changes.imgUrl));
-            setChanges({ name: "", imgUrl: "" });
+        if (name || url) {
+            dispatch(changeUserInfoTC(name, url));
+            setName("");
+            setUrl("");
         }
-        console.log(changes.name, changes.imgUrl);
     };
 
     return (
@@ -40,20 +36,20 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
                     <span>Enter new name</span>
                     <br />
                     <Input
-                        onChange={handleInputChange}
+                        onChange={handleInputNameChange}
                         name="name"
                         required
-                        value={changes.name}
+                        value={name}
                     />
                 </label>
                 <label>
                     <span>Enter image URL</span>
                     <br />
                     <Input
-                        onChange={handleInputChange}
+                        onChange={handleInputUrlChange}
                         name="imgUrl"
                         required
-                        value={changes.imgUrl}
+                        value={url}
                     />
                 </label>
 
@@ -70,4 +66,3 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
 
 // Types
 type ChangeUserInfoPropsType = { onClose: () => void };
-type InitialValuesType = { name: string; imgUrl: string };

@@ -8,9 +8,9 @@ import { initializeAppThunk } from "./redux/appReducer";
 function App() {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(initializeAppThunk());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(initializeAppThunk());
+    // }, [dispatch]);
 
     return (
         <HashRouter>

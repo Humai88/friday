@@ -45,7 +45,7 @@ export const loginReducer = (
         case ACTIONS_TYPE.SAVE_DATA_USER: {
             return {
                 ...state,
-                ...action.payload.data,
+                data: { ...action.payload.data },
             };
         }
         case ACTIONS_TYPE.SET_AUTH_STATUS: {
@@ -140,7 +140,7 @@ export const logoutThunk = () => (dispatch: Dispatch<ActionLoginTypes>) => {
         });
 };
 // Types
-export type LoginInitialStateType = typeof initialState;
+export type LoginInitialStateType = { isAuth: boolean; data: UserType };
 export type ActionLoginTypes =
     | ReturnType<typeof setEmail>
     | ReturnType<typeof setRememberMe>

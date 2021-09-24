@@ -59,11 +59,8 @@ export type UserType = {
     publicCardPacksCount: number;
     created: Date;
     updated: Date;
-    __v: number;
-    token: string;
-    tokenDeathTime: number;
     avatar: string;
-    error?: string;
+    error: string;
 };
 
 export type AddedUserType = {

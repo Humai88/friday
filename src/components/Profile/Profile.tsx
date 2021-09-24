@@ -12,23 +12,10 @@ import { Header } from "../Header/Header";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
-
-    const photo = useSelector(
-        (state: AppStore) => state.profile.profile?.avatar
-    );
-    const token = useSelector(
-        (state: AppStore) => state.profile.profile?.token
-    );
-
-    console.log(token);
-
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: AppStore) => state.login.isAuth);
-    const name = useSelector((state: AppStore) => state.profile.profile?.name);
-
-    useEffect(() => {
-        dispatch(setProfileTC());
-    }, [dispatch]);
+    const name = useSelector((state: AppStore) => state.login.data.name);
+    const photo = useSelector((state: AppStore) => state.login.data.avatar);
 
     const showModalHandler = () => {
         setShowModal(true);
@@ -40,24 +27,38 @@ export const Profile = () => {
         dispatch(logoutThunk());
     };
     if (!isLoggedIn) {
-        return <Redirect to={"/login"}/>;
+        return <Redirect to={"/login"} />;
     }
 
     return (
         <>
-            <Header arrayLinks={navLinksProfile} className={styles.header} profilePage/>
+            <Header
+                arrayLinks={navLinksProfile}
+                className={styles.header}
+                profilePage
+            />
 
             <Switch>
-                <Route exact path={PATH.PROFILE_PERSON} render={() => <Person
-                    photo={photo}
-                    name={name}
-                    showModalHandler={showModalHandler}
-                    logoutHandler={logoutHandler}
-                    showModal={showModal}
-                    hideModalHandler={hideModalHandler}
-                />}/>
+                <Route
+                    exact
+                    path={PATH.PROFILE_PERSON}
+                    render={() => (
+                        <Person
+                            photo={photo}
+                            name={name}
+                            showModalHandler={showModalHandler}
+                            logoutHandler={logoutHandler}
+                            showModal={showModal}
+                            hideModalHandler={hideModalHandler}
+                        />
+                    )}
+                />
 
-                <Route exact path={PATH.PROFILE_CARDS} render={() => <Cards/>}/>
+                <Route
+                    exact
+                    path={PATH.PROFILE_CARDS}
+                    render={() => <Cards />}
+                />
             </Switch>
         </>
     );
