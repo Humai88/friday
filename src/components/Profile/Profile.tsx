@@ -5,12 +5,10 @@ import { setProfileTC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
-
 import { navLinksProfile, PATH } from "../Routes/Routes";
-import { Header } from "../Header/Header";
-import Cards from "../Cards/Cards";
 import { Person } from "../Person/Person";
-
+import Cards from "../Cards/Cards";
+import { Header } from "../Header/Header";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -18,6 +16,11 @@ export const Profile = () => {
     const photo = useSelector(
         (state: AppStore) => state.profile.profile?.avatar
     );
+    const token = useSelector(
+        (state: AppStore) => state.profile.profile?.token
+    );
+
+    console.log(token);
 
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: AppStore) => state.login.isAuth);
@@ -36,9 +39,10 @@ export const Profile = () => {
     const logoutHandler = () => {
         dispatch(logoutThunk());
     };
-    if (isLoggedIn === false) {
+    if (!isLoggedIn) {
         return <Redirect to={"/login"}/>;
     }
+
     return (
         <>
             <Header arrayLinks={navLinksProfile} className={styles.header} profilePage/>
@@ -58,5 +62,3 @@ export const Profile = () => {
         </>
     );
 };
-
-

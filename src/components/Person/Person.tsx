@@ -18,7 +18,7 @@ export const Person = (props: PersonPropsType) => {
             {props.showModal && <ChangeUserInfo onClose={props.hideModalHandler}/>}
             <div className={styles.sidebar}>
                 <div className={styles.infoBox}>
-                    <img className={styles.avatar} src={props.photo} alt=""/>
+                    <img className={styles.avatar} src={props.photo} alt="avatar"/>
                     <h3>{props.name}</h3>
                     <h4 onClick={props.showModalHandler}>Edit profile</h4>
                     <Button onClick={props.logoutHandler}>Logout</Button>

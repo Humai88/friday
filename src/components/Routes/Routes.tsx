@@ -43,7 +43,7 @@ const Routes = () => {
     return (
         <>
             <Switch>
-                <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
+                <Route exact path={"/"} render={() => <Redirect to={PATH.LOGIN}/>}/>
                 <Route exact path={PATH.TEST} render={() => <TestPage/>}/>
                 <Route exact path={PATH.LOGIN} render={() => <Login/>}/>
                 <Route exact path={PATH.REGISTER} render={() => <Register/>}/>
@@ -65,6 +65,11 @@ const Routes = () => {
                     path={PATH.EMAIL_CHECK}
                     render={() => <CheckEmail/>}
                 />
+
+                <Route exact path={PATH.PROFILE} render={() => <Redirect to={PATH.PROFILE_PERSON}/>}/>
+                <Route exact path={PATH.PROFILE_PERSON} render={() => <Profile {...Person}/>}/>
+                <Route exact path={PATH.PROFILE_CARDS} render={() => <Profile {...Cards}/>}/>
+
                 <Route
                     exact
                     render={() => <ErrorPage/>}
