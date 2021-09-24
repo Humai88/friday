@@ -47,6 +47,9 @@ const Routes = () => {
                 <Route exact path={PATH.TEST} render={() => <TestPage/>}/>
                 <Route exact path={PATH.LOGIN} render={() => <Login/>}/>
                 <Route exact path={PATH.REGISTER} render={() => <Register/>}/>
+                <Route exact path={PATH.PROFILE} render={() => <Redirect to={PATH.PROFILE_PERSON}/>}/>
+                <Route exact path={PATH.PROFILE_PERSON} render={() => <Profile {...Person}/>}/>
+                <Route exact path={PATH.PROFILE_CARDS} render={() => <Profile {...Cards}/>}/>
                 <Route
                     exact
                     path={PATH.PASSWORD_UPDATE}
