@@ -17,7 +17,7 @@ export const Register = () => {
     const [submitted, setSubmitted] = useState(false);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.currentTarget;
+        const { name, value } = e.currentTarget;
         const newValue = value;
         setUser({
             ...user,
@@ -40,12 +40,12 @@ export const Register = () => {
             user.createPassword === user.confirmPassword
         ) {
             dispatch(registerUserTC(user.email, user.createPassword));
-            setUser({email: "", createPassword: "", confirmPassword: ""});
+            setUser({ email: "", createPassword: "", confirmPassword: "" });
         }
     }
 
     if (isRegistered === true) {
-        return <Redirect to={"/login"}/>;
+        return <Redirect to={"/login"} />;
     }
     return (
         <div>
@@ -59,7 +59,7 @@ export const Register = () => {
                             <div className={styles.formGroup}>
                                 <label>
                                     <span>Email</span>
-                                    <br/>
+                                    <br />
                                     <Input
                                         onChange={handleInputChange}
                                         name="email"
@@ -68,9 +68,12 @@ export const Register = () => {
                                         value={user.email}
                                     />
                                 </label>
-                                {submitted && !user.email && (
-                                    <div>Email is required.</div>
-                                )}
+
+                                <div>
+                                    {submitted &&
+                                        !user.email &&
+                                        "Email is required"}
+                                </div>
                             </div>
 
                             <div
@@ -78,7 +81,7 @@ export const Register = () => {
                             >
                                 <label>
                                     <span>Password</span>
-                                    <br/>
+                                    <br />
                                     <Input
                                         onChange={handleInputChange}
                                         name="createPassword"
@@ -87,16 +90,19 @@ export const Register = () => {
                                         value={user.createPassword}
                                     />
                                 </label>
-                                {submitted && !user.createPassword && (
-                                    <div>Password is required.</div>
-                                )}
+
+                                <div>
+                                    {submitted &&
+                                        !user.createPassword &&
+                                        "Password is required."}
+                                </div>
                             </div>
                             <div
                                 className={`${styles.formGroup} ${styles.shapeIcon}`}
                             >
                                 <label>
                                     <span>Confirm Password</span>
-                                    <br/>
+                                    <br />
                                     <Input
                                         onChange={handleInputChange}
                                         name="confirmPassword"
@@ -105,18 +111,20 @@ export const Register = () => {
                                         value={user.confirmPassword}
                                     />
                                 </label>
-                                {submitted &&
-                                user.confirmPassword !==
-                                user.createPassword && (
-                                    <div>Passwords do not match.</div>
-                                )}
-                                {(submitted && !user.confirmPassword) ||
-                                (user.confirmPassword !==
-                                    user.createPassword && (
-                                        <div>
-                                            You should confirm your password.
-                                        </div>
-                                    ))}
+
+                                <div>
+                                    {submitted &&
+                                        user.confirmPassword !==
+                                            user.createPassword &&
+                                        user.confirmPassword.length > 1 &&
+                                        "Passwords do not match."}
+                                </div>
+
+                                <div>
+                                    {submitted &&
+                                        !user.confirmPassword &&
+                                        "You should confirm your password."}
+                                </div>
                             </div>
 
                             <div

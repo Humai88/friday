@@ -15,7 +15,7 @@ function App() {
     return (
         <HashRouter>
             <div className="app">
-                <Routes/>
+                <Routes />
             </div>
         </HashRouter>
     );

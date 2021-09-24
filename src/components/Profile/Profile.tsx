@@ -16,6 +16,11 @@ export const Profile = () => {
     const photo = useSelector(
         (state: AppStore) => state.profile.profile?.avatar
     );
+    const token = useSelector(
+        (state: AppStore) => state.profile.profile?.token
+    );
+
+    console.log(token);
 
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: AppStore) => state.login.isAuth);
@@ -37,6 +42,7 @@ export const Profile = () => {
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>;
     }
+
     return (
         <>
             <Header arrayLinks={navLinksProfile} className={styles.header} profilePage/>
