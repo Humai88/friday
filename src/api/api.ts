@@ -59,11 +59,8 @@ export type UserType = {
     publicCardPacksCount: number;
     created: Date;
     updated: Date;
-    __v: number;
-    token: string;
-    tokenDeathTime: number;
     avatar: string;
-    error?: string;
+    error: string;
 };
 
 export type AddedUserType = {
@@ -76,7 +73,6 @@ export type AddedUserType = {
     publicCardPacksCount: 0;
     created: Date;
     updated: Date;
-    __v: number;
 };
 export type RegisterResponseType = {
     addedUser: AddedUserType;

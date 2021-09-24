@@ -30,7 +30,7 @@ export const PasswordRecovery = () => {
             sendEmailThunkCreator(
                 mail,
                 "test-front-admin <ai73a@yandex.by>",
-                '<div style="background-color: lime; padding: 15px'
+                '<div>Password recovery link: <a href="http://localhost:3000/#/set-new-password/$token$"></a></div>'
             )
         );
     };
