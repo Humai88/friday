@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setProfileTC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";

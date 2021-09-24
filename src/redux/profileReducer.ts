@@ -51,23 +51,6 @@ export const changeUserDataAC = (userData: UserType) => {
 
 // Thunks
 
-export const setProfileTC = (): ThunkType => {
-    return (dispatch) => {
-        authAPI
-            .me()
-            .then((res) => {
-                dispatch(setUserProfileAC(res.data));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            });
-    };
-};
-
 export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
     return (dispatch) => {
         authAPI
