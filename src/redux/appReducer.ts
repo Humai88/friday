@@ -1,9 +1,11 @@
 import { authAPI } from "../api/api";
 import { setStatus } from "./loginReducer";
+import { setUserProfileAC } from "./profileReducer";
 import { ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
     isInitialized: false,
+    status: "idle",
 };
 
 export const appReducer = (
@@ -24,6 +26,14 @@ export const setIsInitializedAC = () => {
         type: "SET-INITIALISATION",
     } as const;
 };
+export const setAppStatusAC = (status: RequestStatusType) => {
+    return {
+        type: "SET-STATUS",
+        payload: {
+            status,
+        },
+    } as const;
+};
 
 // Thunks
 
@@ -32,6 +42,7 @@ export const initializeAppThunk = (): ThunkType => (dispatch) => {
         .me()
         .then((res) => {
             dispatch(setStatus(true));
+            dispatch(setUserProfileAC(res.data));
         })
         .finally(() => {
             dispatch(setIsInitializedAC());
@@ -39,8 +50,12 @@ export const initializeAppThunk = (): ThunkType => (dispatch) => {
 };
 
 // Types
-export type ActionAppTypes = ReturnType<typeof setIsInitializedAC>;
+export type ActionAppTypes =
+    | ReturnType<typeof setIsInitializedAC>
+    | ReturnType<typeof setAppStatusAC>;
 
 export type AppInitialStateType = {
     isInitialized: boolean;
+    status: RequestStatusType;
 };
+export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";

@@ -1,5 +1,6 @@
-import { Dispatch } from "redux";
+import { ThunkType } from "./store";
 import { authAPI, UserType } from "../api/api";
+import { setAppStatusAC } from "./appReducer";
 
 export enum ACTIONS_TYPE {
     SET_EMAIL = "Login/SET-EMAIL",
@@ -12,15 +13,8 @@ export enum ACTIONS_TYPE {
 const initialState = {
     isAuth: false,
     data: {
-        _id: "",
         email: "",
-        name: "",
-        avatar: "",
-        publicCardPacksCount: 0,
-        created: new Date(),
-        updated: new Date(),
-        isAdmin: false,
-        verified: false,
+        password: "",
         rememberMe: false,
         error: "",
     },
@@ -41,13 +35,6 @@ export const loginReducer = (
                     ...action.payload.data,
                 },
             };
-
-        case ACTIONS_TYPE.SAVE_DATA_USER: {
-            return {
-                ...state,
-                data: { ...action.payload.data },
-            };
-        }
         case ACTIONS_TYPE.SET_AUTH_STATUS: {
             return {
                 ...state,
@@ -107,13 +94,14 @@ export const loginUserData = (
     email: string,
     password: string,
     rememberMe: boolean
-) => {
-    return (dispatch: Dispatch<ActionLoginTypes>) => {
+): ThunkType => {
+    return (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
         authAPI
             .login(email, password, rememberMe)
             .then((res) => {
-                dispatch(saveDataUser(res.data));
                 dispatch(setStatus(true));
+                dispatch(setAppStatusAC("succeeded"));
             })
             .catch((err) => {
                 const error = err.response
@@ -125,11 +113,13 @@ export const loginUserData = (
     };
 };
 
-export const logoutThunk = () => (dispatch: Dispatch<ActionLoginTypes>) => {
+export const logoutThunk = (): ThunkType => (dispatch) => {
+    dispatch(setAppStatusAC("loading"));
     authAPI
         .logout()
         .then((res) => {
             dispatch(setStatus(false));
+            dispatch(setAppStatusAC("succeeded"));
         })
         .catch((err) => {
             const error = err.response
@@ -140,10 +130,15 @@ export const logoutThunk = () => (dispatch: Dispatch<ActionLoginTypes>) => {
         });
 };
 // Types
-export type LoginInitialStateType = { isAuth: boolean; data: UserType };
+export type LoginInitialStateType = { isAuth: boolean; data: DataType };
+type DataType = {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+    error: string;
+};
 export type ActionLoginTypes =
     | ReturnType<typeof setEmail>
     | ReturnType<typeof setRememberMe>
     | ReturnType<typeof showErrorMessage>
-    | ReturnType<typeof saveDataUser>
     | ReturnType<typeof setStatus>;

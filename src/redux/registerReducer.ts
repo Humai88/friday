@@ -12,7 +12,6 @@ const initialState: RegisterInitialStateType = {
         publicCardPacksCount: 0,
         created: new Date(),
         updated: new Date(),
-        __v: 0,
     },
     error: "",
     isRegistered: false,

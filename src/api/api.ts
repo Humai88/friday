@@ -73,7 +73,6 @@ export type AddedUserType = {
     publicCardPacksCount: 0;
     created: Date;
     updated: Date;
-    __v: number;
 };
 export type RegisterResponseType = {
     addedUser: AddedUserType;

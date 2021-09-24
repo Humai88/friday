@@ -14,8 +14,10 @@ export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: AppStore) => state.login.isAuth);
-    const name = useSelector((state: AppStore) => state.login.data.name);
-    const photo = useSelector((state: AppStore) => state.login.data.avatar);
+    const name = useSelector((state: AppStore) => state.profile.profile?.name);
+    const photo = useSelector(
+        (state: AppStore) => state.profile.profile?.avatar
+    );
 
     const showModalHandler = () => {
         setShowModal(true);
