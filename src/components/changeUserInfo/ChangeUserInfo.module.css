@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .wrapper textarea {
     margin-bottom: 1rem;
@@ -17,4 +18,11 @@
 }
 .wrapper label {
     margin-bottom: 1rem;
+}
+.wrapper .icon {
+    position: absolute;
+    font-size: 1.7rem;
+    top: -2rem;
+    right: -2rem;
+    cursor: pointer;
 }

@@ -5,6 +5,7 @@ import { Button } from "../../UI-kit/Button/Button";
 import { Input } from "../../UI-kit/Input/Input";
 import { Modal } from "../../UI-kit/Modal/Modal";
 import styles from "./ChangeUserInfo.module.css";
+import { FaTimes } from "react-icons/fa";
 
 export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
     onClose,
@@ -59,6 +60,9 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
                 <Button onClick={submitHandler} className={styles.btn}>
                     Submit
                 </Button>
+                <div>
+                    <FaTimes onClick={onClose} className={styles.icon} />
+                </div>
             </div>
         </Modal>
     );
