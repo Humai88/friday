@@ -9,6 +9,7 @@ import { Range } from "../../UI-kit/Range/Range";
 import { Header } from "../Header/Header";
 import { authAPI } from "../../api/api";
 import styles from "./TestPage.module.css";
+import { navLinksTest } from "../Routes/Routes";
 
 export const TestPage = () => {
     const arr: string[] = ["apple", "grape", "cherry"];
@@ -82,9 +83,11 @@ export const TestPage = () => {
                 console.log(err);
             });
     };
+
     return (
         <>
-            <Header />
+            <Header arrayLinks={navLinksTest} className={styles.header} testPage/>
+
             <div
                 style={{
                     display: "flex",
@@ -96,16 +99,16 @@ export const TestPage = () => {
                 }}
             >
                 <Button>button</Button>
-                <Checkbox checked={checked} onChange={testOnChange} />
-                <EditableSpan />
+                <Checkbox checked={checked} onChange={testOnChange}/>
+                <EditableSpan/>
                 <Radio
                     value={value}
                     options={arr}
                     onChangeOption={onChangeOption}
                 />
-                <Input />
-                <span style={{ fontSize: "1.7rem" }}>{rangeValue}</span>
-                <Range onChangeRange={changeHandler} value={rangeValue} />
+                <Input/>
+                <span style={{fontSize: "1.7rem"}}>{rangeValue}</span>
+                <Range onChangeRange={changeHandler} value={rangeValue}/>
                 <Select
                     value={value}
                     options={arr}
@@ -119,7 +122,7 @@ export const TestPage = () => {
                     <Button onClick={logout}>Logout</Button>
                     <Button onClick={forgotPassword}>Forgot Password</Button>
                 </div>
-                <div style={{ width: "800px" }}>{response}</div>
+                <div style={{width: "800px"}}>{response}</div>
             </div>
         </>
     );

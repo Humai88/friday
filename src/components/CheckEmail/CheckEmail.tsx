@@ -9,7 +9,7 @@ export const CheckEmail = () => {
             <Card className={styles.emailChecking}>
                 <h1>It-incubator</h1>
                 <div className={styles.iconWrapper}>
-                    <img src={email} alt="Sending message" />
+                    <img src={email} alt="Sending messafe" />
                 </div>
                 <h2>Check Email</h2>
                 <p>

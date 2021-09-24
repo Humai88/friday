@@ -19,7 +19,7 @@ export const authAPI = {
         });
     },
     me() {
-        return instance.post<UserType>(`auth/me`);
+        return instance.post(`auth/me`);
     },
     changeInfo(name: string, avatar: string) {
         return instance.put<ChangeInfoResponseType>(`auth/me`, {
@@ -87,7 +87,6 @@ export type ChangeInfoResponseType = {
     updatedUser: UserType;
     token: string;
     tokenDeathTime: number;
-    error?: string;
 };
 
 export type LogoutResponseType = {

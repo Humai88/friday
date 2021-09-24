@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
