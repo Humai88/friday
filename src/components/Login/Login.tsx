@@ -71,7 +71,6 @@ export const Login = () => {
                                     type="text"
                                     value={email}
                                     onChange={onEmailInput}
-                                    placeholder={"j&johnson.gmail.com"}
                                 />
                                 <span className={styles.error}></span>
                             </label>
@@ -84,10 +83,9 @@ export const Login = () => {
                                 <span>Password</span>
                                 <br />
                                 <Input
-                                    type="text"
+                                    type="password"
                                     value={password}
                                     onChange={onPasswordInput}
-                                    placeholder={"*******"}
                                 />
                                 <span className={styles.error}></span>
                             </label>

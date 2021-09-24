@@ -7,7 +7,6 @@ import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";
 import { Button } from "../../UI-kit/Button/Button";
 import { Redirect } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
-import { initializeAppThunk } from "../../redux/appReducer";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -15,6 +14,11 @@ export const Profile = () => {
     const photo = useSelector(
         (state: AppStore) => state.profile.profile?.avatar
     );
+    const token = useSelector(
+        (state: AppStore) => state.profile.profile?.token
+    );
+
+    console.log(token);
 
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state: AppStore) => state.login.isAuth);
