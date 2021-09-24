@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styles from "./Login.module.css";
 import { NavLink, Redirect } from "react-router-dom";
 import { Input } from "../../UI-kit/Input/Input";
@@ -6,12 +6,7 @@ import { Button } from "../../UI-kit/Button/Button";
 import { Checkbox } from "../../UI-kit/Checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
-import {
-    loginUserData,
-    setEmail,
-    setRememberMe,
-    showErrorMessage,
-} from "../../redux/loginReducer";
+import { loginUserData, setEmail, setRememberMe, showErrorMessage, } from "../../redux/loginReducer";
 
 export const Login = () => {
     const email = useSelector((state: AppStore) => state.login.data.email);

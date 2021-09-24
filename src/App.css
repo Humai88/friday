@@ -2,28 +2,115 @@
 }
 
 body {
-  min-height: 100vh;
-  font-family: var(--family-Popins);
-  color: var(--dark-color);
-  font-size: 13px;
-  font-weight: 600;
-  background-color: var(--default-bg);
-  background-image: var(--gradient-bg);
-  background-repeat: no-repeat;
+    min-height: 100vh;
+    font-family: var(--family-Popins);
+    color: var(--dark-color);
+    font-size: 13px;
+    font-weight: 600;
+    background-color: var(--default-bg);
+    background-image: var(--gradient-bg);
+    background-repeat: no-repeat;
 }
 
 h1,
 h2 {
-  margin: 0;
-  font-weight: inherit;
+    margin: 0;
+    font-weight: inherit;
 }
 
 h1 {
-  font-size: 26px;
-  line-height: 39px;
+    font-size: 26px;
+    line-height: 39px;
 }
 
 h2 {
-  font-size: 22px;
-  line-height: 33px;
+    font-size: 22px;
+    line-height: 33px;
+}
+
+.container {
+    max-width: 1009px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.inner-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-nav {
+    display: flex;
+    max-width: 346px;
+    width: 100%;
+    margin-left: 16.651%;
+}
+
+.profile-nav a {
+    position: relative;
+    padding-left: 44px;
+    min-height: 60px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 16px;
+
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+
+    color: var(--color-dark);
+    opacity: var(--opacity-min);
+    transition: opacity var(--default-transition);
+    border-bottom: 3px solid transparent;
+}
+
+.profile-nav a::before {
+    z-index: 1;
+    position: absolute;
+    content: "";
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    left: 30%;
+}
+
+.profile-nav a:first-child::before {
+    left: 20%;
+    background-image: url("/src/assets/images/icon-cards.svg");
+}
+
+.profile-nav a:last-child::before {
+    background-image: url("/src/assets/images/icon-profile.svg");
+}
+
+.profile-nav .active {
+    border-bottom: 3px solid var(--accent-color);
+    opacity: 1;
+}
+
+@media (max-width: 650px) {
+    .inner-header {
+        padding-top: 10px;
+    }
+
+    .inner-header h1 {
+        margin: 0 auto;
+    }
+
+    .profile-nav {
+        max-width: 100%;
+        margin-left: 0;
+    }
+
+    .profile-nav a:first-child::before {
+        left: 12%;
+    }
+
+    .profile-nav a:last-child::before {
+        left: 25%;
+    }
 }
