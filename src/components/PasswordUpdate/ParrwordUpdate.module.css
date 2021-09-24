@@ -1,0 +1,85 @@
+.wrapper {
+    min-height: 100vh;
+    padding: 5vh 0;
+}
+.wrapper p {
+    color: var(--color-light-dark);
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 30px;
+    font-weight: 400;
+}
+.wrapper h2 {
+    margin-top: 35px;
+    margin-bottom: 45px;
+}
+.emailChecking {
+    padding: 25px 30px 60px 30px;
+    max-width: 413px;
+}
+.formGroup {
+    margin: 0 auto 10px;
+    text-align: left;
+}
+
+.formGroupButton {
+    margin: 40px 0;
+    text-align: center;
+}
+.formGroup span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--color-light-dark);
+    font-weight: 400;
+}
+
+.formGroup input {
+    width: 100%;
+}
+
+.shapeIcon {
+    position: relative;
+}
+
+.shapeIcon::after {
+    position: absolute;
+    z-index: 1;
+    content: "";
+    right: 15px;
+    top: 24px;
+    width: 22px;
+    height: 16px;
+    background-image: url("../../assets/images/shape.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.formGroup input::placeholder {
+    color: var(--dark-color);
+}
+
+.formGroupPassword {
+    margin-top: 35px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    color: var(--dark-color);
+}
+
+.formGroupPassword a {
+    color: inherit;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.formGroupPassword a:focus,
+.formGroupPassword a:hover {
+    text-decoration: underline;
+}
+.wrapper .btn {
+    margin-top: 50px;
+}
