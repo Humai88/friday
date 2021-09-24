@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { CheckEmail } from "./components/CheckEmail/CheckEmail";
@@ -8,8 +10,15 @@ import { PasswordUpdate } from "./components/PasswordUpdate/ParrwordUpdate";
 import { Profile } from "./components/Profile/Profile";
 import { Register } from "./components/Register/Register";
 import { TestPage } from "./components/TestPage/TestPage";
+import { initializeAppThunk } from "./redux/appReducer";
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(initializeAppThunk());
+    }, []);
+
     return (
         <HashRouter>
             <div className="app">
