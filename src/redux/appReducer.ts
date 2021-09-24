@@ -1,5 +1,5 @@
-import { authAPI, UserType } from "../api/api";
-import { LoginInitialStateType, setStatus } from "./loginReducer";
+import { authAPI } from "../api/api";
+import { setStatus } from "./loginReducer";
 import { ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
