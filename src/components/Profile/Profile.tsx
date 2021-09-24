@@ -5,10 +5,12 @@ import { setProfileTC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
+
 import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Header } from "../Header/Header";
 import Cards from "../Cards/Cards";
 import { Person } from "../Person/Person";
+
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
