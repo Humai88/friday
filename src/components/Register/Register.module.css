@@ -113,4 +113,5 @@
 .formGroup div {
     color: var(--color-warning);
     font-weight: 500;
+    min-height: 20px;
 }
