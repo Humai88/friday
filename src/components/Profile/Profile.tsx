@@ -5,15 +5,10 @@ import { setProfileTC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
-<<<<<<< HEAD
-=======
-
 import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Header } from "../Header/Header";
 import Cards from "../Cards/Cards";
 import { Person } from "../Person/Person";
-
->>>>>>> master
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -45,26 +40,38 @@ export const Profile = () => {
         dispatch(logoutThunk());
     };
     if (isLoggedIn === false) {
-        return <Redirect to={"/login"}/>;
+        return <Redirect to={"/login"} />;
     }
     return (
         <>
-            <Header arrayLinks={navLinksProfile} className={styles.header} profilePage/>
+            <Header
+                arrayLinks={navLinksProfile}
+                className={styles.header}
+                profilePage
+            />
 
             <Switch>
-                <Route exact path={PATH.PROFILE_PERSON} render={() => <Person
-                    photo={photo}
-                    name={name}
-                    showModalHandler={showModalHandler}
-                    logoutHandler={logoutHandler}
-                    showModal={showModal}
-                    hideModalHandler={hideModalHandler}
-                />}/>
+                <Route
+                    exact
+                    path={PATH.PROFILE_PERSON}
+                    render={() => (
+                        <Person
+                            photo={photo}
+                            name={name}
+                            showModalHandler={showModalHandler}
+                            logoutHandler={logoutHandler}
+                            showModal={showModal}
+                            hideModalHandler={hideModalHandler}
+                        />
+                    )}
+                />
 
-                <Route exact path={PATH.PROFILE_CARDS} render={() => <Cards/>}/>
+                <Route
+                    exact
+                    path={PATH.PROFILE_CARDS}
+                    render={() => <Cards />}
+                />
             </Switch>
         </>
     );
 };
-
-

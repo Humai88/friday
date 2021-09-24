@@ -6,7 +6,12 @@ import { Button } from "../../UI-kit/Button/Button";
 import { Checkbox } from "../../UI-kit/Checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
-import { loginUserData, setEmail, setRememberMe, showErrorMessage, } from "../../redux/loginReducer";
+import {
+    loginUserData,
+    setEmail,
+    setRememberMe,
+    showErrorMessage,
+} from "../../redux/loginReducer";
 
 export const Login = () => {
     const email = useSelector((state: AppStore) => state.login.data.email);
