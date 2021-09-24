@@ -50,8 +50,8 @@ export const Login = () => {
         }, 3000);
     };
 
-    if (isLogin === true) {
-        return <Redirect to={"/profile"} />;
+    if (isLogin) {
+        return <Redirect to={"/profile"}/>;
     }
 
     return (
@@ -66,7 +66,7 @@ export const Login = () => {
                         <div className={styles.formGroup}>
                             <label>
                                 <span>Email</span>
-                                <br />
+                                <br/>
                                 <Input
                                     type="text"
                                     value={email}
@@ -81,7 +81,7 @@ export const Login = () => {
                         >
                             <label>
                                 <span>Password</span>
-                                <br />
+                                <br/>
                                 <Input
                                     type="password"
                                     value={password}
