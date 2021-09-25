@@ -101,7 +101,6 @@ export const loginUserData = (
             .login(email, password, rememberMe)
             .then((res) => {
                 dispatch(setStatus(true));
-                dispatch(setAppStatusAC("succeeded"));
             })
             .catch((err) => {
                 const error = err.response
@@ -109,6 +108,9 @@ export const loginUserData = (
                     : err.message + ", more details in the console";
                 console.log("err:", error);
                 dispatch(showErrorMessage(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
             });
     };
 };
@@ -119,7 +121,6 @@ export const logoutThunk = (): ThunkType => (dispatch) => {
         .logout()
         .then((res) => {
             dispatch(setStatus(false));
-            dispatch(setAppStatusAC("succeeded"));
         })
         .catch((err) => {
             const error = err.response
@@ -127,6 +128,9 @@ export const logoutThunk = (): ThunkType => (dispatch) => {
                 : err.message + ", more details in the console";
             console.log("err:", error);
             dispatch(showErrorMessage(error));
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("succeeded"));
         });
 };
 // Types

@@ -17,6 +17,11 @@ export const appReducer = (
             return { ...state, isInitialized: true };
         default:
             return state;
+        case "SET-STATUS":
+            return {
+                ...state,
+                status: action.payload.status,
+            };
     }
 };
 

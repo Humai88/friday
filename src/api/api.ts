@@ -2,6 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 });
 export const authAPI = {
@@ -30,11 +31,11 @@ export const authAPI = {
     logout() {
         return instance.delete<LogoutResponseType>(`auth/me`);
     },
-    forgotPassword(email: string, from: string, message: string) {
+    forgotPassword(email: string) {
         return instance.post<ForgotPasswordResponseType>(`auth/forgot`, {
             email,
-            from,
-            message,
+            from: "ai73a@yandex.by",
+            message: `<div style="background-color: #d9d9f1; margin: 0 auto; padding: 2.5rem; display-flex;  flex-direction: column; align-items: center; justify-content: center; border-radius: 8px"><h2>Forgot your password?</h2><p>That's ok, it happens! Click on the button below to reset your password.</p> <a href='http://localhost:3000/?#/password-update/$token$'><button style="background-color: #21268f; color: #ececf9; padding: 10px 20px; border-radius: 8px;  text-decoration: none;  border: none; cursor:pointer; border-radius: 30px;">Reset your password</button></a></div>`,
         });
     },
     resetPassword(password: string, resetPasswordToken: string) {

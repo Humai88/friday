@@ -1,4 +1,5 @@
 import { authAPI, UserType } from "../api/api";
+import { setAppStatusAC } from "./appReducer";
 import { ThunkType } from "./store";
 
 const initialState: ProfileInitialStateType = {
@@ -53,10 +54,12 @@ export const changeUserDataAC = (userData: UserType) => {
 
 export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
     return (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
         authAPI
             .changeInfo(name, imgUrl)
             .then((res) => {
                 dispatch(changeUserDataAC(res.data.updatedUser));
+                dispatch(setAppStatusAC("succeeded"));
             })
             .catch((err) => {
                 const error = err.response
