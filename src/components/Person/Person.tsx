@@ -7,8 +7,8 @@ import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";
 import styles from "../Profile/Profile.module.css";
 
 type PersonPropsType = {
-    photo?: string;
-    name?: string;
+    photo?: string | null;
+    name?: string | null;
     showModalHandler: () => void;
     logoutHandler: () => void;
     showModal: boolean;
@@ -26,7 +26,11 @@ export const Person = (props: PersonPropsType) => {
                 <div className={styles.infoBox}>
                     <img
                         className={styles.avatar}
-                        src={props.photo}
+                        src={
+                            props.photo == null
+                                ? "https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png"
+                                : props.photo
+                        }
                         alt="avatar"
                     />
                     <h3>{props.name}</h3>

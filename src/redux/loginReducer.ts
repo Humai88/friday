@@ -1,6 +1,7 @@
 import { ThunkType } from "./store";
 import { authAPI, UserType } from "../api/api";
 import { setAppStatusAC } from "./appReducer";
+import { setUserProfileAC } from "./profileReducer";
 
 export enum ACTIONS_TYPE {
     SET_EMAIL = "Login/SET-EMAIL",
@@ -38,7 +39,7 @@ export const loginReducer = (
         case ACTIONS_TYPE.SET_AUTH_STATUS: {
             return {
                 ...state,
-                ...action.payload,
+                isAuth: action.payload.isAuth,
             };
         }
 
@@ -101,6 +102,7 @@ export const loginUserData = (
             .login(email, password, rememberMe)
             .then((res) => {
                 dispatch(setStatus(true));
+                dispatch(setUserProfileAC(res.data));
             })
             .catch((err) => {
                 const error = err.response

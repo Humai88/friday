@@ -1,8 +1,9 @@
 import axios from "axios";
-
+let smtp_login = process.env.REACT_APP_SMTP_LOGIN;
+let backend_URL_ADDRESS = process.env.REACT_APP_BACKEND_URL;
 const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    // baseURL: 'http://localhost:7542/2.0/',
+    baseURL: smtp_login,
+    // backendURL: backend_URL_ADDRESS,
     withCredentials: true,
 });
 export const authAPI = {
@@ -20,7 +21,7 @@ export const authAPI = {
         });
     },
     me() {
-        return instance.post(`auth/me`);
+        return instance.post<UserType>(`auth/me`);
     },
     changeInfo(name: string, avatar: string) {
         return instance.put<ChangeInfoResponseType>(`auth/me`, {

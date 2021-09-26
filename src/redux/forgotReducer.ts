@@ -42,7 +42,8 @@ export const sendEmailThunkCreator =
     };
 
 export const sendNewPasswordThunkCreator =
-    (email: string, token: string) => (dispatch: Dispatch) => {
+    (email: string, token: string): ThunkType =>
+    (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         authAPI
             .resetPassword(email, token)

@@ -9,6 +9,9 @@ import { Preloader } from "./UI-kit/Preloader/Preloader";
 
 function App() {
     const dispatch = useDispatch();
+    const isInitialized = useSelector<AppStore, boolean>(
+        (state) => state.app.isInitialized
+    );
 
     useEffect(() => {
         if (!isInitialized) {
@@ -16,9 +19,6 @@ function App() {
         }
     }, [dispatch]);
 
-    const isInitialized = useSelector<AppStore, boolean>(
-        (state) => state.app.isInitialized
-    );
     if (!isInitialized) {
         return (
             <div

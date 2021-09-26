@@ -45,7 +45,7 @@ export const TestPage = () => {
     };
     const register = () => {
         authAPI
-            .register("blabla@nya.nya", "1qazxcvBG")
+            .register("blabla00000@nya.nya", "1qazxcvBG")
             .then((res) => {
                 setResponse(JSON.stringify(res.data));
             })

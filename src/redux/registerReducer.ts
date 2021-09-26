@@ -15,12 +15,12 @@ export const registerReducer = (
         case "REGISTER_SUCCESS":
             return {
                 ...state,
-                isRegistered: true,
+                isRegistered: action.payload.isRegistered,
             };
         case "REGISTER_FAILURE":
             return {
                 ...state,
-                ...action.payload,
+                error: action.payload.error,
             };
 
         default:
@@ -34,9 +34,10 @@ export const registerFailureAC = (error: string) => {
         payload: { error },
     } as const;
 };
-export const registerSuccessAC = () => {
+export const registerSuccessAC = (isRegistered: boolean) => {
     return {
         type: "REGISTER_SUCCESS",
+        payload: { isRegistered },
     } as const;
 };
 
@@ -47,7 +48,7 @@ export const registerUserTC = (email: string, password: string): ThunkType => {
         authAPI
             .register(email, password)
             .then((res) => {
-                dispatch(registerSuccessAC());
+                dispatch(registerSuccessAC(true));
             })
             .catch((err) => {
                 const error = err.response

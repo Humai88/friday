@@ -1,6 +1,6 @@
 import { authAPI } from "../api/api";
 import { setStatus } from "./loginReducer";
-import { setUserProfileAC } from "./profileReducer";
+import { setAuthTC, setUserProfileAC } from "./profileReducer";
 import { ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
@@ -43,15 +43,8 @@ export const setAppStatusAC = (status: RequestStatusType) => {
 // Thunks
 
 export const initializeAppThunk = (): ThunkType => (dispatch) => {
-    authAPI
-        .me()
-        .then((res) => {
-            dispatch(setStatus(true));
-            dispatch(setUserProfileAC(res.data));
-        })
-        .finally(() => {
-            dispatch(setIsInitializedAC());
-        });
+    dispatch(setAuthTC());
+    dispatch(setIsInitializedAC());
 };
 
 // Types
