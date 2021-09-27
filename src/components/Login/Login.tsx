@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import { NavLink, Redirect } from "react-router-dom";
 import { Input } from "../../UI-kit/Input/Input";
@@ -12,6 +12,8 @@ import {
     setRememberMe,
     showErrorMessage,
 } from "../../redux/loginReducer";
+import { PATH } from "../Routes/Routes";
+import { registerSuccessAC } from "../../redux/registerReducer";
 
 export const Login = () => {
     const email = useSelector((state: AppStore) => state.login.data.email);
@@ -26,6 +28,10 @@ export const Login = () => {
 
     const dispatch = useDispatch();
     const [password, setPassword] = useState<string>("");
+
+    useEffect(() => {
+        dispatch(registerSuccessAC(false));
+    }, [])
 
     const onCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setRememberMe(e.currentTarget.checked));
@@ -52,7 +58,7 @@ export const Login = () => {
     };
 
     if (isLogin) {
-        return <Redirect to={"/profile"} />;
+        return <Redirect to={PATH.PROFILE} />;
     }
 
     return (
@@ -107,7 +113,10 @@ export const Login = () => {
                         <div
                             className={`${styles.formGroup} ${styles.formGroupPassword}`}
                         >
-                            <NavLink to={"/password-recovery"}>
+                            {errorMessage && (
+                                <span className={styles.errorMessage}>{errorMessage}</span>
+                            )}
+                            <NavLink to={PATH.PASSWORD_RECOVERY}>
                                 Forgot Password
                             </NavLink>
                         </div>
@@ -126,16 +135,14 @@ export const Login = () => {
                     </form>
                 </div>
 
-                <p>Don’t have an account?</p>
+                <p>
+                    Don’t have an account?
+                </p>
 
                 <div className={styles.navLinkGroup}>
-                    <NavLink to={"/register"}> Sign Up</NavLink>
+                    <NavLink to={PATH.REGISTER}> Sign Up</NavLink>
                 </div>
             </div>
-
-            {errorMessage && (
-                <div className={styles.errorMessage}>{errorMessage}</div>
-            )}
         </div>
     );
 };
