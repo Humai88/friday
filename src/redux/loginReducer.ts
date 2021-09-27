@@ -123,6 +123,8 @@ export const logoutThunk = (): ThunkType => (dispatch) => {
         .logout()
         .then((res) => {
             dispatch(setStatus(false));
+            dispatch(setRememberMe(false));
+            dispatch(setEmail(""));
         })
         .catch((err) => {
             const error = err.response

@@ -6,6 +6,7 @@ import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
 import { Input } from "../../UI-kit/Input/Input";
+import { PATH } from "../Routes/Routes";
 import styles from "./ParrwordUpdate.module.css";
 
 export const PasswordUpdate = () => {
@@ -21,7 +22,7 @@ export const PasswordUpdate = () => {
         dispatch(sendNewPasswordThunkCreator(newPassword, token));
     };
     if (success === true) {
-        return <Redirect to={"/login"} />;
+        return <Redirect to={PATH.LOGIN} />;
     }
     return (
         <div className={styles.wrapper}>

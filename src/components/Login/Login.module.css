@@ -14,6 +14,7 @@
 }
 
 .login p {
+    position: relative;
     margin: 0;
     color: var(--color-light-dark);
     font-size: 14px;
@@ -75,6 +76,7 @@
 }
 
 .formGroupPassword {
+    position: relative;
     margin-top: 35px;
     text-align: right;
     font-size: 14px;
@@ -126,14 +128,20 @@
     color: var(--color-warning);
 }
 
-.errorMessage {
+.formGroup .errorMessage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 300px;
-    min-height: 30px;
+    max-width: 100%;
+    min-height: 35px;
     background-color: var(--color-warning);
-    margin: 20px auto 0;
+    margin: 0 auto;
     text-align: center;
     color: var(--color-light);
     transition: opacity var(--default-transition);

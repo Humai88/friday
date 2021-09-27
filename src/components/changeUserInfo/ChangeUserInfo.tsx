@@ -27,6 +27,8 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
             setName("");
             setUrl("");
         }
+
+        onClose();
     };
 
     return (

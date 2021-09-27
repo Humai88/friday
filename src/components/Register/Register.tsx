@@ -7,6 +7,7 @@ import styles from "./Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUserTC } from "../../redux/registerReducer";
 import { AppStore } from "../../redux/store";
+import { PATH } from "../Routes/Routes";
 
 export const Register = () => {
     const [user, setUser] = useState<InitialValuesType>({
@@ -29,6 +30,7 @@ export const Register = () => {
     );
     const errorMessage = useSelector((state: AppStore) => state.register.error);
     const dispatch = useDispatch();
+    const history = useHistory();
     const status = useSelector((state: AppStore) => state.app.status);
     function handleSubmit(e: MouseEvent<HTMLElement>) {
         e.preventDefault();
@@ -43,9 +45,9 @@ export const Register = () => {
             setUser({ email: "", createPassword: "", confirmPassword: "" });
         }
     }
-    const history = useHistory();
-    if (isRegistered === true) {
-        return <Redirect to={"/login"} />;
+
+    if (isRegistered) {
+        return <Redirect to={PATH.LOGIN} />;
     }
     return (
         <div>
