@@ -4,6 +4,7 @@ import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { ActionAppTypes, appReducer } from "./appReducer";
 import { ActionForgotTypes, forgotReducer } from "./forgotReducer";
 import { ActionLoginTypes, loginReducer } from "./loginReducer";
+import { packsReducer } from "./packsReducer";
 import { ActionProfileTypes, profileReducer } from "./profileReducer";
 import { ActionRegisterTypes, registerReducer } from "./registerReducer";
 
@@ -13,6 +14,7 @@ const reducers = combineReducers({
     forgot: forgotReducer,
     profile: profileReducer,
     app: appReducer,
+    packs: packsReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));

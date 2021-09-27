@@ -17,6 +17,7 @@ export const Profile = () => {
     const photo = useSelector(
         (state: AppStore) => state.profile.profile?.avatar
     );
+    const userId = useSelector((state: AppStore) => state.profile.profile?._id);
 
     const showModalHandler = () => {
         setShowModal(true);

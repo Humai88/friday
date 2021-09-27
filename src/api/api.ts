@@ -49,6 +49,7 @@ export const authAPI = {
         );
     },
 };
+export const packsAPI = {};
 
 //Types
 export type UserType = {
@@ -101,4 +102,32 @@ export type ForgotPasswordResponseType = {
 export type ResetPasswordResponseType = {
     info: string;
     error?: string;
+};
+
+export type CardsPackType = {
+    _id: string;
+    user_id: string;
+    user_name: string;
+    private: false;
+    name: string;
+    path: string;
+    grade: 0;
+    shots: 0;
+    cardsCount: 0;
+    type: string;
+    rating: 0;
+    created: Date;
+    updated: Date;
+    more_id: string;
+    __v: 0;
+};
+export type PacksResponseType = {
+    cardPacks: CardsPackType[];
+    page: number;
+    pageCount: number;
+    cardPacksTotalCount: number;
+    minCardsCount: number;
+    maxCardsCount: number;
+    token: string;
+    tokenDeathTime: number;
 };
