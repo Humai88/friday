@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendEmailThunkCreator } from "../../redux/forgotReducer";
 import { AppStore } from "../../redux/store";
+import { PATH } from "../Routes/Routes";
 
 export const PasswordRecovery = () => {
     const [mail, setMail] = useState<string>("");
@@ -19,11 +20,11 @@ export const PasswordRecovery = () => {
     const error = useSelector<AppStore, boolean>((state) => state.forgot.error);
     const status = useSelector((state: AppStore) => state.app.status);
     if (initialized) {
-        return <Redirect to="/check-email" />;
+        return <Redirect to={PATH.EMAIL_CHECK} />;
     }
 
     if (error) {
-        return <Redirect to="/profile" />;
+        return <Redirect to={PATH.PROFILE} />;
     }
     const buttonCallback = () => {
         dispatch(sendEmailThunkCreator(mail));
@@ -75,7 +76,7 @@ export const PasswordRecovery = () => {
                 <p>Did you remember your password?</p>
 
                 <div className={styles.navLinkGroup}>
-                    <NavLink to={"/login"}> Try logging in</NavLink>
+                    <NavLink to={PATH.LOGIN}> Try logging in</NavLink>
                 </div>
             </div>
         </div>
