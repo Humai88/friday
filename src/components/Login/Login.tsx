@@ -21,6 +21,7 @@ export const Login = () => {
     const errorMessage = useSelector(
         (state: AppStore) => state.login.data.error
     );
+    const status = useSelector((state: AppStore) => state.app.status);
     const isLogin = useSelector((state: AppStore) => state.login.isAuth);
 
     const dispatch = useDispatch();
@@ -51,7 +52,7 @@ export const Login = () => {
     };
 
     if (isLogin) {
-        return <Redirect to={"/profile"}/>;
+        return <Redirect to={"/profile"} />;
     }
 
     return (
@@ -66,7 +67,7 @@ export const Login = () => {
                         <div className={styles.formGroup}>
                             <label>
                                 <span>Email</span>
-                                <br/>
+                                <br />
                                 <Input
                                     type="text"
                                     value={email}
@@ -81,7 +82,7 @@ export const Login = () => {
                         >
                             <label>
                                 <span>Password</span>
-                                <br/>
+                                <br />
                                 <Input
                                     type="password"
                                     value={password}
@@ -114,7 +115,11 @@ export const Login = () => {
                         <div
                             className={`${styles.formGroup} ${styles.formGroupButton}`}
                         >
-                            <Button type={"submit"} onClick={onSubmitClick}>
+                            <Button
+                                type={"submit"}
+                                disabled={status === "loading"}
+                                onClick={onSubmitClick}
+                            >
                                 Login
                             </Button>
                         </div>

@@ -17,7 +17,7 @@ export const PasswordRecovery = () => {
         (state) => state.forgot.initialized
     );
     const error = useSelector<AppStore, boolean>((state) => state.forgot.error);
-
+    const status = useSelector((state: AppStore) => state.app.status);
     if (initialized) {
         return <Redirect to="/check-email" />;
     }
@@ -26,13 +26,7 @@ export const PasswordRecovery = () => {
         return <Redirect to="/profile" />;
     }
     const buttonCallback = () => {
-        dispatch(
-            sendEmailThunkCreator(
-                mail,
-                "test-front-admin <ai73a@yandex.by>",
-                '<div>Password recovery link: <a href="http://localhost:3000/#/set-new-password/$token$"></a></div>'
-            )
-        );
+        dispatch(sendEmailThunkCreator(mail));
     };
 
     return (
@@ -69,7 +63,11 @@ export const PasswordRecovery = () => {
                 <div
                     className={`${styles.formGroup} ${styles.formGroupButton}`}
                 >
-                    <Button type={"submit"} onClick={buttonCallback}>
+                    <Button
+                        disabled={status === "loading"}
+                        type={"submit"}
+                        onClick={buttonCallback}
+                    >
                         Send instructions
                     </Button>
                 </div>

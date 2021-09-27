@@ -1,5 +1,7 @@
+import { ThunkType } from "./store";
 import { Dispatch } from "redux";
 import { authAPI } from "../api/api";
+import { setAppStatusAC } from "./appReducer";
 
 const initialState: AuthInitialStateType = {
     initialized: false, // transfer to succesful succesful page
@@ -24,17 +26,37 @@ export const forgotReducer = (
 
 //Thunk one love)))
 export const sendEmailThunkCreator =
-    (email: string, from: string, message: string) => (dispatch: Dispatch) => {
+    (email: string) => (dispatch: Dispatch) => {
+        dispatch(setAppStatusAC("loading"));
         authAPI
-            .forgotPassword(email, from, message)
+            .forgotPassword(email)
             .then(() => {
                 dispatch(setInitializedAC(true));
             })
             .catch(() => {
                 dispatch(setErrorAC(true));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
             });
     };
 
+export const sendNewPasswordThunkCreator =
+    (email: string, token: string): ThunkType =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        authAPI
+            .resetPassword(email, token)
+            .then((res) => {
+                dispatch(setInitializedAC(true));
+            })
+            .catch(() => {
+                dispatch(setErrorAC(true));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
 //Action Creators
 
 export const setInitializedAC = (initialized: boolean) => {

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
 import { Input } from "../../UI-kit/Input/Input";
@@ -29,7 +29,7 @@ export const Register = () => {
     );
     const errorMessage = useSelector((state: AppStore) => state.register.error);
     const dispatch = useDispatch();
-
+    const status = useSelector((state: AppStore) => state.app.status);
     function handleSubmit(e: MouseEvent<HTMLElement>) {
         e.preventDefault();
         setSubmitted(true);
@@ -43,7 +43,7 @@ export const Register = () => {
             setUser({ email: "", createPassword: "", confirmPassword: "" });
         }
     }
-
+    const history = useHistory();
     if (isRegistered === true) {
         return <Redirect to={"/login"} />;
     }
@@ -133,13 +133,8 @@ export const Register = () => {
                                 <Button
                                     className={styles.cancelBtn}
                                     purple
-                                    type={"submit"}
                                     onClick={() => {
-                                        setUser({
-                                            email: "",
-                                            createPassword: "",
-                                            confirmPassword: "",
-                                        });
+                                        history.goBack();
                                     }}
                                 >
                                     Cancel
@@ -148,6 +143,7 @@ export const Register = () => {
                                     className={styles.registerBtn}
                                     type={"submit"}
                                     onClick={handleSubmit}
+                                    disabled={status === "loading"}
                                 >
                                     Register
                                 </Button>

@@ -1,6 +1,7 @@
 import { ThunkType } from "./store";
 import { authAPI, UserType } from "../api/api";
 import { setAppStatusAC } from "./appReducer";
+import { setUserProfileAC } from "./profileReducer";
 
 export enum ACTIONS_TYPE {
     SET_EMAIL = "Login/SET-EMAIL",
@@ -38,7 +39,7 @@ export const loginReducer = (
         case ACTIONS_TYPE.SET_AUTH_STATUS: {
             return {
                 ...state,
-                ...action.payload,
+                isAuth: action.payload.isAuth,
             };
         }
 
@@ -101,7 +102,7 @@ export const loginUserData = (
             .login(email, password, rememberMe)
             .then((res) => {
                 dispatch(setStatus(true));
-                dispatch(setAppStatusAC("succeeded"));
+                dispatch(setUserProfileAC(res.data));
             })
             .catch((err) => {
                 const error = err.response
@@ -109,6 +110,9 @@ export const loginUserData = (
                     : err.message + ", more details in the console";
                 console.log("err:", error);
                 dispatch(showErrorMessage(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
             });
     };
 };
@@ -119,7 +123,6 @@ export const logoutThunk = (): ThunkType => (dispatch) => {
         .logout()
         .then((res) => {
             dispatch(setStatus(false));
-            dispatch(setAppStatusAC("succeeded"));
         })
         .catch((err) => {
             const error = err.response
@@ -127,6 +130,9 @@ export const logoutThunk = (): ThunkType => (dispatch) => {
                 : err.message + ", more details in the console";
             console.log("err:", error);
             dispatch(showErrorMessage(error));
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("succeeded"));
         });
 };
 // Types

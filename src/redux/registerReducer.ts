@@ -1,18 +1,8 @@
-import { AddedUserType, authAPI, RegisterResponseType } from "../api/api";
+import { authAPI } from "../api/api";
+import { setAppStatusAC } from "./appReducer";
 import { ThunkType } from "./store";
 
 const initialState: RegisterInitialStateType = {
-    addedUser: {
-        _id: "",
-        email: "",
-        rememberMe: false,
-        isAdmin: false,
-        name: "",
-        verified: false,
-        publicCardPacksCount: 0,
-        created: new Date(),
-        updated: new Date(),
-    },
     error: "",
     isRegistered: false,
 };
@@ -25,18 +15,14 @@ export const registerReducer = (
         case "REGISTER_SUCCESS":
             return {
                 ...state,
-                isRegistered: true,
+                isRegistered: action.payload.isRegistered,
             };
         case "REGISTER_FAILURE":
             return {
                 ...state,
-                ...action.payload,
+                error: action.payload.error,
             };
-        case "ADD_USER_DATA":
-            return {
-                ...state,
-                ...action.payload.userData,
-            };
+
         default:
             return state;
     }
@@ -48,26 +34,21 @@ export const registerFailureAC = (error: string) => {
         payload: { error },
     } as const;
 };
-export const registerSuccessAC = () => {
+export const registerSuccessAC = (isRegistered: boolean) => {
     return {
         type: "REGISTER_SUCCESS",
-    } as const;
-};
-export const addUserDataAC = (userData: AddedUserType) => {
-    return {
-        type: "ADD_USER_DATA",
-        payload: { userData },
+        payload: { isRegistered },
     } as const;
 };
 
 // Thunks
 export const registerUserTC = (email: string, password: string): ThunkType => {
     return (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
         authAPI
             .register(email, password)
             .then((res) => {
-                dispatch(addUserDataAC(res.data.addedUser));
-                dispatch(registerSuccessAC());
+                dispatch(registerSuccessAC(true));
             })
             .catch((err) => {
                 const error = err.response
@@ -75,6 +56,9 @@ export const registerUserTC = (email: string, password: string): ThunkType => {
                     : err.message + ", more details in the console";
                 console.log("err:", error);
                 dispatch(registerFailureAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
             });
     };
 };
@@ -82,8 +66,6 @@ export const registerUserTC = (email: string, password: string): ThunkType => {
 // Types
 export type ActionRegisterTypes =
     | ReturnType<typeof registerFailureAC>
-    | ReturnType<typeof registerSuccessAC>
-    | ReturnType<typeof addUserDataAC>;
+    | ReturnType<typeof registerSuccessAC>;
 
-export type RegisterInitialStateType = RegisterResponseType & AdditionalType;
-export type AdditionalType = { isRegistered: boolean };
+export type RegisterInitialStateType = { isRegistered: boolean; error: string };

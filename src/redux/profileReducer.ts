@@ -1,8 +1,21 @@
 import { authAPI, UserType } from "../api/api";
+import { setAppStatusAC } from "./appReducer";
+import { setStatus } from "./loginReducer";
 import { ThunkType } from "./store";
 
 const initialState: ProfileInitialStateType = {
-    profile: null,
+    profile: {
+        _id: null,
+        email: null,
+        rememberMe: null,
+        isAdmin: null,
+        name: null,
+        verified: null,
+        publicCardPacksCount: null,
+        created: null,
+        updated: null,
+        avatar: null,
+    },
     error: "",
 };
 
@@ -19,7 +32,7 @@ export const profileReducer = (
         case "CATCH_ERROR":
             return {
                 ...state,
-                ...action.payload,
+                error: action.payload.error,
             };
         case "CHANGE_USER_DATA":
             return {
@@ -32,17 +45,14 @@ export const profileReducer = (
 };
 
 // Action Creators
-export const setUserProfileAC = (profile: UserType) => {
+export const setUserProfileAC = (profile: DataUserType) => {
     return { type: "SET_USER_PROFILE", payload: { profile } } as const;
 };
 export const catchErrorAC = (error: string) => {
     return { type: "CATCH_ERROR", payload: { error } } as const;
 };
-export const changeUserInfoAC = (name: string, imgUrl: string) => {
-    return { type: "CHANGE_USER_INFO", payload: { name, imgUrl } } as const;
-};
 
-export const changeUserDataAC = (userData: UserType) => {
+export const changeUserDataAC = (userData: DataUserType) => {
     return {
         type: "CHANGE_USER_DATA",
         payload: { userData },
@@ -50,9 +60,30 @@ export const changeUserDataAC = (userData: UserType) => {
 };
 
 // Thunks
-
+export const setAuthTC = (): ThunkType => {
+    return (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        authAPI
+            .me()
+            .then((res) => {
+                dispatch(setStatus(true));
+                dispatch(setUserProfileAC(res.data));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+};
 export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
     return (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
         authAPI
             .changeInfo(name, imgUrl)
             .then((res) => {
@@ -64,6 +95,9 @@ export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
                     : err.message + ", more details in the console";
                 console.log("err:", error);
                 dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
             });
     };
 };
@@ -71,10 +105,21 @@ export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
 // Types
 export type ActionProfileTypes =
     | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof changeUserInfoAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof changeUserDataAC>;
 export type ProfileInitialStateType = {
-    profile: null | UserType;
+    profile: DataUserType;
     error: string;
+};
+type DataUserType = {
+    _id: string | null;
+    email: string | null;
+    rememberMe: boolean | null;
+    isAdmin: boolean | null;
+    name: string | null;
+    verified: boolean | null;
+    publicCardPacksCount: number | null;
+    created: Date | null;
+    updated: Date | null;
+    avatar: string | null;
 };

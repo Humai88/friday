@@ -43,11 +43,11 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
                     />
                 </label>
                 <label>
-                    <span>Enter image URL</span>
+                    <span>Enter image url</span>
                     <br />
                     <Input
                         onChange={handleInputUrlChange}
-                        name="imgUrl"
+                        name="url"
                         required
                         value={url}
                     />

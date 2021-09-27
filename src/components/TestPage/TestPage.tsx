@@ -45,7 +45,7 @@ export const TestPage = () => {
     };
     const register = () => {
         authAPI
-            .register("blabla@nya.nya", "1qazxcvBG")
+            .register("blabla00000@nya.nya", "1qazxcvBG")
             .then((res) => {
                 setResponse(JSON.stringify(res.data));
             })
@@ -75,7 +75,7 @@ export const TestPage = () => {
     };
     const forgotPassword = () => {
         authAPI
-            .forgotPassword("blabla@nya.nya", "gumay88@mail.ru", "My message")
+            .forgotPassword("blabla@nya.nya")
             .then((res) => {
                 setResponse(JSON.stringify(res.data));
             })
@@ -86,7 +86,11 @@ export const TestPage = () => {
 
     return (
         <>
-            <Header arrayLinks={navLinksTest} className={styles.header} testPage/>
+            <Header
+                arrayLinks={navLinksTest}
+                className={styles.header}
+                testPage
+            />
 
             <div
                 style={{
@@ -99,16 +103,16 @@ export const TestPage = () => {
                 }}
             >
                 <Button>button</Button>
-                <Checkbox checked={checked} onChange={testOnChange}/>
-                <EditableSpan/>
+                <Checkbox checked={checked} onChange={testOnChange} />
+                <EditableSpan />
                 <Radio
                     value={value}
                     options={arr}
                     onChangeOption={onChangeOption}
                 />
-                <Input/>
-                <span style={{fontSize: "1.7rem"}}>{rangeValue}</span>
-                <Range onChangeRange={changeHandler} value={rangeValue}/>
+                <Input />
+                <span style={{ fontSize: "1.7rem" }}>{rangeValue}</span>
+                <Range onChangeRange={changeHandler} value={rangeValue} />
                 <Select
                     value={value}
                     options={arr}
@@ -122,7 +126,7 @@ export const TestPage = () => {
                     <Button onClick={logout}>Logout</Button>
                     <Button onClick={forgotPassword}>Forgot Password</Button>
                 </div>
-                <div style={{width: "800px"}}>{response}</div>
+                <div style={{ width: "800px" }}>{response}</div>
             </div>
         </>
     );

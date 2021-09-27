@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useParams } from "react-router-dom";
 import { CheckEmail } from "../CheckEmail/CheckEmail";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
 import { Login } from "../Login/Login";
@@ -14,7 +14,7 @@ import { Person } from "../Person/Person";
 export const PATH = {
     LOGIN: "/login",
     TEST: "/test",
-    PASSWORD_UPDATE: "/password-update",
+    PASSWORD_UPDATE: "/password-update/:token",
     PASSWORD_RECOVERY: "/password-recovery",
     PROFILE: "/profile",
     PROFILE_PERSON: "/profile/person",
