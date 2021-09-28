@@ -1,8 +1,8 @@
 import axios from "axios";
-let base_url = process.env.REACT_APP_BASE_URL;
+let backend_URL_ADDRESS = process.env.REACT_APP_BACKEND_URL;
 
 const instance = axios.create({
-    baseURL: base_url,
+    baseURL: backend_URL_ADDRESS,
     withCredentials: true,
 });
 export const authAPI = {

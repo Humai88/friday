@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RequestStatusType } from "../../redux/appReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";

@@ -6,12 +6,7 @@ import { Button } from "../../UI-kit/Button/Button";
 import { Checkbox } from "../../UI-kit/Checkbox/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
-import {
-    loginUserData,
-    setEmail,
-    setRememberMe,
-    showErrorMessage,
-} from "../../redux/loginReducer";
+import { loginUserData, setEmail, setRememberMe, showErrorMessage, } from "../../redux/loginReducer";
 import { PATH } from "../Routes/Routes";
 import { registerSuccessAC } from "../../redux/registerReducer";
 
@@ -31,7 +26,7 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(registerSuccessAC(false));
-    }, [])
+    }, [dispatch])
 
     const onCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setRememberMe(e.currentTarget.checked));
