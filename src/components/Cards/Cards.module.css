@@ -1,14 +1,15 @@
 .wrapper {
     padding: 35px 20px 71px 20px;
     display: flex;
-    max-width: 1049px;
+    max-width: 1600px;
     width: 100%;
     margin: 0 auto;
+    height: auto;
 }
 
 .sidebar {
     width: 243px;
-    height: 70vh;
+    height: auto;
     border-radius: 8px 0 0 8px;
     overflow-wrap: break-word;
     background-color: var(--color-light);
@@ -24,6 +25,7 @@
     width: 100%;
     background-color: var(--color-light-bg);
     border-radius: 0 8px 8px 0;
+    padding: 24px 30px;
 }
 
 .avatar {
@@ -40,4 +42,105 @@
     text-decoration: underline;
     font-weight: 400;
     cursor: pointer;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+}
+.search input {
+    width: 60%;
+    padding: 7px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 10px;
+}
+
+th {
+    background-color: var(--color-light);
+}
+.tableWrapper {
+    margin: 2rem 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35),
+        inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+}
+.btn {
+    width: 30%;
+}
+.table {
+    margin: auto;
+    min-width: 300px;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+@media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+    table {
+        width: 100%;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-column);
+        font-weight: bold;
+    }
+}
+.deleteBtn {
+    background-color: var(--color-warning);
+    border: none;
+    color: var(--color-light);
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.editBtn {
+    background-color: var(--color-light);
+    border: none;
+    color: var(--accent-color);
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
 }

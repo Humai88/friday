@@ -6,7 +6,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
 import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Person } from "../Person/Person";
-import Cards from "../Cards/Cards";
+import { Cards } from "../Cards/Cards";
 import { Header } from "../Header/Header";
 
 export const Profile = () => {
@@ -17,6 +17,7 @@ export const Profile = () => {
     const photo = useSelector(
         (state: AppStore) => state.profile.profile?.avatar
     );
+    const userId = useSelector((state: AppStore) => state.profile.profile?._id);
 
     const showModalHandler = () => {
         setShowModal(true);

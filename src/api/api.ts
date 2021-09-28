@@ -49,6 +49,32 @@ export const authAPI = {
     },
 };
 
+export const packsAPI = {
+    getPacks(currentPage: number, pageCount: number) {
+        return instance.get<PacksResponseType>(
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}`
+        );
+    },
+    addPack(name: string) {
+        return instance.post<AddPackResponseType>(`cards/pack`, {
+            cardsPack: { name },
+        });
+    },
+    deletePack(packId: string) {
+        return instance.delete<DeletedPackResponseType>(
+            `cards/pack?id=${packId}`
+        );
+    },
+    updatePack(_id: string, name: string) {
+        return instance.put<UpdatedPackResponseType>(`cards/pack`, {
+            cardsPack: {
+                _id,
+                name,
+            },
+        });
+    },
+};
+
 //Types
 export type UserType = {
     _id: string;
@@ -100,4 +126,40 @@ export type ForgotPasswordResponseType = {
 export type ResetPasswordResponseType = {
     info: string;
     error?: string;
+};
+
+export type CardsPackType = {
+    _id: string;
+    user_id: string;
+    user_name: string;
+    private: false;
+    name: string;
+    cardsCount: 0;
+    type: string;
+    rating: 0;
+    updated: Date;
+};
+export type PacksResponseType = {
+    cardPacks: CardsPackType[];
+    page: number;
+    pageCount: number;
+    cardPacksTotalCount: number;
+    minCardsCount: number;
+    maxCardsCount: number;
+    token: string;
+};
+export type AddPackResponseType = {
+    newCardsPack: CardsPackType;
+    token: string;
+};
+export type DeletedPackResponseType = {
+    deletedCardsPack: CardsPackType;
+    token: string;
+};
+export type UpdatedPackResponseType = {
+    updatedCardsPack: CardsPackType;
+    token: string;
+};
+type AddedPackType = {
+    name: string;
 };
