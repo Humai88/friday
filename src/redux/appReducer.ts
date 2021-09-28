@@ -1,6 +1,4 @@
-import { authAPI } from "../api/api";
-import { setStatus } from "./loginReducer";
-import { setAuthTC, setUserProfileAC } from "./profileReducer";
+import { setAuthTC } from "./profileReducer";
 import { ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {

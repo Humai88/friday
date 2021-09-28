@@ -1,9 +1,8 @@
 import axios from "axios";
-let smtp_login = process.env.REACT_APP_SMTP_LOGIN;
 let backend_URL_ADDRESS = process.env.REACT_APP_BACKEND_URL;
+
 const instance = axios.create({
-    baseURL: smtp_login,
-    // backendURL: backend_URL_ADDRESS,
+    baseURL: backend_URL_ADDRESS,
     withCredentials: true,
 });
 export const authAPI = {

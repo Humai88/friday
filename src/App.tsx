@@ -17,7 +17,7 @@ function App() {
         if (!isInitialized) {
             dispatch(initializeAppThunk());
         }
-    }, [dispatch]);
+    }, [dispatch, isInitialized]);
 
     if (!isInitialized) {
         return (

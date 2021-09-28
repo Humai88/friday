@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, useParams } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { CheckEmail } from "../CheckEmail/CheckEmail";
 import { ErrorPage } from "../ErrorPage/ErrorPage";
 import { Login } from "../Login/Login";
@@ -8,8 +8,6 @@ import { Profile } from "../Profile/Profile";
 import { Register } from "../Register/Register";
 import { TestPage } from "../TestPage/TestPage";
 import React from "react";
-import Cards from "../Cards/Cards";
-import { Person } from "../Person/Person";
 
 export const PATH = {
     LOGIN: "/login",
