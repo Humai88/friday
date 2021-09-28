@@ -1,9 +1,8 @@
 import axios from "axios";
-let smtp_login = process.env.REACT_APP_SMTP_LOGIN;
-let backend_URL_ADDRESS = process.env.REACT_APP_BACKEND_URL;
+let base_url = process.env.REACT_APP_BASE_URL;
+
 const instance = axios.create({
-    baseURL: smtp_login,
-    // backendURL: backend_URL_ADDRESS,
+    baseURL: base_url,
     withCredentials: true,
 });
 export const authAPI = {
@@ -49,7 +48,32 @@ export const authAPI = {
         );
     },
 };
-export const packsAPI = {};
+
+export const packsAPI = {
+    getPacks(currentPage: number, pageCount: number) {
+        return instance.get<PacksResponseType>(
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}`
+        );
+    },
+    addPack(name: string) {
+        return instance.post<AddPackResponseType>(`cards/pack`, {
+            cardsPack: { name },
+        });
+    },
+    deletePack(packId: string) {
+        return instance.delete<DeletedPackResponseType>(
+            `cards/pack?id=${packId}`
+        );
+    },
+    updatePack(_id: string, name: string) {
+        return instance.put<UpdatedPackResponseType>(`cards/pack`, {
+            cardsPack: {
+                _id,
+                name,
+            },
+        });
+    },
+};
 
 //Types
 export type UserType = {
@@ -110,16 +134,10 @@ export type CardsPackType = {
     user_name: string;
     private: false;
     name: string;
-    path: string;
-    grade: 0;
-    shots: 0;
     cardsCount: 0;
     type: string;
     rating: 0;
-    created: Date;
     updated: Date;
-    more_id: string;
-    __v: 0;
 };
 export type PacksResponseType = {
     cardPacks: CardsPackType[];
@@ -129,5 +147,19 @@ export type PacksResponseType = {
     minCardsCount: number;
     maxCardsCount: number;
     token: string;
-    tokenDeathTime: number;
+};
+export type AddPackResponseType = {
+    newCardsPack: CardsPackType;
+    token: string;
+};
+export type DeletedPackResponseType = {
+    deletedCardsPack: CardsPackType;
+    token: string;
+};
+export type UpdatedPackResponseType = {
+    updatedCardsPack: CardsPackType;
+    token: string;
+};
+type AddedPackType = {
+    name: string;
 };

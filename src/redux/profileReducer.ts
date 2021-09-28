@@ -1,4 +1,4 @@
-import { authAPI, UserType } from "../api/api";
+import { authAPI } from "../api/api";
 import { setAppStatusAC } from "./appReducer";
 import { setStatus } from "./loginReducer";
 import { ThunkType } from "./store";

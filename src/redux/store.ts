@@ -4,7 +4,7 @@ import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { ActionAppTypes, appReducer } from "./appReducer";
 import { ActionForgotTypes, forgotReducer } from "./forgotReducer";
 import { ActionLoginTypes, loginReducer } from "./loginReducer";
-import { packsReducer } from "./packsReducer";
+import { ActionPacksTypes, packsReducer } from "./packsReducer";
 import { ActionProfileTypes, profileReducer } from "./profileReducer";
 import { ActionRegisterTypes, registerReducer } from "./registerReducer";
 
@@ -27,7 +27,8 @@ export type AppActionsType =
     | ActionProfileTypes
     | ActionRegisterTypes
     | ActionAppTypes
-    | ActionForgotTypes;
+    | ActionForgotTypes
+    | ActionPacksTypes;
 
 export type ThunkType = ThunkAction<void, AppStore, unknown, AppActionsType>;
 // @ts-ignore

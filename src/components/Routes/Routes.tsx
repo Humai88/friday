@@ -8,7 +8,7 @@ import { Profile } from "../Profile/Profile";
 import { Register } from "../Register/Register";
 import { TestPage } from "../TestPage/TestPage";
 import React from "react";
-import Cards from "../Cards/Cards";
+import { Cards } from "../Cards/Cards";
 import { Person } from "../Person/Person";
 
 export const PATH = {
@@ -25,18 +25,18 @@ export const PATH = {
 };
 
 export const navLinksProfile = [
-    {path: PATH.PROFILE_CARDS, text: "Packs list"},
-    {path: PATH.PROFILE_PERSON, text: "Profile"},
+    { path: PATH.PROFILE_CARDS, text: "Packs list" },
+    { path: PATH.PROFILE_PERSON, text: "Profile" },
 ];
 
 export const navLinksTest = [
-    {path: PATH.LOGIN, text: "Login"},
-    {path: PATH.REGISTER, text: "Register"},
-    {path: PATH.PROFILE, text: "Profile"},
-    {path: PATH.PASSWORD_UPDATE, text: "Update Password"},
-    {path: PATH.PASSWORD_RECOVERY, text: "Recovery Password"},
-    {path: PATH.EMAIL_CHECK, text: "Check Email"},
-    {path: PATH.ERROR, text: "ErrorPage"},
+    { path: PATH.LOGIN, text: "Login" },
+    { path: PATH.REGISTER, text: "Register" },
+    { path: PATH.PROFILE, text: "Profile" },
+    { path: PATH.PASSWORD_UPDATE, text: "Update Password" },
+    { path: PATH.PASSWORD_RECOVERY, text: "Recovery Password" },
+    { path: PATH.EMAIL_CHECK, text: "Check Email" },
+    { path: PATH.ERROR, text: "ErrorPage" },
 ];
 
 const Routes = () => {
