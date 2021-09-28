@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import styles from "./Paginator.module.css";
 
 export const Paginator: React.FC<PaginatorPropsType> = (props) => {
@@ -21,13 +22,14 @@ export const Paginator: React.FC<PaginatorPropsType> = (props) => {
     return (
         <div className={styles.paginator}>
             {portionNumber > 1 && (
-                <button
+                <FaAngleLeft
+                    className={styles.icon}
                     onClick={() => {
                         setPortionNumber(portionNumber - 1);
                     }}
                 >
                     Previous
-                </button>
+                </FaAngleLeft>
             )}
 
             {pages
@@ -52,13 +54,14 @@ export const Paginator: React.FC<PaginatorPropsType> = (props) => {
                     );
                 })}
             {portionCount > portionNumber && (
-                <button
+                <FaAngleRight
+                    className={styles.icon}
                     onClick={() => {
                         setPortionNumber(portionNumber + 1);
                     }}
                 >
                     Next
-                </button>
+                </FaAngleRight>
             )}
         </div>
     );

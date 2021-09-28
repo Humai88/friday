@@ -78,6 +78,7 @@ export const getPacksTC =
         const packs = getState().packs;
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
+
         dispatch(setAppStatusAC("loading"));
         packsAPI
             .getPacks(currentPage, pageCount)

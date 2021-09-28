@@ -19,7 +19,7 @@ export const Cards = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacksTC());
-    }, []);
+    }, [dispatch]);
     const totalPacksCount = useSelector(
         (state: AppStore) => state.packs.cardPacksTotalCount
     );
@@ -29,8 +29,8 @@ export const Cards = () => {
     const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
 
     const onChangePageHandler = (pageNumber: number) => {
-        dispatch(getPacksTC());
         dispatch(setCurrentPageAC(pageNumber));
+        dispatch(getPacksTC());
     };
     const showModalHandler = () => {
         setShowModal(true);
@@ -69,11 +69,12 @@ export const Cards = () => {
                                 <tr key={pack._id}>
                                     <td> {pack.name}</td>
                                     <td>{pack.cardsCount}</td>
-                                    <td> {pack.updated.toString()}</td>
+                                    <td>{pack.updated.toString()}</td>
                                     <td>{pack.user_name}</td>
 
                                     <td>
                                         <button
+                                            className={styles.deleteBtn}
                                             onClick={() => {
                                                 dispatch(
                                                     removePackTC(pack._id)
@@ -85,6 +86,7 @@ export const Cards = () => {
                                     </td>
                                     <td>
                                         <button
+                                            className={styles.editBtn}
                                             onClick={() => {
                                                 dispatch(
                                                     updatePackTC(
