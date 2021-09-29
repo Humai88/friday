@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPacksTC, setCurrentPageAC } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
+import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
@@ -23,6 +24,7 @@ export const Packs = () => {
     const currentPage = useSelector(
         (state: AppStore) => state.packs.currentPage
     );
+
     const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
 
     const onChangePageHandler = (pageNumber: number) => {
@@ -45,12 +47,14 @@ export const Packs = () => {
         "",
         "",
     ];
+
     return (
         <div className={styles.wrapper}>
             {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
             {showModal && <UpdatePack onClose={hideModalHandler} />}
-
-            <div className={styles.sidebar}></div>
+            <div className={styles.sidebar}>
+                <h3>Show packs cards</h3>
+            </div>
             <div className={styles.packsList}>
                 <h1>Packs List</h1>
                 <div className={styles.search}>

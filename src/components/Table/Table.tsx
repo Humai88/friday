@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
     catchErrorAC,
@@ -9,16 +9,20 @@ import {
 } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
+import { trimString } from "./../../helpers/helpers";
+import { Preloader } from "../../UI-kit/Preloader/Preloader";
+import { AppStore } from "../../redux/store";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
+    const status = useSelector((state: AppStore) => state.app.status);
     const renderPacks = (packs: PackType[]) => {
         return packs.map((pack) => (
             <tr key={pack._id}>
-                <td> {pack.name}</td>
+                <td>{trimString(pack.name, 7)}</td>
                 <td>{pack.cardsCount}</td>
-                <td>{pack.updated.toString()}</td>
-                <td>{pack.user_name}</td>
+                <td>{trimString(pack.updated.toString(), 10)}</td>
+                <td>{trimString(pack.user_name, 10)}</td>
                 <td>
                     <NavLink to={"/"}>
                         <img src={cardsIcon} alt="cards" />
@@ -59,8 +63,10 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
         ));
     };
     const renderCards = (cards: any[]) => {};
+
     return (
         <table className={styles.table}>
+            {status === "loading" && <Preloader />}
             <thead>
                 <tr>
                     {headers.map((header, index) => {
