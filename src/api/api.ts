@@ -1,4 +1,5 @@
 import axios from "axios";
+
 let backend_URL_ADDRESS = process.env.REACT_APP_BACKEND_URL;
 
 const instance = axios.create({
@@ -160,6 +161,7 @@ export type UpdatedPackResponseType = {
     updatedCardsPack: CardsPackType;
     token: string;
 };
-type AddedPackType = {
-    name: string;
-};
+
+// type AddedPackType = {
+//     name: string;
+// };
