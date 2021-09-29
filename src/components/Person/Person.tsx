@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
+import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";
 import styles from "../Profile/Profile.module.css";
 
@@ -21,6 +22,7 @@ export const Person = (props: PersonPropsType) => {
             {props.showModal && (
                 <ChangeUserInfo onClose={props.hideModalHandler} />
             )}
+
             <div className={styles.sidebar}>
                 <div className={styles.infoBox}>
                     <img

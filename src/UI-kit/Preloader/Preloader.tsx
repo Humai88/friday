@@ -1,6 +1,29 @@
-import React from "react";
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
+import { setSyntheticLeadingComments } from "typescript";
+import { Backdrop, ModalOverlay } from "../Modal/Modal";
 import loader from "./../../assets/images/puff.svg";
+import styles from "./Preloader.module.css";
 
 export const Preloader = () => {
-    return <img src={loader} alt="loading" />;
+    const portalElement = document.getElementById("overlays");
+    return (
+        <Fragment>
+            {portalElement &&
+                ReactDOM.createPortal(
+                    <div className={styles.backdrop}>
+                        <img
+                            className={styles.img}
+                            src={loader}
+                            alt="loading"
+                        />
+                    </div>,
+                    portalElement
+                )}
+        </Fragment>
+    );
 };
+
+{
+    /* <img className={styles.img} src={loader} alt="loading" />; */
+}

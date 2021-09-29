@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 
 import classes from "./Modal.module.css";
 
-const Backdrop: React.FC<ModalPropsType> = ({ onClose }) => {
+export const Backdrop: React.FC<ModalPropsType> = ({ onClose }) => {
     return <div className={classes.backdrop} onClick={onClose} />;
 };
 
-const ModalOverlay: React.FC<DefaultDivPropsType> = ({ children }) => {
+export const ModalOverlay: React.FC<DefaultDivPropsType> = ({ children }) => {
     return (
         <div className={classes.modal}>
             <div className={classes.content}>{children}</div>
@@ -41,4 +41,4 @@ type DefaultDivPropsType = DetailedHTMLProps<
     HTMLAttributes<HTMLDivElement>,
     HTMLInputElement
 >;
-type ModalPropsType = DefaultDivPropsType & { onClose: () => void };
+type ModalPropsType = DefaultDivPropsType & { onClose?: () => void };

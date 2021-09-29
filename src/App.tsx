@@ -12,7 +12,7 @@ function App() {
     const isInitialized = useSelector<AppStore, boolean>(
         (state) => state.app.isInitialized
     );
-
+    const status = useSelector((state: AppStore) => state.app.status);
     useEffect(() => {
         if (!isInitialized) {
             dispatch(initializeAppThunk());
@@ -20,22 +20,12 @@ function App() {
     }, [dispatch, isInitialized]);
 
     if (!isInitialized) {
-        return (
-            <div
-                style={{
-                    position: "fixed",
-                    top: "30%",
-                    textAlign: "center",
-                    width: "100%",
-                }}
-            >
-                <Preloader />
-            </div>
-        );
+        return <Preloader />;
     }
     return (
         <HashRouter>
             <div className="app">
+                {status === "loading" && <Preloader />}
                 <Routes />
             </div>
         </HashRouter>
