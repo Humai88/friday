@@ -20,7 +20,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{pack.updated.toString()}</td>
                 <td>{pack.user_name}</td>
                 <td>
-                    <NavLink to={"/cards"}>
+                    <NavLink to={"/"}>
                         <img src={cardsIcon} alt="cards" />
                     </NavLink>
                 </td>
