@@ -8,6 +8,7 @@ import {
     updatePackTC,
 } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
+import cardsIcon from "./../../assets/images/icon-cards.svg";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
@@ -18,7 +19,11 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{pack.cardsCount}</td>
                 <td>{pack.updated.toString()}</td>
                 <td>{pack.user_name}</td>
-
+                <td>
+                    <NavLink to={"/cards"}>
+                        <img src={cardsIcon} alt="cards" />
+                    </NavLink>
+                </td>
                 <td>
                     <button
                         className={styles.deleteBtn}

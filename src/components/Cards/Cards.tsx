@@ -47,6 +47,7 @@ export const Cards = () => {
         "Cards Count",
         "Updated",
         "Created By",
+        "Cards",
         "Actions",
         "",
         "",
