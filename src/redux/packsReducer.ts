@@ -1,6 +1,5 @@
 import { packsAPI } from "../api/api";
 import { setAppStatusAC } from "./appReducer";
-import { catchErrorAC } from "./profileReducer";
 import { AppStore, ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
@@ -22,6 +21,9 @@ const initialState: AppInitialStateType = {
     currentPage: 1,
     pageCount: 10,
     cardPacksTotalCount: 0,
+    userId: "",
+    packsId: "",
+    error: "",
 };
 
 export const packsReducer = (
@@ -45,6 +47,11 @@ export const packsReducer = (
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
             };
+        case "CATCH_ERROR":
+            return {
+                ...state,
+                error: action.payload.error,
+            };
 
         default:
             return state;
@@ -55,7 +62,9 @@ export const packsReducer = (
 export const setPacksAC = (cardPacks: PackType[]) => {
     return { type: "SET_PACKS", payload: { cardPacks } } as const;
 };
-
+export const catchErrorAC = (error: string) => {
+    return { type: "CATCH_ERROR", payload: { error } } as const;
+};
 export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: "SET_CURRENT_PAGE",
@@ -162,7 +171,8 @@ export const updatePackTC =
 export type ActionPacksTypes =
     | ReturnType<typeof setPacksAC>
     | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setPacksTotalCountAC>;
+    | ReturnType<typeof setPacksTotalCountAC>
+    | ReturnType<typeof catchErrorAC>;
 
 export type AppInitialStateType = {
     cardPacks: PackType[];
@@ -171,8 +181,11 @@ export type AppInitialStateType = {
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
+    error: string;
+    userId: string;
+    packsId: string;
 };
-type PackType = {
+export type PackType = {
     _id: string;
     user_id: string;
     user_name: string;
