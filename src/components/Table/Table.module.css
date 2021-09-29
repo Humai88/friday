@@ -1,0 +1,88 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 10px;
+}
+
+th {
+    background-color: var(--color-light);
+}
+
+.btn {
+    width: 30%;
+}
+.table {
+    margin: auto;
+    min-width: 300px;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+.table a {
+    cursor: pointer;
+}
+@media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+    table {
+        width: 100%;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-column);
+        font-weight: bold;
+    }
+}
+.deleteBtn {
+    background-color: var(--color-warning);
+    border: none;
+    color: var(--color-light);
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.editBtn {
+    background-color: var(--color-light);
+    border: none;
+    color: var(--accent-color);
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+}

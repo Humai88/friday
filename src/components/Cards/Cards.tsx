@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+    catchErrorAC,
     getPacksTC,
     removePackTC,
     setCurrentPageAC,
@@ -9,12 +10,15 @@ import {
 } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
+import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
+import { Table } from "../Table/Table";
 import styles from "./Cards.module.css";
 import { UpdatePack } from "./UpdatePack";
 
 export const Cards = () => {
     const [showModal, setShowModal] = useState(false);
+    const errorMessage = useSelector((state: AppStore) => state.packs.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -38,9 +42,19 @@ export const Cards = () => {
     const hideModalHandler = () => {
         setShowModal(false);
     };
-
+    const headers = [
+        "Pack Name",
+        "Cards Count",
+        "Updated",
+        "Created By",
+        "Cards",
+        "Actions",
+        "",
+        "",
+    ];
     return (
         <div className={styles.wrapper}>
+            {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
             {showModal && <UpdatePack onClose={hideModalHandler} />}
 
             <div className={styles.sidebar}></div>
@@ -53,56 +67,7 @@ export const Cards = () => {
                     </Button>
                 </div>
                 <div className={styles.tableWrapper}>
-                    <table className={styles.table}>
-                        <thead>
-                            <tr>
-                                <th>Pack Name</th>
-                                <th>Cards Count</th>
-                                <th>Updated</th>
-                                <th>Created By</th>
-                                <th>Actions</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {packs.map((pack) => (
-                                <tr key={pack._id}>
-                                    <td> {pack.name}</td>
-                                    <td>{pack.cardsCount}</td>
-                                    <td>{pack.updated.toString()}</td>
-                                    <td>{pack.user_name}</td>
-
-                                    <td>
-                                        <button
-                                            className={styles.deleteBtn}
-                                            onClick={() => {
-                                                dispatch(
-                                                    removePackTC(pack._id)
-                                                );
-                                            }}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button
-                                            className={styles.editBtn}
-                                            onClick={() => {
-                                                dispatch(
-                                                    updatePackTC(
-                                                        pack._id,
-                                                        "Name was updated"
-                                                    )
-                                                );
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <Table headers={headers} packs={packs} />
                     <Paginator
                         currentItem={currentPage}
                         itemCount={pageCount}

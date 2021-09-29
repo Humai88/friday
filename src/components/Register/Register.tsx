@@ -5,9 +5,10 @@ import { Card } from "../../UI-kit/Card/Card";
 import { Input } from "../../UI-kit/Input/Input";
 import styles from "./Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserTC } from "../../redux/registerReducer";
+import { registerFailureAC, registerUserTC } from "../../redux/registerReducer";
 import { AppStore } from "../../redux/store";
 import { PATH } from "../Routes/Routes";
+import { ErrorMes } from "../Error/ErrorMes";
 
 export const Register = () => {
     const [user, setUser] = useState<InitialValuesType>({
@@ -43,6 +44,10 @@ export const Register = () => {
         ) {
             dispatch(registerUserTC(user.email, user.createPassword));
             setUser({ email: "", createPassword: "", confirmPassword: "" });
+            setTimeout(() => {
+                dispatch(registerFailureAC(""));
+            }, 2000);
+            setSubmitted(false);
         }
     }
 
@@ -51,6 +56,7 @@ export const Register = () => {
     }
     return (
         <div>
+            {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
             <div className={styles.wrapper}>
                 <Card className={styles.register}>
                     <h1>It-incubator</h1>
@@ -154,9 +160,6 @@ export const Register = () => {
                     </div>
                 </Card>
             </div>
-            {errorMessage && (
-                <div className={styles.errorMessage}>{errorMessage}</div>
-            )}
         </div>
     );
 };
