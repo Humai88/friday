@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "https://Humai88.github.io/friday/static/css/main.1faf27a3.chunk.css",
-    "main.js": "https://Humai88.github.io/friday/static/js/main.4fad6a77.chunk.js",
-    "main.js.map": "https://Humai88.github.io/friday/static/js/main.4fad6a77.chunk.js.map",
-    "runtime-main.js": "https://Humai88.github.io/friday/static/js/runtime-main.af3007ea.js",
-    "runtime-main.js.map": "https://Humai88.github.io/friday/static/js/runtime-main.af3007ea.js.map",
-    "static/css/2.679831fc.chunk.css": "https://Humai88.github.io/friday/static/css/2.679831fc.chunk.css",
-    "static/js/2.42a60e84.chunk.js": "https://Humai88.github.io/friday/static/js/2.42a60e84.chunk.js",
-    "static/js/2.42a60e84.chunk.js.map": "https://Humai88.github.io/friday/static/js/2.42a60e84.chunk.js.map",
-    "index.html": "https://Humai88.github.io/friday/index.html",
-    "static/css/2.679831fc.chunk.css.map": "https://Humai88.github.io/friday/static/css/2.679831fc.chunk.css.map",
-    "static/css/main.1faf27a3.chunk.css.map": "https://Humai88.github.io/friday/static/css/main.1faf27a3.chunk.css.map",
-    "static/js/2.42a60e84.chunk.js.LICENSE.txt": "https://Humai88.github.io/friday/static/js/2.42a60e84.chunk.js.LICENSE.txt",
-    "static/media/App.css": "https://Humai88.github.io/friday/static/media/icon-profile.6008b765.svg",
-    "static/media/mail.995de1e6.svg": "https://Humai88.github.io/friday/static/media/mail.995de1e6.svg",
-    "static/media/puff.6b477021.svg": "https://Humai88.github.io/friday/static/media/puff.6b477021.svg",
-    "static/media/ParrwordUpdate.module.css": "https://Humai88.github.io/friday/static/media/shape.109a1739.svg"
+    "main.css": "/friday/static/css/main.ff429628.chunk.css",
+    "main.js": "/friday/static/js/main.9edf1086.chunk.js",
+    "main.js.map": "/friday/static/js/main.9edf1086.chunk.js.map",
+    "runtime-main.js": "/friday/static/js/runtime-main.76a01c93.js",
+    "runtime-main.js.map": "/friday/static/js/runtime-main.76a01c93.js.map",
+    "static/css/2.679831fc.chunk.css": "/friday/static/css/2.679831fc.chunk.css",
+    "static/js/2.27012fbd.chunk.js": "/friday/static/js/2.27012fbd.chunk.js",
+    "static/js/2.27012fbd.chunk.js.map": "/friday/static/js/2.27012fbd.chunk.js.map",
+    "index.html": "/friday/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/friday/static/css/2.679831fc.chunk.css.map",
+    "static/css/main.ff429628.chunk.css.map": "/friday/static/css/main.ff429628.chunk.css.map",
+    "static/js/2.27012fbd.chunk.js.LICENSE.txt": "/friday/static/js/2.27012fbd.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/friday/static/media/icon-profile.6008b765.svg",
+    "static/media/mail.995de1e6.svg": "/friday/static/media/mail.995de1e6.svg",
+    "static/media/puff.6b477021.svg": "/friday/static/media/puff.6b477021.svg",
+    "static/media/ParrwordUpdate.module.css": "/friday/static/media/shape.109a1739.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.af3007ea.js",
+    "static/js/runtime-main.76a01c93.js",
     "static/css/2.679831fc.chunk.css",
-    "static/js/2.42a60e84.chunk.js",
-    "static/css/main.1faf27a3.chunk.css",
-    "static/js/main.4fad6a77.chunk.js"
+    "static/js/2.27012fbd.chunk.js",
+    "static/css/main.ff429628.chunk.css",
+    "static/js/main.9edf1086.chunk.js"
   ]
 }
