@@ -16,14 +16,14 @@ export const PATH = {
     PASSWORD_RECOVERY: "/password-recovery",
     PROFILE: "/profile",
     PROFILE_PERSON: "/profile/person",
-    PROFILE_CARDS: "/profile/cards",
+    PROFILE_PACKS: "/profile/packs",
     REGISTER: "/register",
     EMAIL_CHECK: "/check-email",
     ERROR: "/error-page",
 };
 
 export const navLinksProfile = [
-    { path: PATH.PROFILE_CARDS, text: "Packs list" },
+    { path: PATH.PROFILE_PACKS, text: "Packs list" },
     { path: PATH.PROFILE_PERSON, text: "Profile" },
 ];
 
@@ -61,7 +61,7 @@ const Routes = () => {
                 />
                 <Route
                     exact
-                    path={PATH.PROFILE_CARDS}
+                    path={PATH.PROFILE_PACKS}
                     render={() => <Profile />}
                 />
                 <Route

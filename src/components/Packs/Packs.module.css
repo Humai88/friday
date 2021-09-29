@@ -52,23 +52,7 @@
     width: 60%;
     padding: 7px;
 }
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 500;
-}
 
-th,
-td {
-    text-align: left;
-    padding: 10px;
-    word-break: break-word;
-}
-
-th {
-    background-color: var(--color-light);
-}
 .tableWrapper {
     margin: 2rem 0 1rem 0;
     display: flex;
