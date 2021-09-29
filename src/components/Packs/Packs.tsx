@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import {
-    catchErrorAC,
-    getPacksTC,
-    removePackTC,
-    setCurrentPageAC,
-    updatePackTC,
-} from "../../redux/packsReducer";
+import { getPacksTC, setCurrentPageAC } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
-import styles from "./Cards.module.css";
+import styles from "./Packs.module.css";
 import { UpdatePack } from "./UpdatePack";
 
-export const Cards = () => {
+export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
     const errorMessage = useSelector((state: AppStore) => state.packs.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);

@@ -1,7 +1,7 @@
 table {
     border-collapse: collapse;
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
@@ -18,12 +18,7 @@ th {
 .btn {
     width: 30%;
 }
-.table {
-    margin: auto;
-    min-width: 300px;
-    max-width: 100%;
-    border-collapse: collapse;
-}
+
 .table a {
     cursor: pointer;
 }

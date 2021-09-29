@@ -6,7 +6,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { logoutThunk } from "../../redux/loginReducer";
 import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Person } from "../Person/Person";
-import { Cards } from "../Cards/Cards";
+import { Packs } from "../Packs/Packs";
 import { Header } from "../Header/Header";
 
 export const Profile = () => {
@@ -58,8 +58,8 @@ export const Profile = () => {
 
                 <Route
                     exact
-                    path={PATH.PROFILE_CARDS}
-                    render={() => <Cards />}
+                    path={PATH.PROFILE_PACKS}
+                    render={() => <Packs />}
                 />
             </Switch>
         </>
