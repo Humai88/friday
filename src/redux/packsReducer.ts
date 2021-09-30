@@ -24,6 +24,7 @@ const initialState: AppInitialStateType = {
     userId: "",
     packsId: "",
     error: "",
+    searchPacks: '',
 };
 
 export const packsReducer = (
@@ -36,7 +37,9 @@ export const packsReducer = (
                 ...state,
                 cardPacks: action.payload.cardPacks.map((p) => p),
             };
-
+        case 'SET_SEARCH_PACKS':
+            return {...state,
+                searchPacks:  action.payload.searchValue}
         case "SET_CURRENT_PAGE":
             return {
                 ...state,
@@ -81,16 +84,25 @@ export const setPacksTotalCountAC = (cardPacksTotalCount: number) => {
         },
     } as const;
 };
+export const setSearchPacksAC = (searchValue: string) => {
+    return {
+        type: "SET_SEARCH_PACKS",
+        payload: {
+            searchValue,
+        },
+    } as const;
+};
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
         const packs = getState().packs;
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
+        const packName = packs.searchPacks
 
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount)
+            .getPacks(currentPage, pageCount, packName)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -172,8 +184,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
-    | ReturnType<typeof catchErrorAC>;
-
+    | ReturnType<typeof catchErrorAC>
+    | ReturnType <typeof setSearchPacksAC>
 export type AppInitialStateType = {
     cardPacks: PackType[];
     currentPage: number;
@@ -184,6 +196,7 @@ export type AppInitialStateType = {
     error: string;
     userId: string;
     packsId: string;
+    searchPacks: string
 };
 export type PackType = {
     _id: string;

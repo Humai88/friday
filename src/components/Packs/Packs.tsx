@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPacksTC, setCurrentPageAC } from "../../redux/packsReducer";
+import {getPacksTC, setCurrentPageAC, setSearchPacksAC} from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { ErrorMes } from "../Error/ErrorMes";
@@ -11,6 +11,7 @@ import { UpdatePack } from "./UpdatePack";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
+    const [searchPack, setSearchPack] = useState('')
     const errorMessage = useSelector((state: AppStore) => state.packs.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);
     const dispatch = useDispatch();
@@ -35,6 +36,11 @@ export const Packs = () => {
     const hideModalHandler = () => {
         setShowModal(false);
     };
+    const callSetSearchPack = (value: string) => {
+        setSearchPack(value)
+        dispatch(setSearchPacksAC(searchPack))
+    }
+
     const headers = [
         "Pack Name",
         "Cards Count",
@@ -54,7 +60,7 @@ export const Packs = () => {
             <div className={styles.packsList}>
                 <h1>Packs List</h1>
                 <div className={styles.search}>
-                    <input type="text" placeholder="Search..." />
+                    <input type="text" placeholder="Search..." onChange={(e) => callSetSearchPack(e.currentTarget.value) } /> <Button onClick={() => dispatch(getPacksTC())}>Search</Button>
                     <Button onClick={showModalHandler} className={styles.btn}>
                         Add new pack
                     </Button>
@@ -73,3 +79,5 @@ export const Packs = () => {
         </div>
     );
 };
+
+

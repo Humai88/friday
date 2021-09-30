@@ -51,9 +51,9 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-    getPacks(currentPage: number, pageCount: number) {
+    getPacks(currentPage: number, pageCount: number, packName: string) {
         return instance.get<PacksResponseType>(
-            `cards/pack?pageCount=${pageCount}&page=${currentPage}`
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}&packName=${packName}`
         );
     },
     addPack(name: string) {
