@@ -111,13 +111,21 @@ export const Packs = () => {
                         onChange={(e) =>
                             callSetSearchPack(e.currentTarget.value)
                         }
-                    />{" "}
-                    <Button onClick={() => dispatch(getPacksTC())}>
-                        Search
-                    </Button>
-                    <Button onClick={showModalHandler} className={styles.btn}>
-                        Add new pack
-                    </Button>
+                    />
+                    <div className={styles.btnsWrapper}>
+                        <Button
+                            className={styles.searchBtn}
+                            onClick={() => dispatch(getPacksTC())}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            className={styles.searchBtn}
+                            onClick={showModalHandler}
+                        >
+                            Add new pack
+                        </Button>
+                    </div>
                 </div>
                 <div className={styles.tableWrapper}>
                     <Table headers={headers} packs={packs} />

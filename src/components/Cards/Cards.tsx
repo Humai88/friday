@@ -20,7 +20,14 @@ export const Cards = () => {
             dispatch(catchErrorAC(""));
         }, 3000);
     }, [dispatch]);
-    const headers = ["Question", "Answer", "Last Updated", "Grade"];
+    const headers = [
+        "Question",
+        "Answer",
+        "Last Updated",
+        "Grade",
+        "Actions",
+        "",
+    ];
     const cards = useSelector((state: AppStore) => state.cards.cards);
 
     return (
@@ -30,19 +37,20 @@ export const Cards = () => {
                 className={styles.header}
                 profilePage
             />
-            <Card className={styles.wrapper}>
-                {cards.length === 0 ? (
-                    <div className={styles.empty}>
-                        <h2>There is no cards in this pack</h2>
-                        <Button>Add card</Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Button>Add card</Button>
-                        <Table headers={headers} cards={cards} />
-                    </div>
-                )}
-            </Card>
+            <div className={styles.content}>
+                <Button className={styles.btn}>Add card</Button>
+                <Card className={styles.wrapper}>
+                    {cards.length === 0 ? (
+                        <div className={styles.empty}>
+                            <h2>There is no cards in this pack</h2>
+                        </div>
+                    ) : (
+                        <div>
+                            <Table headers={headers} cards={cards} />
+                        </div>
+                    )}
+                </Card>
+            </div>
         </>
     );
 };

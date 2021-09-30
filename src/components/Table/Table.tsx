@@ -71,6 +71,30 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{card.answer}</td>
                 <td>{trimString(card.updated.toString(), 10)}</td>
                 <td>{card.rating}</td>
+                <td>
+                    <button
+                        className={styles.deleteBtn}
+                        onClick={() => {
+                            setTimeout(() => {
+                                dispatch(catchErrorAC(""));
+                            }, 2000);
+                        }}
+                    >
+                        Delete
+                    </button>
+                </td>
+                <td>
+                    <button
+                        className={styles.editBtn}
+                        onClick={() => {
+                            setTimeout(() => {
+                                dispatch(catchErrorAC(""));
+                            }, 2000);
+                        }}
+                    >
+                        Edit
+                    </button>
+                </td>
             </tr>
         ));
     };
