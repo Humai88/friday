@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getMyPacksTC,
     getPacksTC,
     setCurrentPageAC,
+    setMaxValueAC,
+    setMinValueAC,
+    setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
@@ -20,11 +23,9 @@ export const Packs = () => {
     const [searchPack, setSearchPack] = useState("");
     const errorMessage = useSelector((state: AppStore) => state.app.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getPacksTC());
-    }, [dispatch]);
+    const min = useSelector((state: AppStore) => state.packs.minCardsCount);
+    const max = useSelector((state: AppStore) => state.packs.maxCardsCount);
+    const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
     const totalPacksCount = useSelector(
         (state: AppStore) => state.packs.cardPacksTotalCount
     );
@@ -32,7 +33,10 @@ export const Packs = () => {
         (state: AppStore) => state.packs.currentPage
     );
 
-    const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getPacksTC());
+    }, []);
 
     const onChangePageHandler = (pageNumber: number) => {
         dispatch(setCurrentPageAC(pageNumber));
@@ -54,20 +58,21 @@ export const Packs = () => {
         "",
         "",
     ];
-    const getMyPacksHandler = () => {
+    const getMyPacksHandler = useCallback(() => {
         dispatch(getMyPacksTC());
-    };
-    const getAllPacksHandler = () => {
-        dispatch(getPacksTC());
-    };
+    }, []);
+    const getAllPacksHandler = useCallback(() => {
+        // dispatch(getPacksTC());
+    }, []);
 
-    const [value1, setValue1] = useState<number>(0);
-    const [value2, setValue2] = useState<number>(90);
+    const [value, setValue] = useState<number[]>([min, max]);
 
-    const onChangeSuperDoubleRange = (value: number[]) => {
-        setValue1(value[0]);
-        setValue2(value[1]);
-    };
+    const onChangeSuperDoubleRange = useCallback((value: number[]) => {
+        dispatch(setMinValueAC(value[0]));
+        dispatch(setMaxValueAC(value[1]));
+        setValue(value);
+    }, []);
+    // console.log(value);
 
     return (
         <div className={styles.wrapper}>
@@ -97,7 +102,7 @@ export const Packs = () => {
                     <h3>Number of cards</h3>
                     <div className={styles.sliderWrapper}>
                         <RangeUI
-                            value={[value1, value2]}
+                            value={value}
                             onChangeRange={onChangeSuperDoubleRange}
                         />
                     </div>

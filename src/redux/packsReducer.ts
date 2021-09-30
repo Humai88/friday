@@ -46,7 +46,28 @@ export const packsReducer = (
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
             };
-
+        case "SET_RANGE_VALUES":
+            return {
+                ...state,
+                minCardsCount: action.payload.value[0],
+                maxCardsCount: action.payload.value[1],
+            };
+        case "SET_MIN_VALUE":
+            let sorted1 = state.cardPacks.sort((a, b) => {
+                return a.cardsCount - b.cardsCount;
+            });
+            return {
+                ...state,
+                minCardsCount: sorted1[0].cardsCount,
+            };
+        case "SET_MAX_VALUE":
+            let sorted2 = state.cardPacks.sort((a, b) => {
+                return a.cardsCount - b.cardsCount;
+            });
+            return {
+                ...state,
+                maxCardsCount: sorted2[sorted2.length - 1].cardsCount,
+            };
         default:
             return state;
     }
@@ -81,6 +102,30 @@ export const setSearchPacksAC = (searchValue: string) => {
         },
     } as const;
 };
+export const setRangeValuesAC = (value: number[]) => {
+    return {
+        type: "SET_RANGE_VALUES",
+        payload: {
+            value,
+        },
+    } as const;
+};
+export const setMinValueAC = (value: number) => {
+    return {
+        type: "SET_MIN_VALUE",
+        payload: {
+            value,
+        },
+    } as const;
+};
+export const setMaxValueAC = (value: number) => {
+    return {
+        type: "SET_MAX_VALUE",
+        payload: {
+            value,
+        },
+    } as const;
+};
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
@@ -88,13 +133,16 @@ export const getPacksTC =
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
         const packName = packs.searchPacks;
-        const userId = packs.userId;
+        const min = packs.minCardsCount;
+        const max = packs.maxCardsCount;
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount, packName, userId)
+            .getPacks(currentPage, pageCount, packName, "", min, max)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+                dispatch(setMinValueAC(min));
+                dispatch(setMaxValueAC(max));
             })
             .catch((err) => {
                 const error = err.response
@@ -114,9 +162,11 @@ export const getMyPacksTC =
         const pageCount = packs.pageCount;
         const userId = getState().profile.profile._id;
         const packName = packs.searchPacks;
+        const min = packs.minCardsCount;
+        const max = packs.maxCardsCount;
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount, packName, userId)
+            .getPacks(currentPage, pageCount, packName, userId, min, max)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -200,7 +250,10 @@ export type ActionPacksTypes =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
-    | ReturnType<typeof setSearchPacksAC>;
+    | ReturnType<typeof setSearchPacksAC>
+    | ReturnType<typeof setRangeValuesAC>
+    | ReturnType<typeof setMinValueAC>
+    | ReturnType<typeof setMaxValueAC>;
 export type AppInitialStateType = {
     cardPacks: PackType[];
     currentPage: number;
