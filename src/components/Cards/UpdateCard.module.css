@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.wrapper span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.btn {
+    margin-top: 2rem;
+    width: 20%;
+}
+.wrapper label {
+    margin-bottom: 1rem;
+}
+.wrapper .icon {
+    position: absolute;
+    font-size: 1.7rem;
+    top: -2rem;
+    right: -2rem;
+    cursor: pointer;
+}

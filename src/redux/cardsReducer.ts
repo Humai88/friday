@@ -21,7 +21,6 @@ const initialState: AppInitialStateType = {
     pageCount: 10,
     cardsCount: 0,
     packUserId: "",
-    packsId: "",
 };
 
 export const cardsReducer = (
@@ -88,13 +87,82 @@ export const setCardsCountAC = (cardsCount: number) => {
 // Thunks
 export const getCardsTC =
     (packId: string): ThunkType =>
-    (dispatch) => {
+    (dispatch, getState: () => AppStore) => {
+        const cards = getState().cards;
+        const currentPage = cards.currentPage;
+        const pageCount = cards.pageCount;
         dispatch(setAppStatusAC("loading"));
         cardsAPI
-            .getCards(packId)
+            .getCards(packId, currentPage, pageCount)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cards));
                 dispatch(setUserIdAC(res.data.packUserId));
+                dispatch(setCardsCountAC(res.data.cardsTotalCount));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+export const addCardTC =
+    (cardsPackId: string, question: string, answer: string): ThunkType =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        cardsAPI
+            .addCard(cardsPackId, question, answer)
+            .then((res) => {
+                dispatch(getCardsTC(cardsPackId));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+export const deleteCardTC =
+    (cardId: string, cardsPackId: string): ThunkType =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        cardsAPI
+            .deleteCard(cardId)
+            .then((res) => {
+                dispatch(getCardsTC(cardsPackId));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+export const updateCardTC =
+    (
+        cardId: string,
+        cardsPackId: string,
+        question: string,
+        answer: string
+    ): ThunkType =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        cardsAPI
+            .updateCard(cardId, question, answer)
+            .then((res) => {
+                dispatch(getCardsTC(cardsPackId));
             })
             .catch((err) => {
                 const error = err.response
@@ -123,7 +191,6 @@ export type AppInitialStateType = {
     minCardsCount: number;
     maxCardsCount: number;
     packUserId: string;
-    packsId: string;
 };
 export type CardType = {
     _id: string;

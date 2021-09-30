@@ -82,10 +82,23 @@ export const packsAPI = {
 };
 
 export const cardsAPI = {
-    getCards(packId: string) {
+    getCards(packId: string, currentPage: number, pageCount: number) {
         return instance.get<GetCadrsResponseType>(
-            `cards/card?cardsPack_id=${packId}`
+            `cards/card?cardsPack_id=${packId}&pageCount=${pageCount}&page=${currentPage}`
         );
+    },
+    addCard(cardsPack_id: string, question: string, answer: string) {
+        return instance.post<AddedCardResponseType>(`cards/card`, {
+            card: { cardsPack_id, question, answer },
+        });
+    },
+    deleteCard(id: string) {
+        return instance.delete<DeletedCardResponseType>(`cards/card?id=${id}`);
+    },
+    updateCard(_id: string, question: string, answer: string) {
+        return instance.put<UpdatedCardResponseType>(`cards/card`, {
+            card: { _id, question, answer },
+        });
     },
 };
 
@@ -195,4 +208,13 @@ export type CardType = {
     type: string;
     rating: number;
     updated: Date;
+};
+export type AddedCardResponseType = {
+    newCard: CardType;
+};
+export type DeletedCardResponseType = {
+    deletedCard: CardType;
+};
+export type UpdatedCardResponseType = {
+    updatedCard: CardType;
 };

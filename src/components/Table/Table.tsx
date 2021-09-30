@@ -8,7 +8,7 @@ import { trimString } from "./../../helpers/helpers";
 import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { AppStore } from "../../redux/store";
 import { catchErrorAC } from "../../redux/appReducer";
-import { CardType } from "../../redux/cardsReducer";
+import { CardType, deleteCardTC, updateCardTC } from "../../redux/cardsReducer";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
@@ -86,6 +86,10 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                         <button
                             className={styles.deleteBtn}
                             onClick={() => {
+                                dispatch(
+                                    deleteCardTC(card._id, card.cardsPack_id)
+                                );
+
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
                                 }, 2000);
@@ -102,6 +106,14 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                         <button
                             className={styles.editBtn}
                             onClick={() => {
+                                dispatch(
+                                    updateCardTC(
+                                        card._id,
+                                        card.cardsPack_id,
+                                        "Question was updated",
+                                        "Answer was updated"
+                                    )
+                                );
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
                                 }, 2000);

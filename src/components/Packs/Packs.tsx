@@ -38,12 +38,7 @@ export const Packs = () => {
         dispatch(setCurrentPageAC(pageNumber));
         dispatch(getPacksTC());
     };
-    const showModalHandler = () => {
-        setShowModal(true);
-    };
-    const hideModalHandler = () => {
-        setShowModal(false);
-    };
+
     const callSetSearchPack = (value: string) => {
         setSearchPack(value);
         dispatch(setSearchPacksAC(searchPack));
@@ -77,7 +72,13 @@ export const Packs = () => {
     return (
         <div className={styles.wrapper}>
             {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
-            {showModal && <UpdatePack onClose={hideModalHandler} />}
+            {showModal && (
+                <UpdatePack
+                    onClose={() => {
+                        setShowModal(false);
+                    }}
+                />
+            )}
             <div className={styles.sidebar}>
                 <h3>Show packs cards</h3>
                 <div className={styles.btnWrapper}>
@@ -121,7 +122,9 @@ export const Packs = () => {
                         </Button>
                         <Button
                             className={styles.searchBtn}
-                            onClick={showModalHandler}
+                            onClick={() => {
+                                setShowModal(true);
+                            }}
                         >
                             Add new pack
                         </Button>
