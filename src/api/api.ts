@@ -55,10 +55,12 @@ export const packsAPI = {
         currentPage: number,
         pageCount: number,
         packName: string,
-        userId: string | null
+        userId: string | null,
+        min: number,
+        max: number
     ) {
         return instance.get<PacksResponseType>(
-            `cards/pack?pageCount=${pageCount}&page=${currentPage}&packName=${packName}&user_id=${userId}`
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}&packName=${packName}&user_id=${userId}&min=${min}&max=${max}`
         );
     },
     addPack(name: string) {
