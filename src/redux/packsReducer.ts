@@ -21,6 +21,7 @@ const initialState: AppInitialStateType = {
     cardPacksTotalCount: 0,
     userId: "",
     packsId: "",
+    searchPacks: "",
 };
 
 export const packsReducer = (
@@ -33,7 +34,8 @@ export const packsReducer = (
                 ...state,
                 cardPacks: action.payload.cardPacks.map((p) => p),
             };
-
+        case "SET_SEARCH_PACKS":
+            return { ...state, searchPacks: action.payload.searchValue };
         case "SET_CURRENT_PAGE":
             return {
                 ...state,
@@ -71,11 +73,11 @@ export const setPacksTotalCountAC = (cardPacksTotalCount: number) => {
         },
     } as const;
 };
-export const setUserIdAC = (userId: number) => {
+export const setSearchPacksAC = (searchValue: string) => {
     return {
-        type: "SET_USER_ID",
+        type: "SET_SEARCH_PACKS",
         payload: {
-            userId,
+            searchValue,
         },
     } as const;
 };
@@ -85,11 +87,11 @@ export const getPacksTC =
         const packs = getState().packs;
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
-        // const userId = getState().profile.profile._id;
-
+        const packName = packs.searchPacks;
+        const userId = packs.userId;
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount, "")
+            .getPacks(currentPage, pageCount, packName, userId)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -111,10 +113,10 @@ export const getMyPacksTC =
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
         const userId = getState().profile.profile._id;
-
+        const packName = packs.searchPacks;
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount, userId)
+            .getPacks(currentPage, pageCount, packName, userId)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -197,8 +199,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
-    | ReturnType<typeof setUserIdAC>;
-
+    | ReturnType<typeof catchErrorAC>
+    | ReturnType<typeof setSearchPacksAC>;
 export type AppInitialStateType = {
     cardPacks: PackType[];
     currentPage: number;
@@ -208,6 +210,7 @@ export type AppInitialStateType = {
     maxCardsCount: number;
     userId: string;
     packsId: string;
+    searchPacks: string;
 };
 export type PackType = {
     _id: string;
