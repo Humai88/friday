@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { PackType, removePackTC, updatePackTC } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
@@ -8,13 +8,15 @@ import { trimString } from "./../../helpers/helpers";
 import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { AppStore } from "../../redux/store";
 import { catchErrorAC } from "../../redux/appReducer";
-import { PATH } from "../Routes/Routes";
 import { CardType } from "../../redux/cardsReducer";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
     const status = useSelector((state: AppStore) => state.app.status);
-
+    const userId = useSelector((state: AppStore) => state.profile.profile._id);
+    const userIdFromCards = useSelector(
+        (state: AppStore) => state.cards.packUserId
+    );
     // Get packs table body
     const renderPacks = (packs: PackType[]) => {
         return packs.map((pack) => (
@@ -29,35 +31,43 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     </NavLink>
                 </td>
                 <td>
-                    <button
-                        className={styles.deleteBtn}
-                        onClick={() => {
-                            dispatch(removePackTC(pack._id));
-                            setTimeout(() => {
-                                dispatch(catchErrorAC(""));
-                            }, 2000);
-                        }}
-                    >
-                        Delete
-                    </button>
-                </td>
-                <td>
-                    <button
-                        className={styles.editBtn}
-                        onClick={() => {
-                            dispatch(
-                                updatePackTC(pack._id, "Name was updated")
-                            );
-                            setTimeout(() => {
-                                dispatch(catchErrorAC(""));
-                            }, 2000);
-                        }}
-                    >
-                        Edit
-                    </button>
-                </td>
-                <td>
                     <button className={styles.editBtn}>Learn</button>
+                </td>
+                <td>
+                    {pack.user_id === userId ? (
+                        <button
+                            className={styles.deleteBtn}
+                            onClick={() => {
+                                dispatch(removePackTC(pack._id));
+                                setTimeout(() => {
+                                    dispatch(catchErrorAC(""));
+                                }, 2000);
+                            }}
+                        >
+                            Delete
+                        </button>
+                    ) : (
+                        ""
+                    )}
+                </td>
+                <td>
+                    {pack.user_id === userId ? (
+                        <button
+                            className={styles.editBtn}
+                            onClick={() => {
+                                dispatch(
+                                    updatePackTC(pack._id, "Name was updated")
+                                );
+                                setTimeout(() => {
+                                    dispatch(catchErrorAC(""));
+                                }, 2000);
+                            }}
+                        >
+                            Edit
+                        </button>
+                    ) : (
+                        ""
+                    )}
                 </td>
             </tr>
         ));
@@ -72,28 +82,36 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{trimString(card.updated.toString(), 10)}</td>
                 <td>{card.rating}</td>
                 <td>
-                    <button
-                        className={styles.deleteBtn}
-                        onClick={() => {
-                            setTimeout(() => {
-                                dispatch(catchErrorAC(""));
-                            }, 2000);
-                        }}
-                    >
-                        Delete
-                    </button>
+                    {userIdFromCards === userId ? (
+                        <button
+                            className={styles.deleteBtn}
+                            onClick={() => {
+                                setTimeout(() => {
+                                    dispatch(catchErrorAC(""));
+                                }, 2000);
+                            }}
+                        >
+                            Delete
+                        </button>
+                    ) : (
+                        ""
+                    )}
                 </td>
                 <td>
-                    <button
-                        className={styles.editBtn}
-                        onClick={() => {
-                            setTimeout(() => {
-                                dispatch(catchErrorAC(""));
-                            }, 2000);
-                        }}
-                    >
-                        Edit
-                    </button>
+                    {userIdFromCards === userId ? (
+                        <button
+                            className={styles.editBtn}
+                            onClick={() => {
+                                setTimeout(() => {
+                                    dispatch(catchErrorAC(""));
+                                }, 2000);
+                            }}
+                        >
+                            Edit
+                        </button>
+                    ) : (
+                        ""
+                    )}
                 </td>
             </tr>
         ));
@@ -126,17 +144,3 @@ type TablePropsType = {
     packs?: PackType[];
     cards?: CardType[];
 };
-
-// const { packId } = useParams<PackParamsType>();
-// const cardPage = cards?.find((card) => card.answer === packId);
-
-// const renderCards = () => {
-//     return (
-//         <tr key={cardPage?._id}>
-//             <td>{cardPage?.question}</td>
-//             <td>{cardPage?.answer}</td>
-//             <td>{cardPage?.updated.toString()}</td>
-//             <td>{cardPage?.rating}</td>
-//         </tr>
-//     );
-// };

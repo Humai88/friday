@@ -7,7 +7,6 @@ const initialState: AppInitialStateType = {
         {
             _id: "",
             cardsPack_id: "",
-            user_id: "",
             answer: "",
             question: "",
             grade: 0,
@@ -21,7 +20,7 @@ const initialState: AppInitialStateType = {
     currentPage: 1,
     pageCount: 10,
     cardsCount: 0,
-    userId: "",
+    packUserId: "",
     packsId: "",
 };
 
@@ -45,6 +44,11 @@ export const cardsReducer = (
                 ...state,
                 cardsCount: action.payload.cardsCount,
             };
+        case "SET_USER_ID":
+            return {
+                ...state,
+                packUserId: action.payload.userId,
+            };
 
         default:
             return state;
@@ -64,6 +68,14 @@ export const setCurrentPageAC = (currentPage: number) => {
         },
     } as const;
 };
+export const setUserIdAC = (userId: string) => {
+    return {
+        type: "SET_USER_ID",
+        payload: {
+            userId,
+        },
+    } as const;
+};
 export const setCardsCountAC = (cardsCount: number) => {
     return {
         type: "SET_CARDS_TOTAL_COUNT",
@@ -72,14 +84,7 @@ export const setCardsCountAC = (cardsCount: number) => {
         },
     } as const;
 };
-export const setUserIdAC = (userId: number) => {
-    return {
-        type: "SET_USER_ID",
-        payload: {
-            userId,
-        },
-    } as const;
-};
+
 // Thunks
 export const getCardsTC =
     (packId: string): ThunkType =>
@@ -89,7 +94,7 @@ export const getCardsTC =
             .getCards(packId)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cards));
-                // dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+                dispatch(setUserIdAC(res.data.packUserId));
             })
             .catch((err) => {
                 const error = err.response
@@ -117,13 +122,12 @@ export type AppInitialStateType = {
     cardsCount: number;
     minCardsCount: number;
     maxCardsCount: number;
-    userId: string;
+    packUserId: string;
     packsId: string;
 };
 export type CardType = {
     _id: string;
     cardsPack_id: string;
-    user_id: string;
     answer: string;
     question: string;
     grade: number;
