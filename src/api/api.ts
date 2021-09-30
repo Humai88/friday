@@ -51,9 +51,14 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-    getPacks(currentPage: number, pageCount: number, packName: string) {
+    getPacks(
+        currentPage: number,
+        pageCount: number,
+        packName: string,
+        userId: string | null
+    ) {
         return instance.get<PacksResponseType>(
-            `cards/pack?pageCount=${pageCount}&page=${currentPage}&packName=${packName}`
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}&packName=${packName}&user_id=${userId}`
         );
     },
     addPack(name: string) {
@@ -72,6 +77,27 @@ export const packsAPI = {
                 _id,
                 name,
             },
+        });
+    },
+};
+
+export const cardsAPI = {
+    getCards(packId: string, currentPage: number, pageCount: number) {
+        return instance.get<GetCadrsResponseType>(
+            `cards/card?cardsPack_id=${packId}&pageCount=${pageCount}&page=${currentPage}`
+        );
+    },
+    addCard(cardsPack_id: string, question: string, answer: string) {
+        return instance.post<AddedCardResponseType>(`cards/card`, {
+            card: { cardsPack_id, question, answer },
+        });
+    },
+    deleteCard(id: string) {
+        return instance.delete<DeletedCardResponseType>(`cards/card?id=${id}`);
+    },
+    updateCard(_id: string, question: string, answer: string) {
+        return instance.put<UpdatedCardResponseType>(`cards/card`, {
+            card: { _id, question, answer },
         });
     },
 };
@@ -162,6 +188,33 @@ export type UpdatedPackResponseType = {
     token: string;
 };
 
-// type AddedPackType = {
-//     name: string;
-// };
+export type GetCadrsResponseType = {
+    cards: CardType[];
+    packUserId: string;
+    page: number;
+    pageCount: number;
+    cardsTotalCount: number;
+    minGrade: number;
+    maxGrade: number;
+};
+export type CardType = {
+    _id: string;
+    cardsPack_id: string;
+    user_id: string;
+    answer: string;
+    question: string;
+    grade: number;
+    shots: number;
+    type: string;
+    rating: number;
+    updated: Date;
+};
+export type AddedCardResponseType = {
+    newCard: CardType;
+};
+export type DeletedCardResponseType = {
+    deletedCard: CardType;
+};
+export type UpdatedCardResponseType = {
+    updatedCard: CardType;
+};

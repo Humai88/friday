@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getPacksTC, setCurrentPageAC, setSearchPacksAC} from "../../redux/packsReducer";
+import {
+    getMyPacksTC,
+    getPacksTC,
+    setCurrentPageAC,
+    setSearchPacksAC,
+} from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import RangeUI from "../../UI-kit/RangeUI/RangeUI";
@@ -12,9 +17,10 @@ import { UpdatePack } from "./UpdatePack";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
-    const [searchPack, setSearchPack] = useState('')
-    const errorMessage = useSelector((state: AppStore) => state.packs.error);
+    const [searchPack, setSearchPack] = useState("");
+    const errorMessage = useSelector((state: AppStore) => state.app.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacksTC());
@@ -32,16 +38,11 @@ export const Packs = () => {
         dispatch(setCurrentPageAC(pageNumber));
         dispatch(getPacksTC());
     };
-    const showModalHandler = () => {
-        setShowModal(true);
-    };
-    const hideModalHandler = () => {
-        setShowModal(false);
-    };
+
     const callSetSearchPack = (value: string) => {
-        setSearchPack(value)
-        dispatch(setSearchPacksAC(searchPack))
-    }
+        setSearchPack(value);
+        dispatch(setSearchPacksAC(searchPack));
+    };
 
     const headers = [
         "Pack Name",
@@ -53,24 +54,44 @@ export const Packs = () => {
         "",
         "",
     ];
+    const getMyPacksHandler = () => {
+        dispatch(getMyPacksTC());
+    };
+    const getAllPacksHandler = () => {
+        dispatch(getPacksTC());
+    };
 
-    const [value1, setValue1] = useState<number>(0)
-    const [value2, setValue2] = useState<number>(90)
+    const [value1, setValue1] = useState<number>(0);
+    const [value2, setValue2] = useState<number>(90);
 
     const onChangeSuperDoubleRange = (value: number[]) => {
-        setValue1(value[0])
-        setValue2(value[1])
-    }
+        setValue1(value[0]);
+        setValue2(value[1]);
+    };
 
     return (
         <div className={styles.wrapper}>
             {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
-            {showModal && <UpdatePack onClose={hideModalHandler} />}
+            {showModal && (
+                <UpdatePack
+                    onClose={() => {
+                        setShowModal(false);
+                    }}
+                />
+            )}
             <div className={styles.sidebar}>
+                <h3>Show packs cards</h3>
+                <div className={styles.btnWrapper}>
+                    <div onClick={getMyPacksHandler} className={styles.sideBtn}>
+                        My
+                    </div>
+                    <div onClick={getAllPacksHandler} className={styles.active}>
+                        All
+                    </div>
+                </div>
                 <div className={styles.showPacksComponent}>
                     <h3>Show packs cards</h3>
                 </div>
-
 
                 <div className={styles.sliderComponent}>
                     <h3>Number of cards</h3>
@@ -79,19 +100,35 @@ export const Packs = () => {
                             value={[value1, value2]}
                             onChangeRange={onChangeSuperDoubleRange}
                         />
-
                     </div>
                 </div>
-
-
             </div>
             <div className={styles.packsList}>
                 <h1>Packs List</h1>
                 <div className={styles.search}>
-                    <input type="text" placeholder="Search..." onChange={(e) => callSetSearchPack(e.currentTarget.value) } /> <Button onClick={() => dispatch(getPacksTC())}>Search</Button>
-                    <Button onClick={showModalHandler} className={styles.btn}>
-                        Add new pack
-                    </Button>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        onChange={(e) =>
+                            callSetSearchPack(e.currentTarget.value)
+                        }
+                    />
+                    <div className={styles.btnsWrapper}>
+                        <Button
+                            className={styles.searchBtn}
+                            onClick={() => dispatch(getPacksTC())}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            className={styles.searchBtn}
+                            onClick={() => {
+                                setShowModal(true);
+                            }}
+                        >
+                            Add new pack
+                        </Button>
+                    </div>
                 </div>
                 <div className={styles.tableWrapper}>
                     <Table headers={headers} packs={packs} />
@@ -107,5 +144,3 @@ export const Packs = () => {
         </div>
     );
 };
-
-

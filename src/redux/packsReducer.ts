@@ -1,5 +1,5 @@
 import { packsAPI } from "../api/api";
-import { setAppStatusAC } from "./appReducer";
+import { catchErrorAC, setAppStatusAC } from "./appReducer";
 import { AppStore, ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
@@ -11,8 +11,6 @@ const initialState: AppInitialStateType = {
             private: false,
             name: "",
             cardsCount: 0,
-            type: "",
-            rating: 0,
             updated: new Date(),
         },
     ],
@@ -23,8 +21,7 @@ const initialState: AppInitialStateType = {
     cardPacksTotalCount: 0,
     userId: "",
     packsId: "",
-    error: "",
-    searchPacks: '',
+    searchPacks: "",
 };
 
 export const packsReducer = (
@@ -37,9 +34,8 @@ export const packsReducer = (
                 ...state,
                 cardPacks: action.payload.cardPacks.map((p) => p),
             };
-        case 'SET_SEARCH_PACKS':
-            return {...state,
-                searchPacks:  action.payload.searchValue}
+        case "SET_SEARCH_PACKS":
+            return { ...state, searchPacks: action.payload.searchValue };
         case "SET_CURRENT_PAGE":
             return {
                 ...state,
@@ -49,11 +45,6 @@ export const packsReducer = (
             return {
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
-            };
-        case "CATCH_ERROR":
-            return {
-                ...state,
-                error: action.payload.error,
             };
 
         default:
@@ -65,9 +56,7 @@ export const packsReducer = (
 export const setPacksAC = (cardPacks: PackType[]) => {
     return { type: "SET_PACKS", payload: { cardPacks } } as const;
 };
-export const catchErrorAC = (error: string) => {
-    return { type: "CATCH_ERROR", payload: { error } } as const;
-};
+
 export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: "SET_CURRENT_PAGE",
@@ -98,11 +87,11 @@ export const getPacksTC =
         const packs = getState().packs;
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
-        const packName = packs.searchPacks
-
+        const packName = packs.searchPacks;
+        const userId = packs.userId;
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount, packName)
+            .getPacks(currentPage, pageCount, packName, userId)
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -118,6 +107,32 @@ export const getPacksTC =
                 dispatch(setAppStatusAC("succeeded"));
             });
     };
+export const getMyPacksTC =
+    (): ThunkType => (dispatch, getState: () => AppStore) => {
+        const packs = getState().packs;
+        const currentPage = packs.currentPage;
+        const pageCount = packs.pageCount;
+        const userId = getState().profile.profile._id;
+        const packName = packs.searchPacks;
+        dispatch(setAppStatusAC("loading"));
+        packsAPI
+            .getPacks(currentPage, pageCount, packName, userId)
+            .then((res) => {
+                dispatch(setPacksAC(res.data.cardPacks));
+                dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+
 export const addPackTC =
     (newPackName: string): ThunkType =>
     (dispatch) => {
@@ -185,7 +200,7 @@ export type ActionPacksTypes =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
-    | ReturnType <typeof setSearchPacksAC>
+    | ReturnType<typeof setSearchPacksAC>;
 export type AppInitialStateType = {
     cardPacks: PackType[];
     currentPage: number;
@@ -193,10 +208,9 @@ export type AppInitialStateType = {
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
-    error: string;
     userId: string;
     packsId: string;
-    searchPacks: string
+    searchPacks: string;
 };
 export type PackType = {
     _id: string;
@@ -205,7 +219,5 @@ export type PackType = {
     private: false;
     name: string;
     cardsCount: 0;
-    type: string;
-    rating: 0;
     updated: Date;
 };

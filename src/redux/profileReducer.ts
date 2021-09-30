@@ -1,5 +1,5 @@
 import { authAPI } from "../api/api";
-import { setAppStatusAC } from "./appReducer";
+import { catchErrorAC, setAppStatusAC } from "./appReducer";
 import { setStatus } from "./loginReducer";
 import { ThunkType } from "./store";
 
@@ -16,7 +16,6 @@ const initialState: ProfileInitialStateType = {
         updated: null,
         avatar: null,
     },
-    error: "",
 };
 
 export const profileReducer = (
@@ -28,11 +27,6 @@ export const profileReducer = (
             return {
                 ...state,
                 profile: action.payload.profile,
-            };
-        case "CATCH_ERROR":
-            return {
-                ...state,
-                error: action.payload.error,
             };
         case "CHANGE_USER_DATA":
             return {
@@ -47,9 +41,6 @@ export const profileReducer = (
 // Action Creators
 export const setUserProfileAC = (profile: DataUserType) => {
     return { type: "SET_USER_PROFILE", payload: { profile } } as const;
-};
-export const catchErrorAC = (error: string) => {
-    return { type: "CATCH_ERROR", payload: { error } } as const;
 };
 
 export const changeUserDataAC = (userData: DataUserType) => {
@@ -105,11 +96,9 @@ export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
 // Types
 export type ActionProfileTypes =
     | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof changeUserDataAC>;
 export type ProfileInitialStateType = {
     profile: DataUserType;
-    error: string;
 };
 type DataUserType = {
     _id: string | null;
