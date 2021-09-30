@@ -2,6 +2,7 @@ import { applyMiddleware } from "redux";
 import { combineReducers, createStore } from "redux";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { ActionAppTypes, appReducer } from "./appReducer";
+import { ActionCardsTypes, cardsReducer } from "./cardsReducer";
 import { ActionForgotTypes, forgotReducer } from "./forgotReducer";
 import { ActionLoginTypes, loginReducer } from "./loginReducer";
 import { ActionPacksTypes, packsReducer } from "./packsReducer";
@@ -15,6 +16,7 @@ const reducers = combineReducers({
     profile: profileReducer,
     app: appReducer,
     packs: packsReducer,
+    cards: cardsReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
@@ -28,7 +30,8 @@ export type AppActionsType =
     | ActionRegisterTypes
     | ActionAppTypes
     | ActionForgotTypes
-    | ActionPacksTypes;
+    | ActionPacksTypes
+    | ActionCardsTypes;
 
 export type ThunkType = ThunkAction<void, AppStore, unknown, AppActionsType>;
 // @ts-ignore

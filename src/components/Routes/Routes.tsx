@@ -7,7 +7,7 @@ import { PasswordUpdate } from "../PasswordUpdate/ParrwordUpdate";
 import { Profile } from "../Profile/Profile";
 import { Register } from "../Register/Register";
 import { TestPage } from "../TestPage/TestPage";
-import React from "react";
+import { Cards } from "../Cards/Cards";
 
 export const PATH = {
     LOGIN: "/login",
@@ -17,6 +17,7 @@ export const PATH = {
     PROFILE: "/profile",
     PROFILE_PERSON: "/profile/person",
     PROFILE_PACKS: "/profile/packs",
+    PROFILE_CARDS: "/profile/cards/:packId",
     REGISTER: "/register",
     EMAIL_CHECK: "/check-email",
     ERROR: "/error-page",
@@ -63,6 +64,11 @@ const Routes = () => {
                     exact
                     path={PATH.PROFILE_PACKS}
                     render={() => <Profile />}
+                />
+                <Route
+                    exact
+                    path={PATH.PROFILE_CARDS}
+                    render={() => <Cards />}
                 />
                 <Route
                     exact

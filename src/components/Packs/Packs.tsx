@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPacksTC, setCurrentPageAC } from "../../redux/packsReducer";
+import {
+    getMyPacksTC,
+    getPacksTC,
+    setCurrentPageAC,
+} from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
-import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
@@ -12,8 +15,9 @@ import { UpdatePack } from "./UpdatePack";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
-    const errorMessage = useSelector((state: AppStore) => state.packs.error);
+    const errorMessage = useSelector((state: AppStore) => state.app.error);
     const packs = useSelector((state: AppStore) => state.packs.cardPacks);
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacksTC());
@@ -47,6 +51,12 @@ export const Packs = () => {
         "",
         "",
     ];
+    const getMyPacksHandler = () => {
+        dispatch(getMyPacksTC());
+    };
+    const getAllPacksHandler = () => {
+        dispatch(getPacksTC());
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -54,6 +64,14 @@ export const Packs = () => {
             {showModal && <UpdatePack onClose={hideModalHandler} />}
             <div className={styles.sidebar}>
                 <h3>Show packs cards</h3>
+                <div className={styles.btnWrapper}>
+                    <div onClick={getMyPacksHandler} className={styles.sideBtn}>
+                        My
+                    </div>
+                    <div onClick={getAllPacksHandler} className={styles.active}>
+                        All
+                    </div>
+                </div>
             </div>
             <div className={styles.packsList}>
                 <h1>Packs List</h1>

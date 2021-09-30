@@ -1,5 +1,5 @@
 import { packsAPI } from "../api/api";
-import { setAppStatusAC } from "./appReducer";
+import { catchErrorAC, setAppStatusAC } from "./appReducer";
 import { AppStore, ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
@@ -11,8 +11,6 @@ const initialState: AppInitialStateType = {
             private: false,
             name: "",
             cardsCount: 0,
-            type: "",
-            rating: 0,
             updated: new Date(),
         },
     ],
@@ -23,7 +21,6 @@ const initialState: AppInitialStateType = {
     cardPacksTotalCount: 0,
     userId: "",
     packsId: "",
-    error: "",
 };
 
 export const packsReducer = (
@@ -47,11 +44,6 @@ export const packsReducer = (
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
             };
-        case "CATCH_ERROR":
-            return {
-                ...state,
-                error: action.payload.error,
-            };
 
         default:
             return state;
@@ -62,9 +54,7 @@ export const packsReducer = (
 export const setPacksAC = (cardPacks: PackType[]) => {
     return { type: "SET_PACKS", payload: { cardPacks } } as const;
 };
-export const catchErrorAC = (error: string) => {
-    return { type: "CATCH_ERROR", payload: { error } } as const;
-};
+
 export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: "SET_CURRENT_PAGE",
@@ -81,16 +71,25 @@ export const setPacksTotalCountAC = (cardPacksTotalCount: number) => {
         },
     } as const;
 };
+export const setUserIdAC = (userId: number) => {
+    return {
+        type: "SET_USER_ID",
+        payload: {
+            userId,
+        },
+    } as const;
+};
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
         const packs = getState().packs;
         const currentPage = packs.currentPage;
         const pageCount = packs.pageCount;
+        // const userId = getState().profile.profile._id;
 
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .getPacks(currentPage, pageCount)
+            .getPacks(currentPage, pageCount, "")
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
@@ -106,6 +105,32 @@ export const getPacksTC =
                 dispatch(setAppStatusAC("succeeded"));
             });
     };
+export const getMyPacksTC =
+    (): ThunkType => (dispatch, getState: () => AppStore) => {
+        const packs = getState().packs;
+        const currentPage = packs.currentPage;
+        const pageCount = packs.pageCount;
+        const userId = getState().profile.profile._id;
+
+        dispatch(setAppStatusAC("loading"));
+        packsAPI
+            .getPacks(currentPage, pageCount, userId)
+            .then((res) => {
+                dispatch(setPacksAC(res.data.cardPacks));
+                dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+
 export const addPackTC =
     (newPackName: string): ThunkType =>
     (dispatch) => {
@@ -172,7 +197,7 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
-    | ReturnType<typeof catchErrorAC>;
+    | ReturnType<typeof setUserIdAC>;
 
 export type AppInitialStateType = {
     cardPacks: PackType[];
@@ -181,7 +206,6 @@ export type AppInitialStateType = {
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
-    error: string;
     userId: string;
     packsId: string;
 };
@@ -192,7 +216,5 @@ export type PackType = {
     private: false;
     name: string;
     cardsCount: 0;
-    type: string;
-    rating: 0;
     updated: Date;
 };

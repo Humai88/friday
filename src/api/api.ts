@@ -51,9 +51,9 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-    getPacks(currentPage: number, pageCount: number) {
+    getPacks(currentPage: number, pageCount: number, userId: string | null) {
         return instance.get<PacksResponseType>(
-            `cards/pack?pageCount=${pageCount}&page=${currentPage}`
+            `cards/pack?pageCount=${pageCount}&page=${currentPage}&user_id=${userId}`
         );
     },
     addPack(name: string) {
@@ -73,6 +73,14 @@ export const packsAPI = {
                 name,
             },
         });
+    },
+};
+
+export const cardsAPI = {
+    getCards(packId: string) {
+        return instance.get<GetCadrsResponseType>(
+            `cards/card?cardsPack_id=${packId}`
+        );
     },
 };
 
@@ -162,6 +170,24 @@ export type UpdatedPackResponseType = {
     token: string;
 };
 
-// type AddedPackType = {
-//     name: string;
-// };
+export type GetCadrsResponseType = {
+    cards: CardType[];
+    packUserId: string;
+    page: number;
+    pageCount: number;
+    cardsTotalCount: number;
+    minGrade: number;
+    maxGrade: number;
+};
+export type CardType = {
+    _id: string;
+    cardsPack_id: string;
+    user_id: string;
+    answer: string;
+    question: string;
+    grade: number;
+    shots: number;
+    type: string;
+    rating: number;
+    updated: Date;
+};
