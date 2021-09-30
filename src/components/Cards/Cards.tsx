@@ -37,7 +37,10 @@ export const Cards = () => {
                         <Button>Add card</Button>
                     </div>
                 ) : (
-                    <Table headers={headers} cards={cards} />
+                    <div>
+                        <Button>Add card</Button>
+                        <Table headers={headers} cards={cards} />
+                    </div>
                 )}
             </Card>
         </>
