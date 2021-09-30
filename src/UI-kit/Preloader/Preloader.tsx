@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import { setSyntheticLeadingComments } from "typescript";
-import { Backdrop, ModalOverlay } from "../Modal/Modal";
 import loader from "./../../assets/images/puff.svg";
 import styles from "./Preloader.module.css";
 
@@ -24,6 +22,6 @@ export const Preloader = () => {
     );
 };
 
-{
-    /* <img className={styles.img} src={loader} alt="loading" />; */
-}
+// {
+//   <img className={styles.img} src={loader} alt="loading" />
+// }
