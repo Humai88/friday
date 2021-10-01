@@ -54,6 +54,7 @@ export const changeUserDataAC = (userData: DataUserType) => {
 export const setAuthTC = (): ThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
+
         authAPI
             .me()
             .then((res) => {

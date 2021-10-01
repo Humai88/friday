@@ -6,7 +6,6 @@ import {
     setCurrentPageAC,
     setMaxValueAC,
     setMinValueAC,
-    setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
@@ -36,12 +35,15 @@ export const Packs = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacksTC());
-    }, []);
+    }, [dispatch]);
 
-    const onChangePageHandler = (pageNumber: number) => {
-        dispatch(setCurrentPageAC(pageNumber));
-        dispatch(getPacksTC());
-    };
+    const onChangePageHandler = useCallback(
+        (pageNumber: number) => {
+            dispatch(setCurrentPageAC(pageNumber));
+            dispatch(getPacksTC());
+        },
+        [dispatch]
+    );
 
     const callSetSearchPack = (value: string) => {
         setSearchPack(value);
@@ -60,19 +62,21 @@ export const Packs = () => {
     ];
     const getMyPacksHandler = useCallback(() => {
         dispatch(getMyPacksTC());
-    }, []);
+    }, [dispatch]);
     const getAllPacksHandler = useCallback(() => {
-        // dispatch(getPacksTC());
-    }, []);
+        dispatch(getPacksTC());
+    }, [dispatch]);
 
     const [value, setValue] = useState<number[]>([min, max]);
 
-    const onChangeSuperDoubleRange = useCallback((value: number[]) => {
-        dispatch(setMinValueAC(value[0]));
-        dispatch(setMaxValueAC(value[1]));
-        setValue(value);
-    }, []);
-    // console.log(value);
+    const onChangeSuperDoubleRange = useCallback(
+        (value: number[]) => {
+            dispatch(setMinValueAC(value[0]));
+            dispatch(setMaxValueAC(value[1]));
+            setValue(value);
+        },
+        [dispatch]
+    );
 
     return (
         <div className={styles.wrapper}>

@@ -42,7 +42,7 @@ export const Cards = () => {
         setTimeout(() => {
             dispatch(catchErrorAC(""));
         }, 3000);
-    }, [packId]);
+    }, [dispatch, packId]);
 
     const headers = [
         "Question",
