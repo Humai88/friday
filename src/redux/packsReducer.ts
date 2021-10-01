@@ -46,12 +46,12 @@ export const packsReducer = (
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
             };
-        case "SET_RANGE_VALUES":
-            return {
-                ...state,
-                minCardsCount: action.payload.value[0],
-                maxCardsCount: action.payload.value[1],
-            };
+        // case "SET_RANGE_VALUES":
+        //     return {
+        //         ...state,
+        //         minCardsCount: action.payload.value[0],
+        //         maxCardsCount: action.payload.value[1],
+        //     };
         case "SET_MIN_VALUE":
             let sorted1 = state.cardPacks.sort((a, b) => {
                 return a.cardsCount - b.cardsCount;
@@ -102,14 +102,14 @@ export const setSearchPacksAC = (searchValue: string) => {
         },
     } as const;
 };
-export const setRangeValuesAC = (value: number[]) => {
-    return {
-        type: "SET_RANGE_VALUES",
-        payload: {
-            value,
-        },
-    } as const;
-};
+// export const setRangeValuesAC = (value: number[]) => {
+//     return {
+//         type: "SET_RANGE_VALUES",
+//         payload: {
+//             value,
+//         },
+//     } as const;
+// };
 export const setMinValueAC = (value: number) => {
     return {
         type: "SET_MIN_VALUE",
@@ -136,6 +136,7 @@ export const getPacksTC =
         const min = packs.minCardsCount;
         const max = packs.maxCardsCount;
         dispatch(setAppStatusAC("loading"));
+
         packsAPI
             .getPacks(currentPage, pageCount, packName, "", min, max)
             .then((res) => {
@@ -251,7 +252,7 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
-    | ReturnType<typeof setRangeValuesAC>
+    // | ReturnType<typeof setRangeValuesAC>
     | ReturnType<typeof setMinValueAC>
     | ReturnType<typeof setMaxValueAC>;
 export type AppInitialStateType = {

@@ -1,4 +1,4 @@
-import { cardsAPI, packsAPI } from "../api/api";
+import { cardsAPI } from "../api/api";
 import { catchErrorAC, setAppStatusAC } from "./appReducer";
 import { AppStore, ThunkType } from "./store";
 

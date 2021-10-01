@@ -89,7 +89,6 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                                 dispatch(
                                     deleteCardTC(card._id, card.cardsPack_id)
                                 );
-
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
                                 }, 2000);

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import "./App.css";
 import Routes from "./components/Routes/Routes";
-import { catchErrorAC, initializeAppThunk } from "./redux/appReducer";
+import { initializeAppThunk } from "./redux/appReducer";
 import { AppStore } from "./redux/store";
 import { Preloader } from "./UI-kit/Preloader/Preloader";
 
@@ -13,12 +13,14 @@ function App() {
         (state) => state.app.isInitialized
     );
 
+    console.log(isInitialized);
+
     const status = useSelector((state: AppStore) => state.app.status);
     useEffect(() => {
         if (!isInitialized) {
             dispatch(initializeAppThunk());
         }
-    }, [dispatch, isInitialized]);
+    }, [dispatch]);
 
     if (!isInitialized) {
         return <Preloader />;

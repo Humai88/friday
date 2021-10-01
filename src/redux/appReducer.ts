@@ -50,8 +50,10 @@ export const catchErrorAC = (error: string) => {
 // Thunks
 
 export const initializeAppThunk = (): ThunkType => (dispatch) => {
-    dispatch(setAuthTC());
-    dispatch(setIsInitializedAC());
+    const promise = dispatch(setAuthTC());
+    Promise.all([promise]).then(() => {
+        dispatch(setIsInitializedAC());
+    });
 };
 
 // Types
