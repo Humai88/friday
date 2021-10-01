@@ -10,20 +10,22 @@ import { AppStore } from "../../redux/store";
 import { catchErrorAC } from "../../redux/appReducer";
 import { CardType, deleteCardTC, updateCardTC } from "../../redux/cardsReducer";
 
-export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
+export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
     const dispatch = useDispatch();
     const status = useSelector((state: AppStore) => state.app.status);
     const userId = useSelector((state: AppStore) => state.profile.profile._id);
     const userIdFromCards = useSelector(
         (state: AppStore) => state.cards.packUserId
     );
+    const getLocalTime = (value: Date | string) => new Intl.DateTimeFormat().format(new Date(value));
+
     // Get packs table body
     const renderPacks = (packs: PackType[]) => {
         return packs.map((pack) => (
             <tr key={pack._id}>
                 <td>{trimString(pack.name, 7)}</td>
                 <td>{pack.cardsCount}</td>
-                <td>{trimString(pack.updated.toString(), 10)}</td>
+                <td>{trimString(getLocalTime(pack.updated), 10)}</td>
                 <td>{trimString(pack.user_name, 10)}</td>
                 <td>
                     <NavLink to={`/profile/cards/${pack._id}`}>
@@ -34,8 +36,9 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     <button className={styles.editBtn}>Learn</button>
                 </td>
                 <td>
-                    {pack.user_id === userId ? (
-                        <button
+                    {
+                        pack.user_id === userId ?
+                        (<button
                             className={styles.deleteBtn}
                             onClick={() => {
                                 dispatch(removePackTC(pack._id));
@@ -45,10 +48,8 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                             }}
                         >
                             Delete
-                        </button>
-                    ) : (
-                        ""
-                    )}
+                        </button>)
+                        : ("")}
                 </td>
                 <td>
                     {pack.user_id === userId ? (
@@ -65,9 +66,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                         >
                             Edit
                         </button>
-                    ) : (
-                        ""
-                    )}
+                    ) : ("")}
                 </td>
             </tr>
         ));
@@ -79,7 +78,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
             <tr key={card._id}>
                 <td>{trimString(card.question, 10)}</td>
                 <td>{card.answer}</td>
-                <td>{trimString(card.updated.toString(), 10)}</td>
+                <td>{trimString(getLocalTime(card.updated), 10)}</td>
                 <td>{card.rating}</td>
                 <td>
                     {userIdFromCards === userId ? (
@@ -132,19 +131,19 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
         <table className={styles.table}>
             {status === "loading" && <Preloader />}
             <thead>
-                <tr>
-                    {headers.map((header, index) => {
-                        return (
-                            <th scope="col" key={index}>
-                                {header}
-                            </th>
-                        );
-                    })}
-                </tr>
+            <tr>
+                {headers.map((header, index) => {
+                    return (
+                        <th scope="col" key={index}>
+                            {header}
+                        </th>
+                    );
+                })}
+            </tr>
             </thead>
             <tbody>
-                {packs && renderPacks(packs)}
-                {cards && renderCards(cards)}
+            {packs && renderPacks(packs)}
+            {cards && renderCards(cards)}
             </tbody>
         </table>
     );

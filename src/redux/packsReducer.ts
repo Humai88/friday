@@ -52,17 +52,7 @@ export const packsReducer = (
                 minCardsCount: action.payload.min,
                 maxCardsCount: action.payload.max,
             };
-        case "SET_MIN_VALUE":
-            return {
-                ...state,
-                minCardsCount: action.payload.value,
-                // minCardsCount: sorted1[0].cardsCount,
-            };
-        case "SET_MAX_VALUE":
-            return {
-                ...state,
-                maxCardsCount: action.payload.value,
-            };
+
         default:
             return state;
     }
@@ -106,22 +96,7 @@ export const setRangeValuesAC = (min: number, max: number) => {
         },
     } as const;
 };
-export const setMinValueAC = (value: number) => {
-    return {
-        type: "SET_MIN_VALUE",
-        payload: {
-            value,
-        },
-    } as const;
-};
-export const setMaxValueAC = (value: number) => {
-    return {
-        type: "SET_MAX_VALUE",
-        payload: {
-            value,
-        },
-    } as const;
-};
+
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
@@ -247,9 +222,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
-    | ReturnType<typeof setRangeValuesAC>
-    | ReturnType<typeof setMinValueAC>
-    | ReturnType<typeof setMaxValueAC>;
+    | ReturnType<typeof setRangeValuesAC>;
+
 export type AppInitialStateType = {
     cardPacks: PackType[];
     currentPage: number;
