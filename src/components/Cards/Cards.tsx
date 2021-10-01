@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { catchErrorAC } from "../../redux/appReducer";
 import { getCardsTC, setCurrentPageAC } from "../../redux/cardsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { Card } from "../../UI-kit/Card/Card";
 import { ErrorMes } from "../Error/ErrorMes";
-import { Header } from "../Header/Header";
 import { Paginator } from "../Paginator/Paginator";
-import { navLinksProfile } from "../Routes/Routes";
 import { Table } from "../Table/Table";
 import { AddCard } from "./AddCard";
 import styles from "./Cards.module.css";
 
 export const Cards = () => {
     const dispatch = useDispatch();
-    const { packId } = useParams<PackParamsType>();
+    const {packId} = useParams<PackParamsType>();
     const userId = useSelector((state: AppStore) => state.profile.profile._id);
     const userIdFromCards = useSelector(
         (state: AppStore) => state.cards.packUserId
@@ -53,6 +51,13 @@ export const Cards = () => {
         "",
     ];
 
+    const history = useHistory();
+
+    const handleGoBackClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.preventDefault();
+        history.goBack();
+    }
+
     return (
         <>
             {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
@@ -64,12 +69,13 @@ export const Cards = () => {
                     packId={packId}
                 />
             )}
-            <Header
-                arrayLinks={navLinksProfile}
-                className={styles.header}
-                profilePage
-            />
+
+
             <div className={styles.content}>
+                <div className={styles.goback}  onClick={handleGoBackClick}>
+                    <svg width={25} height={25} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+                    GoBack to packlist
+                </div>
                 {userId === userIdFromCards && (
                     <Button
                         className={styles.btn}
