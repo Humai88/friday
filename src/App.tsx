@@ -13,14 +13,12 @@ function App() {
         (state) => state.app.isInitialized
     );
 
-    console.log(isInitialized);
-
     const status = useSelector((state: AppStore) => state.app.status);
     useEffect(() => {
         if (!isInitialized) {
             dispatch(initializeAppThunk());
         }
-    }, [dispatch]);
+    }, [dispatch, isInitialized]);
 
     if (!isInitialized) {
         return <Preloader />;

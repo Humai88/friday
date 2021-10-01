@@ -12,7 +12,9 @@ import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import RangeUI from "../../UI-kit/RangeUI/RangeUI";
 import { ErrorMes } from "../Error/ErrorMes";
+import { Header } from "../Header/Header";
 import { Paginator } from "../Paginator/Paginator";
+import { navLinksProfile } from "../Routes/Routes";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
 import { UpdatePack } from "./UpdatePack";
@@ -79,77 +81,90 @@ export const Packs = () => {
     );
 
     return (
-        <div className={styles.wrapper}>
-            {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
-            {showModal && (
-                <UpdatePack
-                    onClose={() => {
-                        setShowModal(false);
-                    }}
-                />
-            )}
-            <div className={styles.sidebar}>
-                <h3>Show packs cards</h3>
-                <div className={styles.btnWrapper}>
-                    <div onClick={getMyPacksHandler} className={styles.sideBtn}>
-                        My
-                    </div>
-                    <div onClick={getAllPacksHandler} className={styles.active}>
-                        All
-                    </div>
-                </div>
-                <div className={styles.showPacksComponent}>
+        <>
+            <Header
+                arrayLinks={navLinksProfile}
+                className={styles.header}
+                profilePage
+            />
+            <div className={styles.wrapper}>
+                {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
+                {showModal && (
+                    <UpdatePack
+                        onClose={() => {
+                            setShowModal(false);
+                        }}
+                    />
+                )}
+                <div className={styles.sidebar}>
                     <h3>Show packs cards</h3>
-                </div>
+                    <div className={styles.btnWrapper}>
+                        <div
+                            onClick={getMyPacksHandler}
+                            className={styles.sideBtn}
+                        >
+                            My
+                        </div>
+                        <div
+                            onClick={getAllPacksHandler}
+                            className={styles.sideBtn}
+                        >
+                            All
+                        </div>
+                    </div>
+                    <div className={styles.showPacksComponent}>
+                        <h3>Show packs cards</h3>
+                    </div>
 
-                <div className={styles.sliderComponent}>
-                    <h3>Number of cards</h3>
-                    <div className={styles.sliderWrapper}>
-                        <RangeUI
-                            value={value}
-                            onChangeRange={onChangeSuperDoubleRange}
+                    <div className={styles.sliderComponent}>
+                        <h3>Number of cards</h3>
+                        <div className={styles.sliderWrapper}>
+                            <RangeUI
+                                value={value}
+                                onChangeRange={onChangeSuperDoubleRange}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.packsList}>
+                    <h1>Packs List</h1>
+                    <div className={styles.search}>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            onChange={(e) =>
+                                callSetSearchPack(e.currentTarget.value)
+                            }
+                        />
+                        <div className={styles.btnsWrapper}>
+                            <Button
+                                className={styles.searchBtn}
+                                onClick={() => dispatch(getPacksTC())}
+                            >
+                                Search
+                            </Button>
+                            <Button
+                                className={styles.searchBtn}
+                                onClick={() => {
+                                    setShowModal(true);
+                                }}
+                            >
+                                Add new pack
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={styles.tableWrapper}>
+                        <Table headers={headers} packs={packs} />
+                        <Paginator
+                            currentItem={currentPage}
+                            itemCount={pageCount}
+                            totalItemCount={totalPacksCount}
+                            portionSize={10}
+                            onChangeItemHandler={onChangePageHandler}
                         />
                     </div>
                 </div>
             </div>
-            <div className={styles.packsList}>
-                <h1>Packs List</h1>
-                <div className={styles.search}>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        onChange={(e) =>
-                            callSetSearchPack(e.currentTarget.value)
-                        }
-                    />
-                    <div className={styles.btnsWrapper}>
-                        <Button
-                            className={styles.searchBtn}
-                            onClick={() => dispatch(getPacksTC())}
-                        >
-                            Search
-                        </Button>
-                        <Button
-                            className={styles.searchBtn}
-                            onClick={() => {
-                                setShowModal(true);
-                            }}
-                        >
-                            Add new pack
-                        </Button>
-                    </div>
-                </div>
-                <div className={styles.tableWrapper}>
-                    <Table headers={headers} packs={packs} />
-                    <Paginator
-                        currentItem={currentPage}
-                        itemCount={pageCount}
-                        totalItemCount={totalPacksCount}
-                        portionSize={10}
-                        onChangeItemHandler={onChangePageHandler}
-                    />
-                </div>
-            </div>
-        </div>
+        </>
     );
 };

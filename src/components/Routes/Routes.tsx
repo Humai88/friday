@@ -8,6 +8,7 @@ import { Profile } from "../Profile/Profile";
 import { Register } from "../Register/Register";
 import { TestPage } from "../TestPage/TestPage";
 import { Cards } from "../Cards/Cards";
+import { Packs } from "../Packs/Packs";
 
 export const PATH = {
     LOGIN: "/login",
@@ -63,7 +64,7 @@ const Routes = () => {
                 <Route
                     exact
                     path={PATH.PROFILE_PACKS}
-                    render={() => <Profile />}
+                    render={() => <Packs />}
                 />
                 <Route
                     exact
