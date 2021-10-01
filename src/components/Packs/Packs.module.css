@@ -1,7 +1,7 @@
 .wrapper {
     padding: 35px 20px 71px;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     max-width: 1380px;
     margin: 0 auto;
     height: auto;
