@@ -10,9 +10,9 @@ type SuperDoubleRangePropsType = {
 };
 
 const RangeUi: React.FC<SuperDoubleRangePropsType> = ({
-    onChangeRange,
-    value,
-}) => {
+                                                          onChangeRange,
+                                                          value,
+                                                      }) => {
     const handleChange = (event: Event, newValue: number[] | number) => {
         onChangeRange && onChangeRange(newValue as number[]);
     };
