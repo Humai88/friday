@@ -1,6 +1,6 @@
-import { packsAPI } from "../api/api";
-import { catchErrorAC, setAppStatusAC } from "./appReducer";
-import { AppStore, ThunkType } from "./store";
+import {packsAPI} from "../api/api";
+import {catchErrorAC, setAppStatusAC} from "./appReducer";
+import {AppStore, ThunkType} from "./store";
 
 const initialState: AppInitialStateType = {
     cardPacks: [
@@ -15,7 +15,7 @@ const initialState: AppInitialStateType = {
         },
     ],
     minCardsCount: 0,
-    maxCardsCount: 0,
+    maxCardsCount: 100,
     currentPage: 1,
     pageCount: 10,
     cardPacksTotalCount: 0,
@@ -35,7 +35,7 @@ export const packsReducer = (
                 cardPacks: action.payload.cardPacks.map((p) => p),
             };
         case "SET_SEARCH_PACKS":
-            return { ...state, searchPacks: action.payload.searchValue };
+            return {...state, searchPacks: action.payload.searchValue};
         case "SET_CURRENT_PAGE":
             return {
                 ...state,
@@ -46,27 +46,22 @@ export const packsReducer = (
                 ...state,
                 cardPacksTotalCount: action.payload.cardPacksTotalCount,
             };
-        // case "SET_RANGE_VALUES":
-        //     return {
-        //         ...state,
-        //         minCardsCount: action.payload.value[0],
-        //         maxCardsCount: action.payload.value[1],
-        //     };
-        case "SET_MIN_VALUE":
-            let sorted1 = state.cardPacks.sort((a, b) => {
-                return a.cardsCount - b.cardsCount;
-            });
+        case "SET_RANGE_VALUES":
             return {
                 ...state,
-                minCardsCount: sorted1[0].cardsCount,
+                minCardsCount: action.payload.min,
+                maxCardsCount: action.payload.max,
+            };
+        case "SET_MIN_VALUE":
+            return {
+                ...state,
+                minCardsCount: action.payload.value,
+                // minCardsCount: sorted1[0].cardsCount,
             };
         case "SET_MAX_VALUE":
-            let sorted2 = state.cardPacks.sort((a, b) => {
-                return a.cardsCount - b.cardsCount;
-            });
             return {
                 ...state,
-                maxCardsCount: sorted2[sorted2.length - 1].cardsCount,
+                maxCardsCount: action.payload.value,
             };
         default:
             return state;
@@ -75,7 +70,7 @@ export const packsReducer = (
 
 // Action Creators
 export const setPacksAC = (cardPacks: PackType[]) => {
-    return { type: "SET_PACKS", payload: { cardPacks } } as const;
+    return {type: "SET_PACKS", payload: {cardPacks}} as const;
 };
 
 export const setCurrentPageAC = (currentPage: number) => {
@@ -102,14 +97,15 @@ export const setSearchPacksAC = (searchValue: string) => {
         },
     } as const;
 };
-// export const setRangeValuesAC = (value: number[]) => {
-//     return {
-//         type: "SET_RANGE_VALUES",
-//         payload: {
-//             value,
-//         },
-//     } as const;
-// };
+export const setRangeValuesAC = (min: number, max: number) => {
+    return {
+        type: "SET_RANGE_VALUES",
+        payload: {
+            min,
+            max,
+        },
+    } as const;
+};
 export const setMinValueAC = (value: number) => {
     return {
         type: "SET_MIN_VALUE",
@@ -142,8 +138,7 @@ export const getPacksTC =
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
-                dispatch(setMinValueAC(min));
-                dispatch(setMaxValueAC(max));
+                dispatch(setRangeValuesAC(min, max))
             })
             .catch((err) => {
                 const error = err.response
@@ -186,64 +181,64 @@ export const getMyPacksTC =
 
 export const addPackTC =
     (newPackName: string): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        packsAPI
-            .addPack(newPackName)
-            .then((res) => {
-                dispatch(getPacksTC());
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            packsAPI
+                .addPack(newPackName)
+                .then((res) => {
+                    dispatch(getPacksTC());
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 export const removePackTC =
     (packId: string): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        packsAPI
-            .deletePack(packId)
-            .then((res) => {
-                dispatch(getPacksTC());
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            packsAPI
+                .deletePack(packId)
+                .then((res) => {
+                    dispatch(getPacksTC());
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 export const updatePackTC =
     (packId: string, title: string): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        packsAPI
-            .updatePack(packId, title)
-            .then((res) => {
-                dispatch(getPacksTC());
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            packsAPI
+                .updatePack(packId, title)
+                .then((res) => {
+                    dispatch(getPacksTC());
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 
 // Types
 export type ActionPacksTypes =
@@ -252,7 +247,7 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
-    // | ReturnType<typeof setRangeValuesAC>
+    | ReturnType<typeof setRangeValuesAC>
     | ReturnType<typeof setMinValueAC>
     | ReturnType<typeof setMaxValueAC>;
 export type AppInitialStateType = {
