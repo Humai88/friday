@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useCallback, useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
     getMyPacksTC,
     getPacksTC,
@@ -8,14 +8,14 @@ import {
     setMinValueAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
-import { AppStore } from "../../redux/store";
-import { Button } from "../../UI-kit/Button/Button";
+import {AppStore} from "../../redux/store";
+import {Button} from "../../UI-kit/Button/Button";
 import RangeUI from "../../UI-kit/RangeUI/RangeUI";
-import { ErrorMes } from "../Error/ErrorMes";
-import { Paginator } from "../Paginator/Paginator";
-import { Table } from "../Table/Table";
+import {ErrorMes} from "../Error/ErrorMes";
+import {Paginator} from "../Paginator/Paginator";
+import {Table} from "../Table/Table";
 import styles from "./Packs.module.css";
-import { UpdatePack } from "./UpdatePack";
+import {UpdatePack} from "./UpdatePack";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
@@ -125,7 +125,7 @@ export const Packs = () => {
                     <div className={styles.btnsWrapper}>
                         <Button
                             className={styles.searchBtn}
-                            onClick={() => dispatch(getPacksTC())}
+                            onClick={() => dispatch(getPacksTC() )}
                         >
                             Search
                         </Button>
@@ -140,7 +140,7 @@ export const Packs = () => {
                     </div>
                 </div>
                 <div className={styles.tableWrapper}>
-                    <Table headers={headers} packs={packs} />
+                    <Table headers={headers} packs={packs}/>
                     <Paginator
                         currentItem={currentPage}
                         itemCount={pageCount}

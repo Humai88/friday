@@ -24,7 +24,6 @@ export const Range: React.FC<RangePropsType> = ({
 }) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e);
-
     onChangeRange && onChangeRange(+e.currentTarget.value);
   };
 
