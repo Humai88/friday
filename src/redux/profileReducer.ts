@@ -49,6 +49,12 @@ export const changeUserDataAC = (userData: DataUserType) => {
         payload: { userData },
     } as const;
 };
+export const setProfileIdAC = (userId: string | null) => {
+    return {
+        type: "SET_PROFILE_ID",
+        payload: { userId },
+    } as const;
+};
 
 // Thunks
 export const setAuthTC = (): ThunkType => {
@@ -97,7 +103,8 @@ export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
 // Types
 export type ActionProfileTypes =
     | ReturnType<typeof setUserProfileAC>
-    | ReturnType<typeof changeUserDataAC>;
+    | ReturnType<typeof changeUserDataAC>
+    | ReturnType<typeof setProfileIdAC>;
 export type ProfileInitialStateType = {
     profile: DataUserType;
 };
