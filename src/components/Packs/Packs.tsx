@@ -112,9 +112,6 @@ export const Packs = () => {
                             All
                         </div>
                     </div>
-                    <div className={styles.showPacksComponent}>
-                        <h3>Show packs cards</h3>
-                    </div>
 
                     <div className={styles.sliderComponent}>
                         <h3>Number of cards</h3>
