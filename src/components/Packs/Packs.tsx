@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { catchErrorAC } from "../../redux/appReducer";
 import {
     getMyPacksTC,
     getPacksTC,
@@ -37,6 +38,9 @@ export const Packs = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPacksTC());
+        setTimeout(() => {
+            dispatch(catchErrorAC(""));
+        }, 2000);
     }, [dispatch]);
 
     const onChangePageHandler = useCallback(

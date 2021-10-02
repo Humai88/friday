@@ -72,7 +72,6 @@ export const setAuthTC = (): ThunkType => {
                     ? err.response.data.error
                     : err.message + ", more details in the console";
                 console.log("err:", error);
-                dispatch(catchErrorAC(error));
             })
             .finally(() => {
                 dispatch(setAppStatusAC("succeeded"));

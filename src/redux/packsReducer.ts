@@ -1,6 +1,6 @@
-import {packsAPI} from "../api/api";
-import {catchErrorAC, setAppStatusAC} from "./appReducer";
-import {AppStore, ThunkType} from "./store";
+import { packsAPI } from "../api/api";
+import { catchErrorAC, setAppStatusAC } from "./appReducer";
+import { AppStore, ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
     cardPacks: [
@@ -35,7 +35,7 @@ export const packsReducer = (
                 cardPacks: action.payload.cardPacks.map((p) => p),
             };
         case "SET_SEARCH_PACKS":
-            return {...state, searchPacks: action.payload.searchValue};
+            return { ...state, searchPacks: action.payload.searchValue };
         case "SET_CURRENT_PAGE":
             return {
                 ...state,
@@ -70,7 +70,7 @@ export const packsReducer = (
 
 // Action Creators
 export const setPacksAC = (cardPacks: PackType[]) => {
-    return {type: "SET_PACKS", payload: {cardPacks}} as const;
+    return { type: "SET_PACKS", payload: { cardPacks } } as const;
 };
 
 export const setCurrentPageAC = (currentPage: number) => {
@@ -138,7 +138,7 @@ export const getPacksTC =
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
-                dispatch(setRangeValuesAC(min, max))
+                dispatch(setRangeValuesAC(min, max));
             })
             .catch((err) => {
                 const error = err.response
@@ -181,64 +181,64 @@ export const getMyPacksTC =
 
 export const addPackTC =
     (newPackName: string): ThunkType =>
-        (dispatch) => {
-            dispatch(setAppStatusAC("loading"));
-            packsAPI
-                .addPack(newPackName)
-                .then((res) => {
-                    dispatch(getPacksTC());
-                })
-                .catch((err) => {
-                    const error = err.response
-                        ? err.response.data.error
-                        : err.message + ", more details in the console";
-                    console.log("err:", error);
-                    dispatch(catchErrorAC(error));
-                })
-                .finally(() => {
-                    dispatch(setAppStatusAC("succeeded"));
-                });
-        };
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        packsAPI
+            .addPack(newPackName)
+            .then((res) => {
+                dispatch(getPacksTC());
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
 export const removePackTC =
     (packId: string): ThunkType =>
-        (dispatch) => {
-            dispatch(setAppStatusAC("loading"));
-            packsAPI
-                .deletePack(packId)
-                .then((res) => {
-                    dispatch(getPacksTC());
-                })
-                .catch((err) => {
-                    const error = err.response
-                        ? err.response.data.error
-                        : err.message + ", more details in the console";
-                    console.log("err:", error);
-                    dispatch(catchErrorAC(error));
-                })
-                .finally(() => {
-                    dispatch(setAppStatusAC("succeeded"));
-                });
-        };
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        packsAPI
+            .deletePack(packId)
+            .then((res) => {
+                dispatch(getPacksTC());
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
 export const updatePackTC =
     (packId: string, title: string): ThunkType =>
-        (dispatch) => {
-            dispatch(setAppStatusAC("loading"));
-            packsAPI
-                .updatePack(packId, title)
-                .then((res) => {
-                    dispatch(getPacksTC());
-                })
-                .catch((err) => {
-                    const error = err.response
-                        ? err.response.data.error
-                        : err.message + ", more details in the console";
-                    console.log("err:", error);
-                    dispatch(catchErrorAC(error));
-                })
-                .finally(() => {
-                    dispatch(setAppStatusAC("succeeded"));
-                });
-        };
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"));
+        packsAPI
+            .updatePack(packId, title)
+            .then((res) => {
+                dispatch(getPacksTC());
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
 
 // Types
 export type ActionPacksTypes =
