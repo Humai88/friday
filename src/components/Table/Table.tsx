@@ -79,7 +79,7 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                 <td>{trimString(card.question, 10)}</td>
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
-                <td>{card.rating}</td>
+                <td>{card.grade}</td>
                 <td>
                     {userIdFromCards === userId ? (
                         <button
@@ -109,8 +109,9 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                                         card._id,
                                         card.cardsPack_id,
                                         "Question was updated",
-                                        "Answer was updated"
-                                    )
+                                        "Answer was updated",
+                                        card.grade,
+                                    ),
                                 );
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
