@@ -5,8 +5,7 @@ import {
     getMyPacksTC,
     getPacksTC,
     setCurrentPageAC,
-    setMaxValueAC,
-    setMinValueAC,
+    setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
@@ -77,8 +76,7 @@ export const Packs = () => {
 
     const onChangeSuperDoubleRange = useCallback(
         (value: number[]) => {
-            dispatch(setMinValueAC(value[0]));
-            dispatch(setMaxValueAC(value[1]));
+            dispatch(setRangeValuesAC(value[0], value[1]));
             setValue(value);
         },
         [dispatch]
