@@ -8,6 +8,7 @@ import { navLinksProfile, PATH } from "../Routes/Routes";
 import { Person } from "../Person/Person";
 import { Packs } from "../Packs/Packs";
 import { Header } from "../Header/Header";
+import { Cards } from "../Cards/Cards";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -59,6 +60,12 @@ export const Profile = () => {
                     exact
                     path={PATH.PROFILE_PACKS}
                     render={() => <Packs />}
+                />
+
+                <Route
+                    exact
+                    path={PATH.PROFILE_CARDS}
+                    render={() => <Cards />}
                 />
             </Switch>
         </>

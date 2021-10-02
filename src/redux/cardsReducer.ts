@@ -1,6 +1,6 @@
-import { cardsAPI } from "../api/api";
-import { catchErrorAC, setAppStatusAC } from "./appReducer";
-import { AppStore, ThunkType } from "./store";
+import {cardsAPI} from "../api/api";
+import {catchErrorAC, setAppStatusAC} from "./appReducer";
+import {AppStore, ThunkType} from "./store";
 
 const initialState: AppInitialStateType = {
     cards: [
@@ -24,9 +24,8 @@ const initialState: AppInitialStateType = {
 };
 
 export const cardsReducer = (
-    state = initialState,
-    action: ActionCardsTypes
-): AppInitialStateType => {
+    state: AppInitialStateType = initialState, action: ActionCardsTypes): AppInitialStateType => {
+
     switch (action.type) {
         case "SET_CARDS":
             return {
@@ -48,7 +47,15 @@ export const cardsReducer = (
                 ...state,
                 packUserId: action.payload.userId,
             };
-
+        case 'SET_CARDS_GRADE':
+            return {
+                ...state,
+                cards: state.cards.map(c => {
+                    if(c._id === action.payload.card_id) {
+                        return {...c, grade: action.payload.grade}
+                    } else {return c}
+                })
+                }
         default:
             return state;
     }
@@ -56,7 +63,7 @@ export const cardsReducer = (
 
 // Action Creators
 export const setCardsAC = (cards: CardType[]) => {
-    return { type: "SET_CARDS", payload: { cards } } as const;
+    return {type: "SET_CARDS", payload: {cards}} as const;
 };
 
 export const setCurrentPageAC = (currentPage: number) => {
@@ -84,104 +91,116 @@ export const setCardsCountAC = (cardsCount: number) => {
     } as const;
 };
 
+export const setCardsGradeAC = (card_id: string, grade: number) => {
+    return {
+        type: "SET_CARDS_GRADE",
+        payload: {
+            card_id, grade
+        },
+    } as const;
+};
+
 // Thunks
 export const getCardsTC =
     (packId: string): ThunkType =>
-    (dispatch, getState: () => AppStore) => {
-        const cards = getState().cards;
-        const currentPage = cards.currentPage;
-        const pageCount = cards.pageCount;
-        dispatch(setAppStatusAC("loading"));
-        cardsAPI
-            .getCards(packId, currentPage, pageCount)
-            .then((res) => {
-                dispatch(setCardsAC(res.data.cards));
-                dispatch(setUserIdAC(res.data.packUserId));
-                dispatch(setCardsCountAC(res.data.cardsTotalCount));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch, getState: () => AppStore) => {
+            const cards = getState().cards;
+            const currentPage = cards.currentPage;
+            const pageCount = cards.pageCount;
+            dispatch(setAppStatusAC("loading"));
+            cardsAPI
+                .getCards(packId, currentPage, pageCount)
+                .then((res) => {
+                    dispatch(setCardsAC(res.data.cards));
+                    dispatch(setUserIdAC(res.data.packUserId));
+                    dispatch(setCardsCountAC(res.data.cardsTotalCount));
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 export const addCardTC =
     (cardsPackId: string, question: string, answer: string): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        cardsAPI
-            .addCard(cardsPackId, question, answer)
-            .then((res) => {
-                dispatch(getCardsTC(cardsPackId));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            cardsAPI
+                .addCard(cardsPackId, question, answer)
+                .then((res) => {
+                    dispatch(getCardsTC(cardsPackId));
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 export const deleteCardTC =
     (cardId: string, cardsPackId: string): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        cardsAPI
-            .deleteCard(cardId)
-            .then((res) => {
-                dispatch(getCardsTC(cardsPackId));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            cardsAPI
+                .deleteCard(cardId)
+                .then((res) => {
+                    dispatch(getCardsTC(cardsPackId));
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 export const updateCardTC =
     (
         cardId: string,
         cardsPackId: string,
         question: string,
-        answer: string
+        answer: string,
+        grade: number,
     ): ThunkType =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"));
-        cardsAPI
-            .updateCard(cardId, question, answer)
-            .then((res) => {
-                dispatch(getCardsTC(cardsPackId));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+        (dispatch) => {
+            dispatch(setAppStatusAC("loading"));
+            cardsAPI
+                .updateCard(cardId, question, answer)
+                .then((res) => {
+                    dispatch(getCardsTC(cardsPackId));
+                    dispatch(setCardsGradeAC(cardId, grade ))
+                })
+                .catch((err) => {
+                    const error = err.response
+                        ? err.response.data.error
+                        : err.message + ", more details in the console";
+                    console.log("err:", error);
+                    dispatch(catchErrorAC(error));
+                })
+                .finally(() => {
+                    dispatch(setAppStatusAC("succeeded"));
+                });
+        };
 
 // Types
 export type ActionCardsTypes =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setCardsCountAC>
-    | ReturnType<typeof setUserIdAC>;
+    | ReturnType<typeof setUserIdAC>
+    | ReturnType<typeof setCardsGradeAC>;
 
 export type AppInitialStateType = {
     cards: CardType[];

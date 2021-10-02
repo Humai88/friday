@@ -85,7 +85,7 @@ export const packsAPI = {
 
 export const cardsAPI = {
     getCards(packId: string, currentPage: number, pageCount: number) {
-        return instance.get<GetCadrsResponseType>(
+        return instance.get<GetCardsResponseType>(
             `cards/card?cardsPack_id=${packId}&pageCount=${pageCount}&page=${currentPage}`
         );
     },
@@ -100,6 +100,11 @@ export const cardsAPI = {
     updateCard(_id: string, question: string, answer: string) {
         return instance.put<UpdatedCardResponseType>(`cards/card`, {
             card: { _id, question, answer },
+        });
+    },
+    updateCardGrade(_id: string,grade: number) {
+        return instance.put<UpdatedCardResponseType>(`cards/grade`, {
+            card: { _id, grade },
         });
     },
 };
@@ -190,7 +195,7 @@ export type UpdatedPackResponseType = {
     token: string;
 };
 
-export type GetCadrsResponseType = {
+export type GetCardsResponseType = {
     cards: CardType[];
     packUserId: string;
     page: number;

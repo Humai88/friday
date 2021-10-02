@@ -84,11 +84,6 @@ export const Packs = () => {
 
     return (
         <>
-            <Header
-                arrayLinks={navLinksProfile}
-                className={styles.header}
-                profilePage
-            />
             <div className={styles.wrapper}>
                 {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
                 {showModal && (
