@@ -7,8 +7,6 @@ import { PasswordUpdate } from "../PasswordUpdate/ParrwordUpdate";
 import { Profile } from "../Profile/Profile";
 import { Register } from "../Register/Register";
 import { TestPage } from "../TestPage/TestPage";
-import { Cards } from "../Cards/Cards";
-import { Packs } from "../Packs/Packs";
 
 export const PATH = {
     LOGIN: "/login",
