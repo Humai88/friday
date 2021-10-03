@@ -24,3 +24,8 @@
     right: -2rem;
     cursor: pointer;
 }
+.btnsWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}

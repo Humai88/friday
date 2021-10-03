@@ -35,6 +35,7 @@ export const Cards = () => {
     const cards = useSelector((state: AppStore) => state.cards.cards);
     const [showModal, setShowModal] = useState(false);
     const errorMessage = useSelector((state: AppStore) => state.app.error);
+
     useEffect(() => {
         dispatch(getCardsTC(packId));
         setTimeout(() => {
