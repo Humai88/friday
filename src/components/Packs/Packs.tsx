@@ -47,8 +47,9 @@ export const Packs = () => {
     ];
 
     useEffect(() => {
-        dispatch(getPacksTC());
         dispatch(setProfileIdAC(""));
+        dispatch(getPacksTC());
+
         setTimeout(() => {
             dispatch(catchErrorAC(""));
         }, 2000);
