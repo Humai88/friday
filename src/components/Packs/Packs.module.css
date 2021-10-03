@@ -82,6 +82,11 @@
     background-color: var(--sideBtn-bg);
 }
 
+.sideBtn:disabled {
+    color: var(--dark-color);
+    cursor: default;
+}
+
 .active {
     background-color: var(--sideBtn-bg);
 }

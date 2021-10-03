@@ -72,11 +72,13 @@ export const Packs = () => {
 
     const getMyPacksHandler = () => {
         dispatch(setProfileIdAC(userId));
+        dispatch(setMyPageAC(true));
         dispatch(getPacksTC());
     };
 
     const getAllPacksHandler = () => {
         dispatch(setProfileIdAC(""));
+        dispatch(setMyPageAC(false));
         dispatch(getPacksTC());
     };
 
@@ -104,18 +106,20 @@ export const Packs = () => {
                 <div className={styles.sidebar}>
                     <h3>Show packs cards</h3>
                     <div className={styles.btnWrapper}>
-                        <div
+                        <button
                             onClick={getMyPacksHandler}
                             className={myPage === true ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === true ? true : false}
                         >
                             My
-                        </div>
-                        <div
+                        </button>
+                        <button
                             onClick={getAllPacksHandler}
                             className={myPage === false ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === false ? true : false}
                         >
                             All
-                        </div>
+                        </button>
                     </div>
 
                     <div className={styles.sliderComponent}>
