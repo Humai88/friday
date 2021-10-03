@@ -102,7 +102,7 @@ export const cardsAPI = {
             card: { _id, question, answer },
         });
     },
-    updateCardGrade(_id: string,grade: number) {
+    updateCardGrade(_id: string, grade: number) {
         return instance.put<UpdatedCardResponseType>(`cards/grade`, {
             card: { _id, grade },
         });

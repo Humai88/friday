@@ -2,19 +2,17 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { catchErrorAC } from "../../redux/appReducer";
 import {
-    getMyPacksTC,
     getPacksTC,
     setCurrentPageAC,
     setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
+import { setProfileIdAC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import RangeUI from "../../UI-kit/RangeUI/RangeUI";
 import { ErrorMes } from "../Error/ErrorMes";
-import { Header } from "../Header/Header";
 import { Paginator } from "../Paginator/Paginator";
-import { navLinksProfile } from "../Routes/Routes";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
 import { UpdatePack } from "./UpdatePack";
@@ -33,10 +31,24 @@ export const Packs = () => {
     const currentPage = useSelector(
         (state: AppStore) => state.packs.currentPage
     );
+    const userId = useSelector((state: AppStore) => state.profile.profile._id);
 
     const dispatch = useDispatch();
+
+    const headers = [
+        "Pack Name",
+        "Cards Count",
+        "Updated",
+        "Created By",
+        "Cards",
+        "Actions",
+        "",
+        "",
+    ];
+
     useEffect(() => {
         dispatch(getPacksTC());
+        dispatch(setProfileIdAC(""));
         setTimeout(() => {
             dispatch(catchErrorAC(""));
         }, 2000);
@@ -55,22 +67,15 @@ export const Packs = () => {
         dispatch(setSearchPacksAC(searchPack));
     };
 
-    const headers = [
-        "Pack Name",
-        "Cards Count",
-        "Updated",
-        "Created By",
-        "Cards",
-        "Actions",
-        "",
-        "",
-    ];
-    const getMyPacksHandler = useCallback(() => {
-        dispatch(getMyPacksTC());
-    }, [dispatch]);
-    const getAllPacksHandler = useCallback(() => {
+    const getMyPacksHandler = () => {
+        dispatch(setProfileIdAC(userId));
         dispatch(getPacksTC());
-    }, [dispatch]);
+    };
+
+    const getAllPacksHandler = () => {
+        dispatch(setProfileIdAC(""));
+        dispatch(getPacksTC());
+    };
 
     const [value, setValue] = useState<number[]>([min, max]);
 

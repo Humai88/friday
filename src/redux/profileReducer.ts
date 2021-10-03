@@ -5,17 +5,18 @@ import { ThunkType } from "./store";
 
 const initialState: ProfileInitialStateType = {
     profile: {
-        _id: null,
-        email: null,
-        rememberMe: null,
-        isAdmin: null,
-        name: null,
-        verified: null,
-        publicCardPacksCount: null,
-        created: null,
-        updated: null,
-        avatar: null,
+        _id: "",
+        email: "",
+        rememberMe: false,
+        isAdmin: false,
+        name: "",
+        verified: false,
+        publicCardPacksCount: 0,
+        created: new Date(),
+        updated: new Date(),
+        avatar: "",
     },
+    userId: "",
 };
 
 export const profileReducer = (
@@ -33,6 +34,11 @@ export const profileReducer = (
                 ...state,
                 profile: action.payload.userData,
             };
+        case "SET_PROFILE_ID":
+            return {
+                ...state,
+                userId: action.payload.userId,
+            };
         default:
             return state;
     }
@@ -49,7 +55,7 @@ export const changeUserDataAC = (userData: DataUserType) => {
         payload: { userData },
     } as const;
 };
-export const setProfileIdAC = (userId: string | null) => {
+export const setProfileIdAC = (userId: string) => {
     return {
         type: "SET_PROFILE_ID",
         payload: { userId },
@@ -66,6 +72,7 @@ export const setAuthTC = (): ThunkType => {
             .then((res) => {
                 dispatch(setStatus(true));
                 dispatch(setUserProfileAC(res.data));
+                dispatch(setProfileIdAC(res.data._id));
             })
             .catch((err) => {
                 const error = err.response
@@ -104,18 +111,20 @@ export type ActionProfileTypes =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof changeUserDataAC>
     | ReturnType<typeof setProfileIdAC>;
+
 export type ProfileInitialStateType = {
     profile: DataUserType;
+    userId: string;
 };
 type DataUserType = {
-    _id: string | null;
-    email: string | null;
-    rememberMe: boolean | null;
-    isAdmin: boolean | null;
-    name: string | null;
-    verified: boolean | null;
-    publicCardPacksCount: number | null;
-    created: Date | null;
-    updated: Date | null;
-    avatar: string | null;
+    _id: string;
+    email: string;
+    rememberMe: boolean;
+    isAdmin: boolean;
+    name: string;
+    verified: boolean;
+    publicCardPacksCount: number;
+    created: Date;
+    updated: Date;
+    avatar: string;
 };

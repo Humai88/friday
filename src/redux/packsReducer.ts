@@ -100,47 +100,30 @@ export const setRangeValuesAC = (min: number, max: number) => {
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
-        const packs = getState().packs;
-        const currentPage = packs.currentPage;
-        const pageCount = packs.pageCount;
-        const packName = packs.searchPacks;
-        const min = packs.minCardsCount;
-        const max = packs.maxCardsCount;
+        const {
+            currentPage,
+            pageCount,
+            searchPacks,
+            minCardsCount,
+            maxCardsCount,
+        } = getState().packs;
+        const userId = getState().profile.userId;
+
         dispatch(setAppStatusAC("loading"));
 
         packsAPI
-            .getPacks(currentPage, pageCount, packName, "", min, max)
+            .getPacks(
+                currentPage,
+                pageCount,
+                searchPacks,
+                userId,
+                minCardsCount,
+                maxCardsCount
+            )
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
                 dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
-                dispatch(setRangeValuesAC(min, max));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
-export const getMyPacksTC =
-    (): ThunkType => (dispatch, getState: () => AppStore) => {
-        const packs = getState().packs;
-        const currentPage = packs.currentPage;
-        const pageCount = packs.pageCount;
-        const userId = getState().profile.profile._id;
-        const packName = packs.searchPacks;
-        const min = packs.minCardsCount;
-        const max = packs.maxCardsCount;
-        dispatch(setAppStatusAC("loading"));
-        packsAPI
-            .getPacks(currentPage, pageCount, packName, userId, min, max)
-            .then((res) => {
-                dispatch(setPacksAC(res.data.cardPacks));
-                dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+                dispatch(setRangeValuesAC(minCardsCount, maxCardsCount));
             })
             .catch((err) => {
                 const error = err.response
