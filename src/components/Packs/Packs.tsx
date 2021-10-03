@@ -49,12 +49,12 @@ export const Packs = () => {
     ];
 
     useEffect(() => {
-        dispatch(setProfileIdAC(""));
+        // dispatch(setProfileIdAC("")); // not currently works btns all and my when goBack from cards page
         dispatch(getPacksTC());
 
-        setTimeout(() => {
-            dispatch(catchErrorAC(""));
-        }, 2000);
+        // setTimeout(() => {
+        //     dispatch(catchErrorAC("")); // not currently works btns all and my when goBack from cards page
+        // }, 2000);
     }, [dispatch]);
 
     const onChangePageHandler = useCallback(
