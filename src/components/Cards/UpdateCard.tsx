@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { addCardTC } from "../../redux/cardsReducer";
+import { catchErrorAC } from "../../redux/appReducer";
+import { addCardTC, updateCardTC } from "../../redux/cardsReducer";
 import { Button } from "../../UI-kit/Button/Button";
 import { Input } from "../../UI-kit/Input/Input";
 import { Modal } from "../../UI-kit/Modal/Modal";
@@ -9,7 +10,9 @@ import styles from "./UpdateCard.module.css";
 
 export const UpdateCard: React.FC<UpdateModalPropsType> = ({
     onClose,
-    packId,
+    cardId,
+    cardsPackId,
+    grade,
 }) => {
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
@@ -22,8 +25,11 @@ export const UpdateCard: React.FC<UpdateModalPropsType> = ({
     const dispatch = useDispatch();
 
     const submitHandler = () => {
-        dispatch(addCardTC(packId, question, answer));
+        dispatch(updateCardTC(cardId, cardsPackId, question, answer, grade));
         onClose();
+        setTimeout(() => {
+            dispatch(catchErrorAC(""));
+        }, 2000);
     };
     return (
         <Modal onClose={onClose}>
@@ -49,12 +55,20 @@ export const UpdateCard: React.FC<UpdateModalPropsType> = ({
                         value={answer}
                     />
                 </label>
-
-                <Button onClick={submitHandler} className={styles.btn}>
-                    Ok
-                </Button>
-                <div>
-                    <FaTimes onClick={onClose} className={styles.icon} />
+                <div className={styles.btnsWrapper}>
+                    <Button
+                        purple
+                        onClick={submitHandler}
+                        className={styles.btn}
+                    >
+                        Cancel
+                    </Button>
+                    <Button onClick={submitHandler} className={styles.btn}>
+                        Save
+                    </Button>
+                    <div>
+                        <FaTimes onClick={onClose} className={styles.icon} />
+                    </div>
                 </div>
             </div>
         </Modal>
@@ -64,5 +78,7 @@ export const UpdateCard: React.FC<UpdateModalPropsType> = ({
 // Types
 type UpdateModalPropsType = {
     onClose: () => void;
-    packId: string;
+    cardId: string;
+    cardsPackId: string;
+    grade: number;
 };

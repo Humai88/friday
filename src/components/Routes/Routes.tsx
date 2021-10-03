@@ -62,12 +62,12 @@ const Routes = () => {
                 <Route
                     exact
                     path={PATH.PROFILE_PACKS}
-                    render={() => <Profile />}
+                    render={() => <Packs />}
                 />
                 <Route
                     exact
                     path={PATH.PROFILE_CARDS}
-                    render={() => <Profile />}
+                    render={() => <Cards />}
                 />
                 <Route
                     exact

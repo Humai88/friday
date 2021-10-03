@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { catchErrorAC } from "../../redux/appReducer";
 import {
     getPacksTC,
     setCurrentPageAC,
@@ -7,6 +8,7 @@ import {
     setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
+import { setProfileIdAC } from "../../redux/profileReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import RangeUI from "../../UI-kit/RangeUI/RangeUI";
@@ -31,10 +33,28 @@ export const Packs = () => {
     const currentPage = useSelector(
         (state: AppStore) => state.packs.currentPage
     );
+    const userId = useSelector((state: AppStore) => state.profile.profile._id);
 
     const dispatch = useDispatch();
+
+    const headers = [
+        "Pack Name",
+        "Cards Count",
+        "Updated",
+        "Created By",
+        "Cards",
+        "Actions",
+        "",
+        "",
+    ];
+
     useEffect(() => {
+        dispatch(setProfileIdAC(""));
         dispatch(getPacksTC());
+
+        setTimeout(() => {
+            dispatch(catchErrorAC(""));
+        }, 2000);
     }, [dispatch]);
 
     const onChangePageHandler = useCallback(
@@ -50,25 +70,15 @@ export const Packs = () => {
         dispatch(setSearchPacksAC(searchPack));
     };
 
-    const headers = [
-        "Pack Name",
-        "Cards Count",
-        "Updated",
-        "Created By",
-        "Cards",
-        "Actions",
-        "",
-        "",
-    ];
-    const getMyPacksHandler = useCallback(() => {
-        dispatch(setMyPageAC(true));
+    const getMyPacksHandler = () => {
+        dispatch(setProfileIdAC(userId));
         dispatch(getPacksTC());
-    }, [dispatch]);
+    };
 
-    const getAllPacksHandler = useCallback(() => {
-        dispatch(setMyPageAC(false))
+    const getAllPacksHandler = () => {
+        dispatch(setProfileIdAC(""));
         dispatch(getPacksTC());
-    }, [dispatch]);
+    };
 
     const [value, setValue] = useState<number[]>([min, max]);
 
