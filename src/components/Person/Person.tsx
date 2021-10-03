@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPacksTC, setMyPageAC } from "../../redux/packsReducer";
 import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { ChangeUserInfo } from "../changeUserInfo/ChangeUserInfo";
@@ -15,6 +16,12 @@ type PersonPropsType = {
 };
 
 export const Person = (props: PersonPropsType) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setMyPageAC(false));
+        dispatch(getPacksTC());
+    }, [dispatch]);
+
     const status = useSelector((state: AppStore) => state.app.status);
     return (
         <div className={styles.wrapper}>
