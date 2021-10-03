@@ -75,11 +75,15 @@
     text-align: center;
     padding: 10px;
     cursor: pointer;
-    border: 1px solid #9a91c8;
+    border: 1px solid var(--sideBtn-bg);
     border-radius: 14px;
 }
 .sideBtn:hover {
-    background-color: #9a91c8;
+    background-color: var(--sideBtn-bg);
+}
+
+.active {
+    background-color: var(--sideBtn-bg);
 }
 
 .showPacksComponent {
