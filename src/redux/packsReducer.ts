@@ -1,6 +1,6 @@
-import {packsAPI} from "../api/api";
-import {catchErrorAC, setAppStatusAC} from "./appReducer";
-import {AppStore, ThunkType} from "./store";
+import { packsAPI } from "../api/api";
+import { catchErrorAC, setAppStatusAC } from "./appReducer";
+import { AppStore, ThunkType } from "./store";
 
 const initialState: AppInitialStateType = {
     cardPacks: [
@@ -22,6 +22,7 @@ const initialState: AppInitialStateType = {
     userId: "",
     packsId: "",
     searchPacks: "",
+    myPage: false,
 };
 
 export const packsReducer = (
@@ -51,6 +52,11 @@ export const packsReducer = (
                 ...state,
                 minCardsCount: action.payload.min,
                 maxCardsCount: action.payload.max,
+            };
+        case "SET_MY_PAGE":
+            return {
+                ...state,
+                myPage: action.payload.myPage
             };
 
         default:
@@ -96,63 +102,43 @@ export const setRangeValuesAC = (min: number, max: number) => {
         },
     } as const;
 };
+export const setMyPageAC = (isCurrent: boolean) => {
+    return {
+        type: "SET_MY_PAGE",
+        payload: {
+            myPage: isCurrent
+        },
+    } as const;
+};
 
 // Thunks
-export const getPacksTC =
-    (): ThunkType => (dispatch, getState: () => AppStore) => {
-        const packs = getState().packs;
-        const currentPage = packs.currentPage;
-        const pageCount = packs.pageCount;
-        const packName = packs.searchPacks;
-        const min = packs.minCardsCount;
-        const max = packs.maxCardsCount;
-        dispatch(setAppStatusAC("loading"));
-
-        packsAPI
-            .getPacks(currentPage, pageCount, packName, "", min, max)
-            .then((res) => {
-                dispatch(setPacksAC(res.data.cardPacks));
-                dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
-                dispatch(setRangeValuesAC(min, max))
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
-export const getMyPacksTC =
-    (): ThunkType => (dispatch, getState: () => AppStore) => {
-        const packs = getState().packs;
-        const currentPage = packs.currentPage;
-        const pageCount = packs.pageCount;
-        const userId = getState().profile.profile._id;
-        const packName = packs.searchPacks;
-        const min = packs.minCardsCount;
-        const max = packs.maxCardsCount;
-        dispatch(setAppStatusAC("loading"));
-        packsAPI
-            .getPacks(currentPage, pageCount, packName, userId, min, max)
-            .then((res) => {
-                dispatch(setPacksAC(res.data.cardPacks));
-                dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
-            })
-            .catch((err) => {
-                const error = err.response
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                console.log("err:", error);
-                dispatch(catchErrorAC(error));
-            })
-            .finally(() => {
-                dispatch(setAppStatusAC("succeeded"));
-            });
-    };
+export const getPacksTC = (): ThunkType => (dispatch, getState: () => AppStore) => {
+    const packs = getState().packs;
+    const myPage = packs.myPage;
+    const currentPage = packs.currentPage;
+    const pageCount = packs.pageCount;
+    const userId = myPage ? getState().profile.profile._id : "";
+    const packName = packs.searchPacks;
+    const min = packs.minCardsCount;
+    const max = packs.maxCardsCount;
+    dispatch(setAppStatusAC("loading"));
+    packsAPI
+        .getPacks(currentPage, pageCount, packName, userId, min, max)
+        .then((res) => {
+            dispatch(setPacksAC(res.data.cardPacks));
+            dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
+        })
+        .catch((err) => {
+            const error = err.response
+                ? err.response.data.error
+                : err.message + ", more details in the console";
+            console.log("err:", error);
+            dispatch(catchErrorAC(error));
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("succeeded"));
+        });
+};
 
 export const addPackTC =
     (newPackName: string): ThunkType =>
@@ -222,7 +208,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
-    | ReturnType<typeof setRangeValuesAC>;
+    | ReturnType<typeof setRangeValuesAC>
+    | ReturnType<typeof setMyPageAC>;
 
 export type AppInitialStateType = {
     cardPacks: PackType[];
@@ -234,6 +221,7 @@ export type AppInitialStateType = {
     userId: string;
     packsId: string;
     searchPacks: string;
+    myPage: boolean;
 };
 export type PackType = {
     _id: string;
