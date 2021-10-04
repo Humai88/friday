@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { PackType, removePackTC, updatePackTC } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
@@ -14,6 +14,7 @@ import { UpdateCard } from "../Cards/UpdateCard";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const status = useSelector((state: AppStore) => state.app.status);
     const userId = useSelector((state: AppStore) => state.profile.profile._id);
     const userIdFromCards = useSelector(
@@ -22,21 +23,22 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const getLocalTime = (value: Date | string) =>
         new Intl.DateTimeFormat().format(new Date(value));
     const [showModal, setShowModal] = useState(false);
+    
     // Get packs table body
     const renderPacks = (packs: PackType[]) => {
         return packs.map((pack) => (
             <tr key={pack._id}>
-                <td>{trimString(pack.name, 7)}</td>
+                <td>{pack.name}</td>
                 <td>{pack.cardsCount}</td>
-                <td>{trimString(getLocalTime(pack.updated), 10)}</td>
-                <td>{trimString(pack.user_name, 10)}</td>
+                <td>{getLocalTime(pack.updated)}</td>
+                <td>{pack.user_name}</td>
                 <td>
                     <NavLink to={`/profile/cards/${pack._id}`}>
                         <img src={cardsIcon} alt="cards" />
                     </NavLink>
                 </td>
                 <td>
-                    <button className={styles.editBtn}>Learn</button>
+                    <NavLink to={`packs/lern/${pack._id}`} className={styles.editBtn}>Learn</NavLink>
                 </td>
                 <td>
                     {pack.user_id === userId ? (
@@ -97,7 +99,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const renderCards = (cards: CardType[]) => {
         return cards.map((card) => (
             <tr key={card._id}>
-                <td>{trimString(card.question, 10)}</td>
+                <td>{card.question}</td>
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
                 <td>{card.grade}</td>
