@@ -27,22 +27,22 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
         return packs.map((pack) => {
             return (
                 <tr key={pack._id}>
-                    <td>{trimString(pack.name, 7)}</td>
+                    <td>{trimString(pack.name, 20)}</td>
                     <td>{pack.cardsCount}</td>
-                    <td>{trimString(getLocalTime(pack.updated), 10)}</td>
-                    <td>{trimString(pack.user_name, 10)}</td>
-                    <td>
+                    <td>{trimString(getLocalTime(pack.updated), 20)}</td>
+                    <td>{trimString(pack.user_name, 22)}</td>
+                    <td className={styles.narrow}>
                         <NavLink to={`/profile/cards/${pack._id}`}>
                             <img src={cardsIcon} alt="cards" />
                         </NavLink>
                     </td>
-                    <td>
-                        <NavLink to={`packs/lern/${pack._id}`} className={styles.editBtn}>Learn</NavLink>
+                    <td className={styles.narrow}>
+                        <NavLink to={`packs/lern/${pack._id}`} className={styles.btn}>Learn</NavLink>
                     </td>
-                    <td>
+                    <td className={styles.narrow}>
                         {pack.user_id === userId ? (
                             <button
-                                className={styles.deleteBtn}
+                                className={`${styles.btn} ${styles.deleteBtn}`}
                                 onClick={() => {
                                     dispatch(removePackTC(pack._id));
                                     setTimeout(() => {
@@ -71,10 +71,10 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                 />
             )} */}
                     </td>
-                    <td>
+                    <td className={styles.narrow}>
                         {pack.user_id === userId ? (
                             <button
-                                className={styles.editBtn}
+                                className={styles.btn}
                                 onClick={() => {
                                     // dispatch(
                                     //     updatePackTC(
@@ -201,13 +201,13 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
             {status === "loading" && <Preloader />}
             <thead>
             <tr>
-                {headers.map((header, index) => {
-                    return (
-                        <th scope="col" key={index}>
-                            {header}
-                        </th>
-                    );
-                })}
+                {
+                    headers.map((header, index) => {
+                        return  header === "Actions"
+                            ? <th className={styles.actions} scope="col" key={index} colSpan={3}>{header}</th>
+                            : <th scope="col" key={index}>{header}</th>;
+                    })
+                }
             </tr>
             </thead>
             <tbody>
