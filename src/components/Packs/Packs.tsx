@@ -39,7 +39,7 @@ export const Packs = () => {
 
     const headers = [
         "Name",
-        "Cards",
+        "Count",
         "Updated",
         "Created By",
         "Cards",
