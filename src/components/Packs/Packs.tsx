@@ -15,7 +15,7 @@ import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
-import { UpdatePack } from "./UpdatePack";
+import { AddPack } from "./AddPack";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
@@ -93,7 +93,7 @@ export const Packs = () => {
             <div className={styles.wrapper}>
                 {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
                 {showModal && (
-                    <UpdatePack
+                    <AddPack
                         onClose={() => {
                             setShowModal(false);
                         }}
