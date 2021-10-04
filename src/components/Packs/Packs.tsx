@@ -4,6 +4,7 @@ import { catchErrorAC } from "../../redux/appReducer";
 import {
     getPacksTC,
     setCurrentPageAC,
+    setMyPageAC,
     setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
@@ -25,6 +26,7 @@ export const Packs = () => {
     const min = useSelector((state: AppStore) => state.packs.minCardsCount);
     const max = useSelector((state: AppStore) => state.packs.maxCardsCount);
     const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
+    const myPage = useSelector((state: AppStore) => state.packs.myPage);
     const totalPacksCount = useSelector(
         (state: AppStore) => state.packs.cardPacksTotalCount
     );
@@ -47,12 +49,12 @@ export const Packs = () => {
     ];
 
     useEffect(() => {
-        dispatch(setProfileIdAC(""));
+        // dispatch(setProfileIdAC("")); // not currently works btns all and my when goBack from cards page
         dispatch(getPacksTC());
 
-        setTimeout(() => {
-            dispatch(catchErrorAC(""));
-        }, 2000);
+        // setTimeout(() => {
+        //     dispatch(catchErrorAC("")); // not currently works btns all and my when goBack from cards page
+        // }, 2000);
     }, [dispatch]);
 
     const onChangePageHandler = useCallback(
@@ -70,11 +72,13 @@ export const Packs = () => {
 
     const getMyPacksHandler = () => {
         dispatch(setProfileIdAC(userId));
+        dispatch(setMyPageAC(true));
         dispatch(getPacksTC());
     };
 
     const getAllPacksHandler = () => {
         dispatch(setProfileIdAC(""));
+        dispatch(setMyPageAC(false));
         dispatch(getPacksTC());
     };
 
@@ -102,18 +106,20 @@ export const Packs = () => {
                 <div className={styles.sidebar}>
                     <h3>Show packs cards</h3>
                     <div className={styles.btnWrapper}>
-                        <div
+                        <button
                             onClick={getMyPacksHandler}
-                            className={styles.sideBtn}
+                            className={myPage === true ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === true ? true : false}
                         >
                             My
-                        </div>
-                        <div
+                        </button>
+                        <button
                             onClick={getAllPacksHandler}
-                            className={styles.sideBtn}
+                            className={myPage === false ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === false ? true : false}
                         >
                             All
-                        </div>
+                        </button>
                     </div>
 
                     <div className={styles.sliderComponent}>
