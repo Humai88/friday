@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { PackType, removePackTC, updatePackTC } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
@@ -11,10 +11,10 @@ import { catchErrorAC } from "../../redux/appReducer";
 import { CardType, deleteCardTC, updateCardTC } from "../../redux/cardsReducer";
 import { DeleteModal } from "../Packs/DeleteModal";
 import { UpdateCard } from "../Cards/UpdateCard";
+import { ChangePack } from "../Packs/ChangePack";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const status = useSelector((state: AppStore) => state.app.status);
     const userId = useSelector((state: AppStore) => state.profile.profile._id);
     const userIdFromCards = useSelector(
@@ -26,80 +26,94 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     
     // Get packs table body
     const renderPacks = (packs: PackType[]) => {
-        return packs.map((pack) => (
-            <tr key={pack._id}>
-                <td>{pack.name}</td>
-                <td>{pack.cardsCount}</td>
-                <td>{getLocalTime(pack.updated)}</td>
-                <td>{pack.user_name}</td>
-                <td>
-                    <NavLink to={`/profile/cards/${pack._id}`}>
-                        <img src={cardsIcon} alt="cards" />
-                    </NavLink>
-                </td>
-                <td>
-                    <NavLink to={`packs/lern/${pack._id}`} className={styles.editBtn}>Learn</NavLink>
-                </td>
-                <td>
-                    {pack.user_id === userId ? (
-                        <button
-                            className={styles.deleteBtn}
-                            onClick={() => {
-                                dispatch(removePackTC(pack._id));
-                                setTimeout(() => {
-                                    dispatch(catchErrorAC(""));
-                                }, 2000);
-                                // setShowModal(true);
-                            }}
-                        >
-                            Delete
-                        </button>
-                    ) : (
-                        ""
-                    )}
-                    {/* {showModal && pack.user_id === userId && (
-                        <DeleteModal
-                            onClose={() => {
-                                setShowModal(false);
-                            }}
-                            onDelete={() => {
-                                dispatch(removePackTC(pack._id));
-                                setTimeout(() => {
-                                    dispatch(catchErrorAC(""));
-                                }, 2000);
-                                setShowModal(false);
-                            }}
-                        />
-                    )} */}
-                </td>
-                <td>
-                    {pack.user_id === userId ? (
-                        <button
-                            className={styles.editBtn}
-                            onClick={() => {
-                                dispatch(
-                                    updatePackTC(pack._id, "Name was updated")
-                                );
-                                setTimeout(() => {
-                                    dispatch(catchErrorAC(""));
-                                }, 2000);
-                            }}
-                        >
-                            Edit
-                        </button>
-                    ) : (
-                        ""
-                    )}
-                </td>
-            </tr>
-        ));
+        return packs.map((pack) => {
+            return (
+                <tr key={pack._id}>
+                    <td>{trimString(pack.name, 7)}</td>
+                    <td>{pack.cardsCount}</td>
+                    <td>{trimString(getLocalTime(pack.updated), 10)}</td>
+                    <td>{trimString(pack.user_name, 10)}</td>
+                    <td>
+                        <NavLink to={`/profile/cards/${pack._id}`}>
+                            <img src={cardsIcon} alt="cards" />
+                        </NavLink>
+                    </td>
+                    <td>
+                        <NavLink to={`packs/lern/${pack._id}`} className={styles.editBtn}>Learn</NavLink>
+                    </td>
+                    <td>
+                        {pack.user_id === userId ? (
+                            <button
+                                className={styles.deleteBtn}
+                                onClick={() => {
+                                    dispatch(removePackTC(pack._id));
+                                    setTimeout(() => {
+                                        dispatch(catchErrorAC(""));
+                                    }, 2000);
+                                    // setShowModal(true);
+                                }}
+                            >
+                                Delete
+                            </button>
+                        ) : (
+                            ""
+                        )}
+                        {/* {showModal && pack.user_id === userId && (
+                <DeleteModal
+                    onClose={() => {
+                        setShowModal(false);
+                    }}
+                    onDelete={() => {
+                        dispatch(removePackTC(pack._id));
+                        setTimeout(() => {
+                            dispatch(catchErrorAC(""));
+                        }, 2000);
+                        setShowModal(false);
+                    }}
+                />
+            )} */}
+                    </td>
+                    <td>
+                        {pack.user_id === userId ? (
+                            <button
+                                className={styles.editBtn}
+                                onClick={() => {
+                                    // dispatch(
+                                    //     updatePackTC(
+                                    //         pack._id,
+                                    //         "Name was updated"
+                                    //     )
+                                    // );
+                                    // setTimeout(() => {
+                                    //     dispatch(catchErrorAC(""));
+                                    // }, 2000);
+                                    setShowModal(true);
+                                }}
+                            >
+                                Edit
+                            </button>
+                        ) : (
+                            ""
+                        )}
+                        {showModal && (
+                            <ChangePack
+                                onClose={() => {
+                                    setShowModal(false);
+                                }}
+                                packId={pack._id}
+                            />
+                        )}
+                    </td>
+                </tr>
+            );
+        });
     };
 
     // Get cards table body
     const renderCards = (cards: CardType[]) => {
         return cards.map((card) => (
             <tr key={card._id}>
-                <td>{card.question}</td>
+                <td>{trimString(card.question, 10)}</td>
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
                 <td>{card.grade}</td>
@@ -122,7 +136,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                                     }, 2000);
                                 }
 
-                                //    setShowModal(true);
+                                // setShowModal(true);
                             }}
                         >
                             Delete
@@ -136,49 +150,51 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                                 setShowModal(false);
                             }}
                             onDelete={() => {
-                                 dispatch(
+                                dispatch(
                                     deleteCardTC(card._id, card.cardsPack_id)
                                 );
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
                                 }, 2000);
-                                   setShowModal(false);
+                                setShowModal(false);
                             }}
                         />
                     )} */}
                 </td>
                 <td>
-                    {userIdFromCards === userId ? (
-                        <button
-                            className={styles.editBtn}
-                            onClick={() => {
-                                // dispatch(
-                                //     updateCardTC(
-                                //         card._id,
-                                //         card.cardsPack_id,
-                                //         "Question was updated",
-                                //         "Answer was updated",
-                                //         card.grade
-                                //     )
-                                // );
-                                setShowModal(true);
-                            }}
-                        >
-                            Edit
-                        </button>
-                    ) : (
-                        ""
-                    )}
-                    {showModal && (
-                        <UpdateCard
-                            onClose={() => {
-                                setShowModal(false);
-                            }}
-                            cardId={card._id}
-                            cardsPackId={card.cardsPack_id}
-                            grade={card.grade}
-                        />
-                    )}
+                    <>
+                        {userIdFromCards === userId ? (
+                            <button
+                                className={styles.editBtn}
+                                onClick={() => {
+                                    dispatch(
+                                        updateCardTC(
+                                            card._id,
+                                            card.cardsPack_id,
+                                            "Question was updated",
+                                            "Answer was updated",
+                                            card.grade
+                                        )
+                                    );
+                                    // setShowModal(true);
+                                }}
+                            >
+                                Edit
+                            </button>
+                        ) : (
+                            ""
+                        )}
+                        {/* {showModal &&  (
+                            <UpdateCard
+                                onClose={() => {
+                                    setShowModal(false);
+                                }}
+                                cardId={card._id}
+                                cardsPackId={card.cardsPack_id}
+                                grade={card.grade}
+                            />
+                        )} */}
+                    </>
                 </td>
             </tr>
         ));

@@ -56,11 +56,7 @@ export const UpdateCard: React.FC<UpdateModalPropsType> = ({
                     />
                 </label>
                 <div className={styles.btnsWrapper}>
-                    <Button
-                        purple
-                        onClick={submitHandler}
-                        className={styles.btn}
-                    >
+                    <Button purple onClick={onClose} className={styles.btn}>
                         Cancel
                     </Button>
                     <Button onClick={submitHandler} className={styles.btn}>
