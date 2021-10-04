@@ -9,6 +9,7 @@ import { Person } from "../Person/Person";
 import { Packs } from "../Packs/Packs";
 import { Header } from "../Header/Header";
 import { Cards } from "../Cards/Cards";
+import Learn from "../Lern/Learn";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -66,6 +67,12 @@ export const Profile = () => {
                     exact
                     path={PATH.PROFILE_CARDS}
                     render={() => <Cards />}
+                />                
+                
+                <Route
+                    exact
+                    path={PATH.PROFILE_PACKS_LEARN}
+                    render={() => <Learn />}
                 />
             </Switch>
         </>

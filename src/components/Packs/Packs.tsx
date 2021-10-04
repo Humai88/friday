@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { catchErrorAC } from "../../redux/appReducer";
+// import { catchErrorAC } from "../../redux/appReducer";
 import {
     getPacksTC,
     setCurrentPageAC,
