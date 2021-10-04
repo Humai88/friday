@@ -22,6 +22,7 @@ const initialState: AppInitialStateType = {
     userId: "",
     packsId: "",
     searchPacks: "",
+    myPage: false,
 };
 
 export const packsReducer = (
@@ -51,6 +52,11 @@ export const packsReducer = (
                 ...state,
                 minCardsCount: action.payload.min,
                 maxCardsCount: action.payload.max,
+            };
+        case "SET_MY_PAGE":
+            return {
+                ...state,
+                myPage: action.payload.myPage
             };
 
         default:
@@ -96,6 +102,14 @@ export const setRangeValuesAC = (min: number, max: number) => {
         },
     } as const;
 };
+export const setMyPageAC = (isCurrent: boolean) => {
+    return {
+        type: "SET_MY_PAGE",
+        payload: {
+            myPage: isCurrent
+        },
+    } as const;
+};
 
 // Thunks
 export const getPacksTC =
@@ -106,8 +120,9 @@ export const getPacksTC =
             searchPacks,
             minCardsCount,
             maxCardsCount,
+            myPage,
         } = getState().packs;
-        const userId = getState().profile.userId;
+        const userId = myPage ? getState().profile.userId : "";
 
         dispatch(setAppStatusAC("loading"));
 
@@ -118,7 +133,7 @@ export const getPacksTC =
                 searchPacks,
                 userId,
                 minCardsCount,
-                maxCardsCount
+                maxCardsCount,
             )
             .then((res) => {
                 dispatch(setPacksAC(res.data.cardPacks));
@@ -205,7 +220,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
-    | ReturnType<typeof setRangeValuesAC>;
+    | ReturnType<typeof setRangeValuesAC>
+    | ReturnType<typeof setMyPageAC>;
 
 export type AppInitialStateType = {
     cardPacks: PackType[];
@@ -217,6 +233,7 @@ export type AppInitialStateType = {
     userId: string;
     packsId: string;
     searchPacks: string;
+    myPage: boolean;
 };
 export type PackType = {
     _id: string;
