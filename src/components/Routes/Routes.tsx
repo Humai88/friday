@@ -16,6 +16,7 @@ export const PATH = {
     PROFILE: "/profile",
     PROFILE_PERSON: "/profile/person",
     PROFILE_PACKS: "/profile/packs",
+    PROFILE_PACKS_LEARN: "/profile/packs/lern/:packId",
     PROFILE_CARDS: "/profile/cards/:packId",
     REGISTER: "/register",
     EMAIL_CHECK: "/check-email",
@@ -67,6 +68,11 @@ const Routes = () => {
                 <Route
                     exact
                     path={PATH.PROFILE_CARDS}
+                    render={() => <Profile />}
+                />
+                <Route
+                    exact
+                    path={PATH.PROFILE_PACKS_LEARN}
                     render={() => <Profile />}
                 />
                 <Route
