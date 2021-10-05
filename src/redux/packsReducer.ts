@@ -58,11 +58,11 @@ export const packsReducer = (
                 ...state,
                 myPage: action.payload.myPage,
             };
-        // case "SET_CURRENT_PACK_ID":
-        //     return {
-        //         ...state,
-        //         packsId: action.payload.packId,
-        //     };
+        case "SET_CURRENT_PACK_ID":
+            return {
+                ...state,
+                packsId: action.payload.packId,
+            };
 
         default:
             return state;
@@ -115,14 +115,14 @@ export const setMyPageAC = (isCurrent: boolean) => {
         },
     } as const;
 };
-// export const setCurrentPackIdAC = (packId: string) => {
-//     return {
-//         type: "SET_CURRENT_PACK_ID",
-//         payload: {
-//             packId,
-//         },
-//     } as const;
-// };
+export const setCurrentPackIdAC = (packId: string) => {
+    return {
+        type: "SET_CURRENT_PACK_ID",
+        payload: {
+            packId,
+        },
+    } as const;
+};
 // Thunks
 export const getPacksTC =
     (): ThunkType => (dispatch, getState: () => AppStore) => {
@@ -233,8 +233,8 @@ export type ActionPacksTypes =
     | ReturnType<typeof catchErrorAC>
     | ReturnType<typeof setSearchPacksAC>
     | ReturnType<typeof setRangeValuesAC>
-    | ReturnType<typeof setMyPageAC>;
-// | ReturnType<typeof setCurrentPackIdAC>;
+    | ReturnType<typeof setMyPageAC>
+    | ReturnType<typeof setCurrentPackIdAC>;
 
 export type AppInitialStateType = {
     cardPacks: PackType[];
