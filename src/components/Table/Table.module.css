@@ -7,23 +7,44 @@ table {
 
 th,
 td {
+    font-size: 13px;
+    line-height: 16px;
     text-align: left;
-    padding: 10px 18px;
+    padding: 10px;
 }
 
 th {
+    font-weight: bold;
     background-color: var(--color-light);
 }
 
 .btn {
-    width: 30%;
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--color-light);
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.deleteBtn {
+    background-color: var(--color-warning);
+    color: var(--color-light);
+    font-weight: 400;
+}
+
+.narrow {
+    padding: 10px 2px;
+    text-align: center;
 }
 
 .table a {
     cursor: pointer;
 }
-@media only screen and (max-width: 760px),
-    (min-device-width: 768px) and (max-device-width: 1024px) {
+@media screen and (max-width: 1024px) {
     table {
         width: 100%;
     }
@@ -48,6 +69,7 @@ th {
     }
 
     td {
+        text-align: center;
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
@@ -63,21 +85,4 @@ th {
         content: attr(data-column);
         font-weight: bold;
     }
-}
-.deleteBtn {
-    background-color: var(--color-warning);
-    border: none;
-    color: var(--color-light);
-    padding: 5px 7px;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-.editBtn {
-    background-color: var(--color-light);
-    border: none;
-    color: var(--accent-color);
-    padding: 5px 7px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    font-weight: 600;
 }

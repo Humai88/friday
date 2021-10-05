@@ -1,14 +1,17 @@
 .wrapper {
     padding: 24px 30px;
-    max-width: 1380px;
+    max-width: 1009px;
     margin-top: 3rem;
 }
+
 .empty {
     padding: 2rem;
 }
+
 .empty h2 {
     margin-bottom: 2rem;
 }
+
 .header {
     padding: 0 20px;
     margin: 0 auto;
@@ -16,10 +19,13 @@
     color: var(--dark-color);
     background-color: var(--color-light-bg-2);
 }
+
 .btn {
     margin-top: 3rem;
 }
+
 .content {
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +33,7 @@
 
 .goback {
     position: relative;
-    color:var(--dark-color);
+    color: var(--dark-color);
     display: inline-flex;
     align-items: center;
     font-size: 16px;
@@ -42,4 +48,13 @@
 
 .goback:hover svg {
     transform: rotate(360deg);
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        padding: 15px 10px;
+    }
+    .content {
+        padding: 0 16px;
+    }
 }

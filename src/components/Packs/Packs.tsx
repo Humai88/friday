@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { catchErrorAC } from "../../redux/appReducer";
+// import { catchErrorAC } from "../../redux/appReducer";
 import {
     getPacksTC,
     setCurrentPageAC,
@@ -38,14 +38,12 @@ export const Packs = () => {
     const dispatch = useDispatch();
 
     const headers = [
-        "Pack Name",
-        "Cards Count",
+        "Name",
+        "Count",
         "Updated",
         "Created By",
         "Cards",
         "Actions",
-        "",
-        "",
     ];
 
     useEffect(() => {
@@ -135,20 +133,23 @@ export const Packs = () => {
                 <div className={styles.packsList}>
                     <h1>Packs List</h1>
                     <div className={styles.search}>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            onChange={(e) =>
-                                callSetSearchPack(e.currentTarget.value)
-                            }
-                        />
-                        <div className={styles.btnsWrapper}>
+                        <div className={styles.fieldGroup}>
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                onChange={(e) =>
+                                    callSetSearchPack(e.currentTarget.value)
+                                }
+                            />
                             <Button
                                 className={styles.searchBtn}
                                 onClick={() => dispatch(getPacksTC())}
                             >
                                 Search
                             </Button>
+                        </div>
+
+                        <div className={styles.btnsWrapper}>
                             <Button
                                 className={styles.searchBtn}
                                 onClick={() => {

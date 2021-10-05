@@ -48,8 +48,6 @@ export const Cards = () => {
         "Answer",
         "Last Updated",
         "Grade",
-        "Actions",
-        "",
     ];
 
     const history = useHistory();
