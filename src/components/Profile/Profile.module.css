@@ -48,3 +48,9 @@
     font-weight: 400;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0 16px;
+    }
+}
