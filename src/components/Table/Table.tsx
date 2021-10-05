@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { PackType, removePackTC } from "../../redux/packsReducer";
+import { PackType, removePackTC, updatePackTC } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
 import { trimString } from "./../../helpers/helpers";
 import { Preloader } from "../../UI-kit/Preloader/Preloader";
 import { AppStore } from "../../redux/store";
 import { catchErrorAC } from "../../redux/appReducer";
-import { CardType, /*deleteCardTC, updateCardTC*/ } from "../../redux/cardsReducer";
+import {
+    CardType /*deleteCardTC, updateCardTC*/,
+} from "../../redux/cardsReducer";
 import { ChangePack } from "../Packs/ChangePack";
 
-export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
+export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
     const status = useSelector((state: AppStore) => state.app.status);
     const userId = useSelector((state: AppStore) => state.profile.profile._id);
     // const userIdFromCards = useSelector(
     //     (state: AppStore) => state.cards.packUserId
     // );
+    const packId = useSelector((state: AppStore) => state.packs.packsId);
     const getLocalTime = (value: Date | string) =>
         new Intl.DateTimeFormat().format(new Date(value));
     const [showModal, setShowModal] = useState(false);
@@ -37,7 +40,12 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                         </NavLink>
                     </td>
                     <td className={styles.narrow}>
-                        <NavLink to={`packs/lern/${pack._id}`} className={styles.btn}>Learn</NavLink>
+                        <NavLink
+                            to={`packs/lern/${pack._id}`}
+                            className={styles.btn}
+                        >
+                            Learn
+                        </NavLink>
                     </td>
                     <td className={styles.narrow}>
                         {pack.user_id === userId ? (
@@ -85,6 +93,7 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                                     // setTimeout(() => {
                                     //     dispatch(catchErrorAC(""));
                                     // }, 2000);
+
                                     setShowModal(true);
                                 }}
                             >
@@ -93,12 +102,12 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                         ) : (
                             ""
                         )}
-                        {showModal && (
+                        {showModal && pack.user_id === userId && (
                             <ChangePack
                                 onClose={() => {
                                     setShowModal(false);
                                 }}
-                                packId={pack._id}
+                                packId={packId}
                             />
                         )}
                     </td>
@@ -115,7 +124,7 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
                 <td>{card.grade}</td>
-                {/*<td>*/}
+                {/* <td> */}
                 {/*    {userIdFromCards === userId ? (*/}
                 {/*        <button*/}
                 {/*            className={styles.deleteBtn}*/}
@@ -200,19 +209,28 @@ export const Table: React.FC<TablePropsType> = ({headers, packs, cards}) => {
         <table className={styles.table}>
             {status === "loading" && <Preloader />}
             <thead>
-            <tr>
-                {
-                    headers.map((header, index) => {
-                        return  header === "Actions"
-                            ? <th className={styles.actions} scope="col" key={index} colSpan={3}>{header}</th>
-                            : <th scope="col" key={index}>{header}</th>;
-                    })
-                }
-            </tr>
+                <tr>
+                    {headers.map((header, index) => {
+                        return header === "Actions" ? (
+                            <th
+                                className={styles.actions}
+                                scope="col"
+                                key={index}
+                                colSpan={3}
+                            >
+                                {header}
+                            </th>
+                        ) : (
+                            <th scope="col" key={index}>
+                                {header}
+                            </th>
+                        );
+                    })}
+                </tr>
             </thead>
             <tbody>
-            {packs && renderPacks(packs)}
-            {cards && renderCards(cards)}
+                {packs && renderPacks(packs)}
+                {cards && renderCards(cards)}
             </tbody>
         </table>
     );
