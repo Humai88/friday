@@ -2,9 +2,9 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { Button } from "../../UI-kit/Button/Button";
 import { Modal } from "../../UI-kit/Modal/Modal";
-import styles from "./DeleteModal.module.css";
+import styles from "./DeleteCardModal.module.css";
 
-export const DeleteModal: React.FC<DeleteModalPropsType> = ({
+export const DeleteCardModal: React.FC<DeleteModalPropsType> = ({
     onClose,
     onDelete,
 }) => {
