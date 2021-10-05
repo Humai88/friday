@@ -257,5 +257,5 @@ export type CardType = {
     grade: number;
     shots: number;
     rating: number;
-    updated: Date;
+    updated: Date | string;
 };

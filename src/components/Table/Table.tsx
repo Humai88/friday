@@ -5,7 +5,6 @@ import {
     PackType,
     removePackTC,
     setCurrentPackIdAC,
-    updatePackTC,
 } from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
@@ -109,7 +108,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>
                     {userIdFromCards === userId ? (
                         <button
-                            className={`${styles.btn} ${styles.deleteBtn}`}
+                            className={styles.deleteBtn}
                             onClick={() => {
                                 dispatch(setCurrentCardIdAC(card._id));
                                 dispatch(setCurrentPackIdAC(card.cardsPack_id));
@@ -126,7 +125,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     <>
                         {userIdFromCards === userId ? (
                             <button
-                                className={styles.btn}
+                                className={styles.editBtn}
                                 onClick={() => {
                                     dispatch(setCurrentCardGradeAC(card.grade));
                                     dispatch(setCurrentCardIdAC(card._id));
