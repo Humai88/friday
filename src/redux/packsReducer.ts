@@ -22,6 +22,7 @@ const initialState: AppInitialStateType = {
     userId: "",
     packsId: "",
     searchPacks: "",
+    myPage: false,
 };
 
 export const packsReducer = (
@@ -131,8 +132,9 @@ export const getPacksTC =
             searchPacks,
             minCardsCount,
             maxCardsCount,
+            myPage,
         } = getState().packs;
-        const userId = getState().profile.userId;
+        const userId = myPage ? getState().profile.userId : "";
 
         dispatch(setAppStatusAC("loading"));
 
@@ -207,7 +209,7 @@ export const updatePackTC =
     (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         packsAPI
-            .updatePack(packId)
+            .updatePack(packId, title)
             .then((res) => {
                 dispatch(getPacksTC());
             })

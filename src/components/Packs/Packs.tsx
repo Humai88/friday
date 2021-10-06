@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { catchErrorAC } from "../../redux/appReducer";
+// import { catchErrorAC } from "../../redux/appReducer";
 import {
     getPacksTC,
     setCurrentPageAC,
+    setMyPageAC,
     setRangeValuesAC,
     setSearchPacksAC,
 } from "../../redux/packsReducer";
@@ -16,9 +17,6 @@ import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
 import { AddPack } from "./AddPack";
-import Train from "../Train/Train";
-import {Route} from "react-router-dom";
-import {PATH} from "../Routes/Routes";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
@@ -46,17 +44,15 @@ export const Packs = () => {
         "Created By",
         "Cards",
         "Actions",
-        "",
-        "",
     ];
 
     useEffect(() => {
-        dispatch(setProfileIdAC(""));
+        // dispatch(setProfileIdAC("")); // not currently works btns all and my when goBack from cards page
         dispatch(getPacksTC());
 
-        setTimeout(() => {
-            dispatch(catchErrorAC(""));
-        }, 2000);
+        // setTimeout(() => {
+        //     dispatch(catchErrorAC("")); // not currently works btns all and my when goBack from cards page
+        // }, 2000);
     }, [dispatch]);
 
     const onChangePageHandler = useCallback(
@@ -74,11 +70,13 @@ export const Packs = () => {
 
     const getMyPacksHandler = () => {
         dispatch(setProfileIdAC(userId));
+        dispatch(setMyPageAC(true));
         dispatch(getPacksTC());
     };
 
     const getAllPacksHandler = () => {
         dispatch(setProfileIdAC(""));
+        dispatch(setMyPageAC(false));
         dispatch(getPacksTC());
     };
 
@@ -162,11 +160,6 @@ export const Packs = () => {
                             </Button>
                         </div>
                     </div>
-                    <Route
-                        exact
-                        path={PATH.TRAIN}
-                        render={() => <Train/>}
-                    />
                     <div className={styles.tableWrapper}>
                         <Table headers={headers} packs={packs} />
                         <Paginator

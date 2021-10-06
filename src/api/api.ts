@@ -73,9 +73,12 @@ export const packsAPI = {
             `cards/pack?id=${packId}`
         );
     },
-    updatePack(updatePack: any) {
+    updatePack(_id: string, name: string) {
         return instance.put<UpdatedPackResponseType>(`cards/pack`, {
-            cardsPack: updatePack,
+            cardsPack: {
+                _id,
+                name,
+            },
         });
     },
 };

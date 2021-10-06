@@ -1,7 +1,6 @@
 import { cardsAPI } from "../api/api";
 import { catchErrorAC, setAppStatusAC } from "./appReducer";
 import { AppStore, ThunkType } from "./store";
-import {setPackCardsIdAC} from "./packsReducer";
 
 const initialState: AppInitialStateType = {
     cards: [
@@ -148,7 +147,6 @@ export const getCardsTC =
                 dispatch(setCardsAC(res.data.cards));
                 dispatch(setUserIdAC(res.data.packUserId));
                 dispatch(setCardsCountAC(res.data.cardsTotalCount));
-                dispatch(setPackCardsIdAC(packId))
             })
             .catch((err) => {
                 const error = err.response
@@ -161,7 +159,6 @@ export const getCardsTC =
                 dispatch(setAppStatusAC("succeeded"));
             });
     };
-
 export const addCardTC =
     (cardsPackId: string, question: string, answer: string): ThunkType =>
     (dispatch) => {
