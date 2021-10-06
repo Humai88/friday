@@ -8,6 +8,27 @@
     background-color: var(--color-light);
 }
 
+.card h2 {
+    margin-bottom: 20px;
+    word-break: break-word;
+}
+
+.card legend {
+    text-align: left;
+}
+
+.card p {
+    margin: 0 0 10px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.card fieldset {
+    margin-top: 15px;
+}
+
 .actions {
     justify-content: space-between;
 }
