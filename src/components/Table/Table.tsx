@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { PackType, removePackTC, updatePackTC } from "../../redux/packsReducer";
+import {PackType, removePackTC, setPackCardsIdAC, updatePackTC} from "../../redux/packsReducer";
 import styles from "./Table.module.css";
 import cardsIcon from "./../../assets/images/icon-cards.svg";
 import { trimString } from "./../../helpers/helpers";
@@ -22,6 +22,10 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const getLocalTime = (value: Date | string) =>
         new Intl.DateTimeFormat().format(new Date(value));
     const [showModal, setShowModal] = useState(false);
+
+    const updateTrainPack = (id: string) => {
+        dispatch(setPackCardsIdAC(id))
+    }
     // Get packs table body
     const renderPacks = (packs: PackType[]) => {
         return packs.map((pack) => (
@@ -36,7 +40,9 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     </NavLink>
                 </td>
                 <td>
-                    <button className={styles.editBtn}>Learn</button>
+                    <NavLink to={`/train/cards/${pack._id}`} onClick={() => updateTrainPack(pack._id)} >
+                        <img src={cardsIcon} alt="cards" />
+                    </NavLink>
                 </td>
                 <td>
                     {pack.user_id === userId ? (
@@ -76,7 +82,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                             className={styles.editBtn}
                             onClick={() => {
                                 dispatch(
-                                    updatePackTC(pack._id, "Name was updated")
+                                    updatePackTC(pack._id)
                                 );
                                 setTimeout(() => {
                                     dispatch(catchErrorAC(""));
@@ -159,7 +165,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                                 //         card.grade
                                 //     )
                                 // );
-                                setShowModal(true);
+                                 setShowModal(true);
                             }}
                         >
                             Edit

@@ -16,6 +16,9 @@ import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
 import { UpdatePack } from "./UpdatePack";
+import Train from "../Train/Train";
+import {Route} from "react-router-dom";
+import {PATH} from "../Routes/Routes";
 
 export const Packs = () => {
     const [showModal, setShowModal] = useState(false);
@@ -153,6 +156,11 @@ export const Packs = () => {
                             </Button>
                         </div>
                     </div>
+                    <Route
+                        exact
+                        path={PATH.TRAIN}
+                        render={() => <Train/>}
+                    />
                     <div className={styles.tableWrapper}>
                         <Table headers={headers} packs={packs} />
                         <Paginator

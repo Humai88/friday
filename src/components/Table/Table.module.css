@@ -72,7 +72,7 @@ th {
     font-size: 0.8rem;
     cursor: pointer;
 }
-.editBtn {
+.learnBtn {
     background-color: var(--color-light);
     border: none;
     color: var(--accent-color);

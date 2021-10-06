@@ -67,6 +67,11 @@ export const Profile = () => {
                     path={PATH.PROFILE_CARDS}
                     render={() => <Cards />}
                 />
+                <Route
+                    exact
+                    path={PATH.PROFILE_CARDS}
+                    render={() => <Cards />}
+                />
             </Switch>
         </>
     );
