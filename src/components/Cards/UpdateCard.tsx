@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { catchErrorAC } from "../../redux/appReducer";
-import { addCardTC, updateCardTC } from "../../redux/cardsReducer";
+import { updateCardTC } from "../../redux/cardsReducer";
 import { Button } from "../../UI-kit/Button/Button";
 import { Input } from "../../UI-kit/Input/Input";
 import { Modal } from "../../UI-kit/Modal/Modal";
@@ -56,11 +56,7 @@ export const UpdateCard: React.FC<UpdateModalPropsType> = ({
                     />
                 </label>
                 <div className={styles.btnsWrapper}>
-                    <Button
-                        purple
-                        onClick={submitHandler}
-                        className={styles.btn}
-                    >
+                    <Button purple onClick={onClose} className={styles.btn}>
                         Cancel
                     </Button>
                     <Button onClick={submitHandler} className={styles.btn}>

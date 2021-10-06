@@ -15,7 +15,7 @@ import { ErrorMes } from "../Error/ErrorMes";
 import { Paginator } from "../Paginator/Paginator";
 import { Table } from "../Table/Table";
 import styles from "./Packs.module.css";
-import { UpdatePack } from "./UpdatePack";
+import { AddPack } from "./AddPack";
 import Train from "../Train/Train";
 import {Route} from "react-router-dom";
 import {PATH} from "../Routes/Routes";
@@ -28,6 +28,7 @@ export const Packs = () => {
     const min = useSelector((state: AppStore) => state.packs.minCardsCount);
     const max = useSelector((state: AppStore) => state.packs.maxCardsCount);
     const pageCount = useSelector((state: AppStore) => state.packs.pageCount);
+    const myPage = useSelector((state: AppStore) => state.packs.myPage);
     const totalPacksCount = useSelector(
         (state: AppStore) => state.packs.cardPacksTotalCount
     );
@@ -39,8 +40,8 @@ export const Packs = () => {
     const dispatch = useDispatch();
 
     const headers = [
-        "Pack Name",
-        "Cards Count",
+        "Name",
+        "Count",
         "Updated",
         "Created By",
         "Cards",
@@ -96,7 +97,7 @@ export const Packs = () => {
             <div className={styles.wrapper}>
                 {errorMessage && <ErrorMes>{errorMessage}</ErrorMes>}
                 {showModal && (
-                    <UpdatePack
+                    <AddPack
                         onClose={() => {
                             setShowModal(false);
                         }}
@@ -105,18 +106,20 @@ export const Packs = () => {
                 <div className={styles.sidebar}>
                     <h3>Show packs cards</h3>
                     <div className={styles.btnWrapper}>
-                        <div
+                        <button
                             onClick={getMyPacksHandler}
-                            className={styles.sideBtn}
+                            className={myPage === true ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === true ? true : false}
                         >
                             My
-                        </div>
-                        <div
+                        </button>
+                        <button
                             onClick={getAllPacksHandler}
-                            className={styles.sideBtn}
+                            className={myPage === false ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            disabled={myPage === false ? true : false}
                         >
                             All
-                        </div>
+                        </button>
                     </div>
 
                     <div className={styles.sliderComponent}>
@@ -132,20 +135,23 @@ export const Packs = () => {
                 <div className={styles.packsList}>
                     <h1>Packs List</h1>
                     <div className={styles.search}>
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            onChange={(e) =>
-                                callSetSearchPack(e.currentTarget.value)
-                            }
-                        />
-                        <div className={styles.btnsWrapper}>
+                        <div className={styles.fieldGroup}>
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                onChange={(e) =>
+                                    callSetSearchPack(e.currentTarget.value)
+                                }
+                            />
                             <Button
                                 className={styles.searchBtn}
                                 onClick={() => dispatch(getPacksTC())}
                             >
                                 Search
                             </Button>
+                        </div>
+
+                        <div className={styles.btnsWrapper}>
                             <Button
                                 className={styles.searchBtn}
                                 onClick={() => {

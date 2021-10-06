@@ -211,7 +211,9 @@ export type CardType = {
     shots: number;
     type: string;
     rating: number;
-    updated: Date;
+    updated: Date | string;
+    more_id: string;
+    created: Date | string;
 };
 export type AddedCardResponseType = {
     newCard: CardType;

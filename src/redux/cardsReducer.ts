@@ -16,12 +16,15 @@ const initialState: AppInitialStateType = {
             updated: new Date(),
         },
     ],
+    cardPackId: "",
+    cardId: "",
     minCardsCount: 0,
     maxCardsCount: 0,
     currentPage: 1,
     pageCount: 10,
     cardsCount: 0,
     packUserId: "",
+    cardGrade: 0,
 };
 
 export const cardsReducer = (
@@ -59,6 +62,16 @@ export const cardsReducer = (
                         return c;
                     }
                 }),
+            };
+        case "SET_CURRENT_CARD_ID":
+            return {
+                ...state,
+                cardId: action.payload.cardId,
+            };
+        case "SET_CURRENT_CARD_GRADE":
+            return {
+                ...state,
+                cardGrade: action.payload.cardGrade,
             };
         default:
             return state;
@@ -101,6 +114,22 @@ export const setCardsGradeAC = (card_id: string, grade: number) => {
         payload: {
             card_id,
             grade,
+        },
+    } as const;
+};
+export const setCurrentCardIdAC = (cardId: string) => {
+    return {
+        type: "SET_CURRENT_CARD_ID",
+        payload: {
+            cardId,
+        },
+    } as const;
+};
+export const setCurrentCardGradeAC = (cardGrade: number) => {
+    return {
+        type: "SET_CURRENT_CARD_GRADE",
+        payload: {
+            cardGrade,
         },
     } as const;
 };
@@ -207,7 +236,9 @@ export type ActionCardsTypes =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setCardsCountAC>
     | ReturnType<typeof setUserIdAC>
-    | ReturnType<typeof setCardsGradeAC>;
+    | ReturnType<typeof setCardsGradeAC>
+    | ReturnType<typeof setCurrentCardIdAC>
+    | ReturnType<typeof setCurrentCardGradeAC>;
 
 export type AppInitialStateType = {
     cards: CardType[];
@@ -217,6 +248,9 @@ export type AppInitialStateType = {
     minCardsCount: number;
     maxCardsCount: number;
     packUserId: string;
+    cardId: string;
+    cardPackId: string;
+    cardGrade: number;
 };
 export type CardType = {
     _id: string;
@@ -226,5 +260,5 @@ export type CardType = {
     grade: number;
     shots: number;
     rating: number;
-    updated: Date;
+    updated: Date | string;
 };
