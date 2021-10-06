@@ -108,7 +108,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>
                     {userIdFromCards === userId ? (
                         <button
-                            className={styles.deleteBtn}
+                            className={`${styles.btn} ${styles.deleteBtn}`}
                             onClick={() => {
                                 dispatch(setCurrentCardIdAC(card._id));
                                 dispatch(setCurrentPackIdAC(card.cardsPack_id));
@@ -125,7 +125,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     <>
                         {userIdFromCards === userId ? (
                             <button
-                                className={styles.editBtn}
+                                className={styles.btn}
                                 onClick={() => {
                                     dispatch(setCurrentCardGradeAC(card.grade));
                                     dispatch(setCurrentCardIdAC(card._id));
