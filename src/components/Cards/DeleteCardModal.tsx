@@ -11,8 +11,8 @@ export const DeleteCardModal: React.FC<DeleteModalPropsType> = ({
     return (
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
-                <h2>Delete Pack</h2>
-                <p>Do you really want to remove this Pack?</p>
+                <h2>Delete Card</h2>
+                <p>Do you really want to remove this Card?</p>
 
                 <div className={styles.btnsWrapper}>
                     <Button purple onClick={onClose} className={styles.btn}>

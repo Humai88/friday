@@ -6,9 +6,12 @@
     position: relative;
 }
 .wrapper span {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
     margin-bottom: 1rem;
+}
+.wrapper h2 {
+    margin-bottom: 2rem;
 }
 .btn {
     margin-top: 2rem;

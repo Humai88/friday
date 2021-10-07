@@ -98,12 +98,12 @@ export const Cards = () => {
                         Add card
                     </Button>
                 )}
-                <Card className={styles.wrapper}>
-                    {cards.length === 0 ? (
-                        <div className={styles.empty}>
-                            <h2>There is no cards in this pack</h2>
-                        </div>
-                    ) : (
+                {cards.length === 0 ? (
+                    <div className={styles.empty}>
+                        <h2>This pack is empty.</h2>
+                    </div>
+                ) : (
+                    <Card className={styles.wrapper}>
                         <div>
                             <Table headers={headers} cards={cards} />
                             <Paginator
@@ -114,8 +114,8 @@ export const Cards = () => {
                                 onChangeItemHandler={onChangePageHandler}
                             />
                         </div>
-                    )}
-                </Card>
+                    </Card>
+                )}
             </div>
         </>
     );

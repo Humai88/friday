@@ -7,13 +7,17 @@
 }
 
 .wrapper span {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+.wrapper h2 {
     margin-bottom: 1rem;
 }
 .btn {
+    width: 8rem;
+    margin: 0 auto;
     margin-top: 2rem;
-    width: 20%;
 }
 .wrapper label {
     margin-bottom: 1rem;
@@ -24,4 +28,18 @@
     top: -2rem;
     right: -2rem;
     cursor: pointer;
+}
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+}
+.btnsWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }

@@ -1,15 +1,24 @@
 .btnsWrapper {
     display: flex;
+    width: 100%;
     justify-content: space-between;
-    width: 80%;
-    margin-top: 4rem;
+    margin-top: 1rem;
 }
+
 .wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
+}
+.wrapper span {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+.wrapper h2 {
+    margin-bottom: 2rem;
 }
 .wrapper .icon {
     position: absolute;
@@ -22,7 +31,10 @@
     font-size: 1rem;
     font-weight: 500;
     padding: 1rem 0;
+    width: 100%;
 }
 .btn {
-    width: 40%;
+    width: 8rem;
+    margin: 0 auto;
+    margin-top: 2rem;
 }

@@ -102,9 +102,10 @@ export const cardsAPI = {
             card: { _id, question, answer },
         });
     },
-    updateCardGrade(_id: string, grade: number) {
-        return instance.put<UpdatedCardResponseType>(`cards/grade`, {
-            card: { _id, grade },
+    updateCardGrade(card_id: string, grade: number) {
+        return instance.put<UpdatedGradeResponseType>(`cards/grade`, {
+            card_id,
+            grade,
         });
     },
 };
@@ -226,4 +227,7 @@ export type DeletedCardResponseType = {
 };
 export type UpdatedCardResponseType = {
     updatedCard: CardType;
+};
+export type UpdatedGradeResponseType = {
+    updatedGrade: CardType;
 };

@@ -31,7 +31,8 @@ export const ChangePack: React.FC<ChagePackModalPropsType> = ({
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
                 <label>
-                    <span>Enter new pack title</span>
+                    <h2>Update Pack Info</h2>
+                    <span>Name pack</span>
                     <br />
                     <Input
                         onChange={handleInputChange}
@@ -48,9 +49,9 @@ export const ChangePack: React.FC<ChagePackModalPropsType> = ({
                     <Button onClick={submitHandler} className={styles.btn}>
                         Save
                     </Button>
-                    <div>
-                        <FaTimes onClick={onClose} className={styles.icon} />
-                    </div>
+                </div>
+                <div>
+                    <FaTimes onClick={onClose} className={styles.icon} />
                 </div>
             </div>
         </Modal>
