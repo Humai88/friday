@@ -1,13 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Radio, { RadioProps } from "@mui/material/Radio";
-import {
-    Card,
-    CardActions,
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    RadioGroup,
-} from "@mui/material";
+import { Card, CardActions, FormControl, FormControlLabel, FormLabel, RadioGroup, } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -52,7 +45,7 @@ export const Learn = () => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
     const { cards } = useSelector((state: AppStore) => state.cards);
-    const cardId = useSelector((state: AppStore) => state.cards.cardId);
+    // const cardId = useSelector((state: AppStore) => state.cards.cardId);
     const { cardPacks } = useSelector((state: AppStore) => state.packs);
     const { packId } = useParams<ParamsType>();
     const history = useHistory();

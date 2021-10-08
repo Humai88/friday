@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { catchErrorAC } from "../../redux/appReducer";
 import { updateCardTC } from "../../redux/cardsReducer";
-import { AppStore } from "../../redux/store";
 import { Button } from "../../UI-kit/Button/Button";
 import { Input } from "../../UI-kit/Input/Input";
 import { Modal } from "../../UI-kit/Modal/Modal";
