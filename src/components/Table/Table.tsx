@@ -123,7 +123,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                         ""
                     )}
                 </td>
-                <td>
+                <td colSpan={3}>
                     <>
                         {userIdFromCards === userId ? (
                             <button
