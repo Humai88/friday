@@ -4,7 +4,9 @@ table {
     font-size: 1rem;
     font-weight: 500;
 }
-
+tr:nth-child(2n + 1) {
+    background: #ffffff;
+}
 th,
 td {
     font-size: 13px;

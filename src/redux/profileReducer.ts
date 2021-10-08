@@ -14,7 +14,7 @@ const initialState: ProfileInitialStateType = {
         publicCardPacksCount: 0,
         created: new Date(),
         updated: new Date(),
-        avatar: "",
+        avatar: null,
     },
     userId: "",
 };
@@ -85,7 +85,10 @@ export const setAuthTC = (): ThunkType => {
             });
     };
 };
-export const changeUserInfoTC = (name: string, imgUrl: string): ThunkType => {
+export const changeUserInfoTC = (
+    name: string,
+    imgUrl: string | null
+): ThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         authAPI
@@ -126,5 +129,5 @@ type DataUserType = {
     publicCardPacksCount: number;
     created: Date;
     updated: Date;
-    avatar: string;
+    avatar: string | null;
 };

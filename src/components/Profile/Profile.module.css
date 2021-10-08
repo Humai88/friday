@@ -14,7 +14,7 @@
 }
 
 .wrapper h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: center;
 }
@@ -26,15 +26,14 @@
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     display: block;
     margin: 0 auto;
 }
 
 .infoBox {
-    background-color: var(--personal-info-bg);
     width: 20rem;
     border-radius: 8px;
     padding: 24px 45px;
@@ -43,9 +42,9 @@
 
 .wrapper h4 {
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-decoration: underline;
-    font-weight: 400;
+    font-weight: 300;
     cursor: pointer;
 }
 
