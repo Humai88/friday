@@ -1,5 +1,4 @@
 import React from "react";
-// import {Slider} from "@material-ui/core";
 import styles from "./RangeUI.module.css";
 import Slider from "@mui/material/Slider";
 
