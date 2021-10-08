@@ -38,7 +38,8 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
     };
 
     const handleDisplayFileDetails = (e: ChangeEvent<HTMLInputElement>) => {
-        e.currentTarget.files && setUrl(e.currentTarget.files[0].name);
+        e.currentTarget.files &&
+            setUrl(window.URL.createObjectURL(e.currentTarget.files[0]));
     };
     return (
         <Modal onClose={onClose}>
