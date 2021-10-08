@@ -22,6 +22,7 @@ import { ChangePack } from "../Packs/ChangePack";
 import { DeletePackModal } from "../Packs/DeletePackModal";
 import { DeleteCardModal } from "../Cards/DeleteCardModal";
 import { UpdateCard } from "../Cards/UpdateCard";
+import Rating from "@mui/material/Rating";
 
 export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     const dispatch = useDispatch();
@@ -103,7 +104,9 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{trimString(card.question, 10)}</td>
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
-                <td>{Math.round(card.grade)}</td>
+                <td>
+                    <Rating name="read-only" value={Math.round(card.grade)} readOnly />
+                </td>
                 <td>
                     {userIdFromCards === userId ? (
                         <button
