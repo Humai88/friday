@@ -11,7 +11,6 @@ import { Header } from "../Header/Header";
 import { Cards } from "../Cards/Cards";
 import { Learn } from "../Lern/Learn";
 
-
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();

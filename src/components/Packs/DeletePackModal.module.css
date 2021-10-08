@@ -10,6 +10,7 @@
     align-items: center;
     position: relative;
 }
+
 .wrapper .icon {
     position: absolute;
     font-size: 1.7rem;
@@ -18,9 +19,9 @@
     cursor: pointer;
 }
 .wrapper p {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    padding: 1rem 0;
+    padding: 2rem 0;
 }
 .btn {
     width: 40%;

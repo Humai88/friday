@@ -204,8 +204,7 @@ export const updateCardTC =
         cardId: string,
         cardsPackId: string,
         question: string,
-        answer: string,
-        grade: number
+        answer: string
     ): ThunkType =>
     (dispatch) => {
         dispatch(setAppStatusAC("loading"));
@@ -213,7 +212,27 @@ export const updateCardTC =
             .updateCard(cardId, question, answer)
             .then((res) => {
                 dispatch(getCardsTC(cardsPackId));
-                dispatch(setCardsGradeAC(cardId, grade));
+            })
+            .catch((err) => {
+                const error = err.response
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                console.log("err:", error);
+                dispatch(catchErrorAC(error));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("succeeded"));
+            });
+    };
+export const updateCardGradeTC =
+    (): ThunkType => (dispatch, getState: () => AppStore) => {
+        const cardId = getState().cards.cardId;
+        const grade = getState().cards.cardGrade;
+        dispatch(setAppStatusAC("loading"));
+        cardsAPI
+            .updateCardGrade(cardId, grade)
+            .then((res) => {
+                dispatch(setCurrentCardGradeAC(res.data.updatedGrade.grade));
             })
             .catch((err) => {
                 const error = err.response

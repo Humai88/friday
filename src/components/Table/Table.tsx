@@ -32,7 +32,6 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
     );
     const packId = useSelector((state: AppStore) => state.packs.packsId);
     const cardId = useSelector((state: AppStore) => state.cards.cardId);
-    const cardGrade = useSelector((state: AppStore) => state.cards.cardGrade);
     const getLocalTime = (value: Date | string) =>
         new Intl.DateTimeFormat().format(new Date(value));
     const [showPackChangeModal, setShowPackChangeModal] = useState(false);
@@ -104,7 +103,7 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                 <td>{trimString(card.question, 10)}</td>
                 <td>{card.answer}</td>
                 <td>{trimString(getLocalTime(card.updated), 10)}</td>
-                <td>{card.grade}</td>
+                <td>{Math.round(card.grade)}</td>
                 <td>
                     {userIdFromCards === userId ? (
                         <button
@@ -192,7 +191,6 @@ export const Table: React.FC<TablePropsType> = ({ headers, packs, cards }) => {
                     }}
                     cardId={cardId}
                     cardsPackId={packId}
-                    grade={cardGrade}
                 />
             )}
             <thead>

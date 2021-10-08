@@ -12,7 +12,10 @@ export const DeletePackModal: React.FC<DeleteModalPropsType> = ({
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
                 <h2>Delete Pack</h2>
-                <p>Do you really want to remove this Pack?</p>
+                <p>
+                    Do you really want to remove this Pack? <br /> All cards
+                    will be excluded from this course.
+                </p>
 
                 <div className={styles.btnsWrapper}>
                     <Button purple onClick={onClose} className={styles.btn}>

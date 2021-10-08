@@ -1,29 +1,29 @@
 .superInput {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 
-  position: relative;
-  padding: 0 50px 0 0;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  border-bottom: 2px solid var(--color-light-dark-2);
-  transition: all var(--default-transition);
+    position: relative;
+    padding: 0 50px 0 0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--color-light-dark-2);
+    transition: all var(--default-transition);
 }
 
 .superInput:focus {
-  border-bottom: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
 }
 
 .errorInput {
-  color: var(--color-warning);
-  border-bottom: 2px solid var(--color-warning);
+    color: var(--color-warning);
+    border-bottom: 2px solid var(--color-warning);
 }
 
 .error {
-  color: var(--color-warning);
+    color: var(--color-warning);
 }

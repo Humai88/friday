@@ -22,7 +22,8 @@ export const AddPack: React.FC<UpdateModalPropsType> = ({ onClose }) => {
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
                 <label>
-                    <span>Enter pack's title</span>
+                    <h2>Add New Pack</h2>
+                    <span>Name pack</span>
                     <br />
                     <Input
                         onChange={handleInputChange}

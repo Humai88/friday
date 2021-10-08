@@ -29,7 +29,8 @@ export const AddCard: React.FC<UpdateModalPropsType> = ({
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
                 <label>
-                    <span>Enter question</span>
+                    <h2>Add New Card</h2>
+                    <span>Question</span>
                     <br />
                     <Input
                         onChange={handleQuestionInputChange}
@@ -39,7 +40,7 @@ export const AddCard: React.FC<UpdateModalPropsType> = ({
                     />
                 </label>
                 <label>
-                    <span>Enter answer</span>
+                    <span>Answer</span>
                     <br />
 
                     <Input
