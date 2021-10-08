@@ -106,14 +106,22 @@ export const Packs = () => {
                     <div className={styles.btnWrapper}>
                         <button
                             onClick={getMyPacksHandler}
-                            className={myPage === true ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            className={
+                                myPage === true
+                                    ? `${styles.sideBtn} ${styles.active}`
+                                    : styles.sideBtn
+                            }
                             disabled={myPage === true ? true : false}
                         >
                             My
                         </button>
                         <button
                             onClick={getAllPacksHandler}
-                            className={myPage === false ? `${styles.sideBtn} ${styles.active}` : styles.sideBtn}
+                            className={
+                                myPage === false
+                                    ? `${styles.sideBtn} ${styles.active}`
+                                    : styles.sideBtn
+                            }
                             disabled={myPage === false ? true : false}
                         >
                             All

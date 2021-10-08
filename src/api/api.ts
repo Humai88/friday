@@ -23,7 +23,7 @@ export const authAPI = {
     me() {
         return instance.post<UserType>(`auth/me`);
     },
-    changeInfo(name: string, avatar: string) {
+    changeInfo(name: string, avatar: string | null) {
         return instance.put<ChangeInfoResponseType>(`auth/me`, {
             name,
             avatar,
