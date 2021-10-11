@@ -81,7 +81,7 @@ export const Learn = () => {
         }
 
         console.log("cards", cards);
-        if (cards.length > 0) setCard(getCard(cards));
+        if (cards.length > 0 && !first) setCard(getCard(cards));
 
         return () => {
             console.log("LearnContainer useEffect off");
