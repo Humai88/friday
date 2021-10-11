@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserInfoTC } from "../../redux/profileReducer";
 import { Button } from "../../UI-kit/Button/Button";
@@ -11,36 +11,38 @@ import { MdPhotoCamera } from "react-icons/md";
 export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
     onClose,
 }) => {
+    const inRef = useRef<HTMLInputElement>(null);
     const prevName = useSelector(
         (state: AppStore) => state.profile.profile.name
     );
     const [name, setName] = useState(prevName);
-    const [url, setUrl] = useState("");
+    const [selectedFile, setSelectedFile] = useState<any>();
     const dispatch = useDispatch();
 
     const handleInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
     };
-    const handleInputUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUrl(e.currentTarget.value);
-    };
+
     const photo = useSelector(
         (state: AppStore) => state.profile.profile.avatar
     );
-
+    const fileSelectedHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                setSelectedFile(reader.result);
+            });
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
     const submitHandler = () => {
-        if (name || url) {
-            dispatch(changeUserInfoTC(name, url));
+        if (name || selectedFile) {
+            dispatch(changeUserInfoTC(name, selectedFile));
             setName("");
-            setUrl("");
         }
         onClose();
     };
 
-    const handleDisplayFileDetails = (e: ChangeEvent<HTMLInputElement>) => {
-        e.currentTarget.files &&
-            setUrl(window.URL.createObjectURL(e.currentTarget.files[0]));
-    };
     return (
         <Modal onClose={onClose}>
             <div className={styles.wrapper}>
@@ -49,21 +51,27 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
                     <img
                         className={styles.avatar}
                         src={
-                            photo == null
+                            selectedFile
+                                ? selectedFile
+                                : photo == null
                                 ? "https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png"
                                 : photo
                         }
-                        alt="avatar"
                     />
                     <label className={styles.iconUpload}>
-                        <MdPhotoCamera />
-                        <input
-                            type="file"
-                            className={styles.dispNone}
-                            required
-                            onChange={handleDisplayFileDetails}
+                        <MdPhotoCamera
+                            onClick={() =>
+                                inRef && inRef.current && inRef.current.click()
+                            }
                         />
                     </label>
+                    <input
+                        ref={inRef}
+                        type="file"
+                        className={styles.dispNone}
+                        required
+                        onChange={fileSelectedHandler}
+                    />
                 </div>
                 <label className={styles.input}>
                     <span>Nickname</span>
@@ -74,16 +82,6 @@ export const ChangeUserInfo: React.FC<ChangeUserInfoPropsType> = ({
                         name="name"
                         required
                         value={name}
-                    />
-                </label>
-                <label>
-                    <span>Image url</span>
-                    <br />
-                    <Input
-                        onChange={handleInputUrlChange}
-                        name="url"
-                        required
-                        value={url}
                     />
                 </label>
 
