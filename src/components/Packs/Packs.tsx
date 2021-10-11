@@ -134,6 +134,7 @@ export const Packs = () => {
                             <RangeUI
                                 value={value}
                                 onChangeRange={onChangeSuperDoubleRange}
+                                onMouseUp={() => dispatch(getPacksTC())}
                             />
                         </div>
                     </div>

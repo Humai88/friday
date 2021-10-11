@@ -3,15 +3,17 @@ import styles from "./RangeUI.module.css";
 import Slider from "@mui/material/Slider";
 
 type SuperDoubleRangePropsType = {
+    onMouseUp: () => void
     onChangeRange?: (value: number[]) => void;
     value: number[];
     // min, max, step, disable, ...
 };
 
 const RangeUi: React.FC<SuperDoubleRangePropsType> = ({
-                                                          onChangeRange,
-                                                          value,
-                                                      }) => {
+    onChangeRange,
+    value,
+    onMouseUp,
+}) => {
     const handleChange = (event: Event, newValue: number[] | number) => {
         onChangeRange && onChangeRange(newValue as number[]);
     };
@@ -23,6 +25,7 @@ const RangeUi: React.FC<SuperDoubleRangePropsType> = ({
                 color={"primary"}
                 value={value}
                 onChange={handleChange}
+                onChangeCommitted={onMouseUp}
                 valueLabelDisplay="on"
                 sx={{
                     color: "#21268F",
